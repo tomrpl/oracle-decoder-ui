@@ -45,6 +45,7 @@ const OracleDecoder = () => {
     warnings: Warning[];
   } | null>(null); // New state for warning check
 
+  // eslint-disable-next-line
   const [options, setOptions] = useState({
     performDecimalCheck: true,
     performPriceCheck: false, // Disable in production
