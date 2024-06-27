@@ -54,6 +54,7 @@ export const getOracleDataFromTx = async (
   }
 };
 
+// eslint-disable-next-line
 const fetchFeedPrices = async (
   oracleDataList: OracleData[],
   provider: Provider
@@ -126,20 +127,16 @@ const comparePrices = async (
   baseTokenDecimals: number,
   quoteTokenDecimals: number
 ) => {
-  console.log(market.collateralAsset.symbol, market.loanAsset.symbol);
   const assetPrices = await queryAssetsPrices(
     1,
     market.collateralAsset.symbol,
     market.loanAsset.symbol
   );
-  console.log("Asset Prices", assetPrices);
   const collateralAssetPrice =
     assetPrices[market.collateralAsset.symbol]?.priceUsd;
   const loanAssetPrice = assetPrices[market.loanAsset.symbol]?.priceUsd;
 
   if (collateralAssetPrice == null || loanAssetPrice == null) {
-    // Check for both undefined and null
-    console.log("Price data not available for one or more assets.");
     return {
       isVerified: false,
       reconstructedPrice: null,
@@ -157,8 +154,6 @@ const comparePrices = async (
     ) // /  BigInt(10 ** quoteTokenDecimals)
       .toString()
   );
-
-  console.log("Reconstructed price", reconstructedPrice);
   const percentageDiff = calculatePercentageDifference(
     Number(oracleData?.priceUnscaled),
     reconstructedPrice
@@ -203,23 +198,8 @@ const processOracleData = async (
   }
 ) => {
   const provider = MulticallWrapper.wrap(getProvider(rpcUrl));
-
   const oracleData = await fetchOracleData(oracleAddress, provider);
-  console.log(
-    `
-    Oracle Price supposedly being equal to the combination of the feeds:`,
-    oracleData
-  );
-
   const markets = await queryOracleApi(oracleAddress, 1); // Assuming chainId is 1
-  if (markets && markets.markets.length > 0) {
-    console.log(
-      `
-Markets found in API using this oracle:`,
-      markets.markets
-    );
-  }
-
   const oracleDataList = await getOracleDataFromTx(txCreation, provider);
 
   let result: any = {};
@@ -239,12 +219,7 @@ Markets found in API using this oracle:`,
         Processing Correct Oracle Data:`,
         correctOracleData
       );
-      const feedPrices = await fetchFeedPrices([correctOracleData], provider);
-      console.log(
-        `
-        Feed Prices for Correct Oracle Data:`,
-        feedPrices
-      );
+      // const feedPrices = await fetchFeedPrices([correctOracleData], provider);
 
       if (markets && markets.markets.length > 0) {
         // Filter markets to find the one that matches the provided collateral and loan assets
@@ -255,7 +230,6 @@ Markets found in API using this oracle:`,
         );
 
         if (market) {
-          console.log(market);
           const baseTokenDecimals = parseInt(
             correctOracleData.baseTokenDecimals
           );

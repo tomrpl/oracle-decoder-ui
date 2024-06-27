@@ -166,3 +166,26 @@ export const queryAssetsPrices = async (
     throw error;
   }
 };
+
+export const queryAsset = async (chainId: number) => {
+  const query = `query {
+  assets(where:{chainId_in:[${chainId}]}){
+    items {
+      address
+      symbol 
+    }
+  }
+}`;
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query }),
+    });
+
+    const result: any = await response.json();
+    return result.data.assets.items as any;
+  } catch (error) {
+    throw error;
+  }
+};
