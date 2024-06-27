@@ -9,6 +9,7 @@ import { getFeedPrice } from "./fetchers/feedsFetcher";
 import { ZeroAddress } from "ethers";
 import { fetchOracleData } from "./fetchers/oracleFetcher";
 import { queryOracleApi, queryAssetsPrices } from "./fetchers/fetchAPI";
+import { getOracleTransactionHash } from "./fetchers/fetchTransactionHash";
 
 const rpcUrl = process.env.REACT_APP_RPC_URL;
 
@@ -101,24 +102,17 @@ const compareDecimals = (
   const baseTokenMarketDecimals = market.collateralAsset.decimals;
   const quoteTokenMarketDecimals = market.loanAsset.decimals;
 
-  if (
+  const isVerified =
     baseTokenMarketDecimals === baseTokenDecimals &&
-    quoteTokenMarketDecimals === quoteTokenDecimals
-  ) {
-    return {
-      isVerified: true,
-      baseTokenDecimals,
-      quoteTokenDecimals,
-    };
-  } else {
-    return {
-      isVerified: false,
-      baseTokenDecimalsProvided: baseTokenDecimals,
-      baseTokenDecimalsExpected: baseTokenMarketDecimals,
-      quoteTokenDecimalsProvided: quoteTokenDecimals,
-      quoteTokenDecimalsExpected: quoteTokenMarketDecimals,
-    };
-  }
+    quoteTokenMarketDecimals === quoteTokenDecimals;
+
+  return {
+    isVerified,
+    baseTokenDecimalsProvided: baseTokenDecimals,
+    baseTokenDecimalsExpected: baseTokenMarketDecimals,
+    quoteTokenDecimalsProvided: quoteTokenDecimals,
+    quoteTokenDecimalsExpected: quoteTokenMarketDecimals,
+  };
 };
 
 const comparePrices = async (
@@ -186,9 +180,9 @@ const checkWarnings = (market: any) => {
     warnings: warnings,
   };
 };
+
 const processOracleData = async (
   oracleAddress: string,
-  txCreation: string,
   collateralAsset: string,
   loanAsset: string,
   options: {
@@ -198,13 +192,28 @@ const processOracleData = async (
   }
 ) => {
   const provider = MulticallWrapper.wrap(getProvider(rpcUrl));
-  const oracleData = await fetchOracleData(oracleAddress, provider);
-  const markets = await queryOracleApi(oracleAddress, 1); // Assuming chainId is 1
-  const oracleDataList = await getOracleDataFromTx(txCreation, provider);
-
+  const txCreationHash = await getOracleTransactionHash(
+    oracleAddress,
+    provider
+  );
+  if (!txCreationHash) {
+    console.log("Failed to get transaction hash for the oracle.");
+    return null;
+  }
   let result: any = {};
 
-  if (oracleDataList) {
+  try {
+    const [oracleData, markets, oracleDataList] = await Promise.all([
+      fetchOracleData(oracleAddress, provider),
+      queryOracleApi(oracleAddress, 1),
+      getOracleDataFromTx(txCreationHash, provider),
+    ]);
+
+    if (!oracleDataList) {
+      console.log("Failed to decode Oracle Data.");
+      return null;
+    }
+
     const correctOracleData = oracleDataList.find(
       (data) =>
         data.baseFeed1 === oracleData?.baseFeed1 &&
@@ -213,86 +222,70 @@ const processOracleData = async (
         data.quoteFeed2 === oracleData?.quoteFeed2
     );
 
-    if (correctOracleData) {
-      console.log(
-        `
-        Processing Correct Oracle Data:`,
-        correctOracleData
-      );
-      // const feedPrices = await fetchFeedPrices([correctOracleData], provider);
-
-      if (markets && markets.markets.length > 0) {
-        // Filter markets to find the one that matches the provided collateral and loan assets
-        const market = markets.markets.find(
-          (market) =>
-            market.collateralAsset.symbol === collateralAsset &&
-            market.loanAsset.symbol === loanAsset
-        );
-
-        if (market) {
-          const baseTokenDecimals = parseInt(
-            correctOracleData.baseTokenDecimals
-          );
-          const quoteTokenDecimals = parseInt(
-            correctOracleData.quoteTokenDecimals
-          );
-
-          if (options.performDecimalCheck) {
-            const decimalComparison = compareDecimals(
-              baseTokenDecimals,
-              quoteTokenDecimals,
-              market
-            );
-            result.decimalComparison = decimalComparison;
-          }
-
-          if (options.performPriceCheck) {
-            const priceComparison = await comparePrices(
-              oracleData,
-              market,
-              baseTokenDecimals,
-              quoteTokenDecimals
-            );
-            result.priceComparison = priceComparison;
-          }
-
-          if (options.performWarningCheck) {
-            const warningCheck = checkWarnings(market);
-            result.warningCheck = warningCheck;
-          }
-
-          return result;
-        } else {
-          console.log("No matching market found for the provided assets.");
-        }
-      } else {
-        console.log("No markets found in API for the given oracle.");
-      }
-    } else {
+    if (!correctOracleData) {
       console.log("Correct Oracle Data not found.");
+      return null;
     }
-  } else {
-    console.log("Failed to decode Oracle Data.");
-  }
 
-  return null;
+    if (!markets || markets.markets.length === 0) {
+      console.log("No markets found in API for the given oracle.");
+      return null;
+    }
+
+    const market = markets.markets.find(
+      (market) =>
+        market.collateralAsset.symbol === collateralAsset &&
+        market.loanAsset.symbol === loanAsset
+    );
+
+    if (!market) {
+      console.log("No matching market found for the provided assets.");
+      return null;
+    }
+
+    const baseTokenDecimals = parseInt(correctOracleData.baseTokenDecimals);
+    const quoteTokenDecimals = parseInt(correctOracleData.quoteTokenDecimals);
+
+    if (options.performDecimalCheck) {
+      const decimalComparison = compareDecimals(
+        baseTokenDecimals,
+        quoteTokenDecimals,
+        market
+      );
+      result.decimalComparison = decimalComparison;
+    }
+
+    if (options.performPriceCheck) {
+      const priceComparison = await comparePrices(
+        oracleData,
+        market,
+        baseTokenDecimals,
+        quoteTokenDecimals
+      );
+      result.priceComparison = priceComparison;
+    }
+
+    if (options.performWarningCheck) {
+      const warningCheck = checkWarnings(market);
+      result.warningCheck = warningCheck;
+    }
+
+    return result;
+  } catch (error) {
+    console.log("Error processing oracle data:", error);
+    return { error: true };
+  }
 };
 
 // Example usage
 
 // const oracleAddress = "0x90CFE73B913ee1B93EA75Aa47134b7330289a458";
-// const txCreation =
-//   "0xb2009ab364305f83bc6cc54d0be8054a19bd38222622da881786110a8a2f13fb";
 // processOracleData(oracleAddress, txCreation, "weETH", "USDC");
 
 // const oracleAddress = "0x5D916980D5Ae1737a8330Bf24dF812b2911Aae25";
-// const txCreation =
-//   "0xd6665fa81e94ec3c203e72b1d075aefb264dea7d5bbd431b22d0be8c77397298";
 // processOracleData(oracleAddress, txCreation, "sUSDe", "DAI");
 
 // const oracleAddress = "0x2b6eFE10F7C7c0f2fD172213ad99017855a8E512";
-// const txCreation =
-//   "0x88016e5f9cba1fa6625a1336b131051f9591f0af4d9a6b1dae563fc108f8e34f";
 // processOracleData(oracleAddress, txCreation, "LINK", "USDC");
 
 export { processOracleData };

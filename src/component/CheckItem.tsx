@@ -4,12 +4,14 @@ interface CheckItemProps {
   title: string;
   isVerified: boolean | null;
   details?: string;
+  description?: string; // Add the description prop
 }
 
 const CheckItem: React.FC<CheckItemProps> = ({
   title,
   isVerified,
   details,
+  description, // Destructure the description prop
 }) => {
   const backgroundColor =
     isVerified === null ? "#e2e3e5" : isVerified ? "#d4edda" : "#f8d7da";
@@ -28,7 +30,18 @@ const CheckItem: React.FC<CheckItemProps> = ({
       }}
     >
       <h2 style={{ margin: "0" }}>{title}</h2>
-      <p style={{ margin: "0", fontSize: "0.9rem" }}>
+      {description && (
+        <p
+          style={{
+            fontSize: "0.8rem",
+            color: "#6c757d",
+            fontStyle: "italic",
+          }}
+        >
+          {description}
+        </p>
+      )}
+      <p style={{ margin: "0", fontSize: "0.9rem", whiteSpace: "pre-wrap" }}>
         {isVerified === null ? "Standby" : isVerified ? "✅" : "❌"}{" "}
         {isVerified === null ? "" : details}
       </p>
