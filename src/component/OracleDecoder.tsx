@@ -4,6 +4,7 @@ import { queryAsset } from "../services/fetchers/fetchAPI";
 import CheckItem from "./CheckItem"; // Import the new CheckItem component
 import morphoWallpaper from "../logos/wallpaper.png"; // Ensure correct path
 import Select from "react-select"; // Import react-select
+import Modal from "react-modal";
 
 interface Warning {
   level: string;
@@ -14,27 +15,29 @@ const OracleDecoder = () => {
   const [oracleAddress, setOracleAddress] = useState(
     "0x90CFE73B913ee1B93EA75Aa47134b7330289a458"
   );
-  const [txCreation, setTxCreation] = useState(
-    "0xb2009ab364305f83bc6cc54d0be8054a19bd38222622da881786110a8a2f13fb"
-  );
   const [collateralAsset, setCollateralAsset] = useState("");
   const [loanAsset, setLoanAsset] = useState("");
   const [assets, setAssets] = useState<{ value: string; label: string }[]>([]);
   const [oracleAddressTouched, setOracleAddressTouched] = useState(false);
-  const [txCreationTouched, setTxCreationTouched] = useState(false);
   const [collateralAssetTouched, setCollateralAssetTouched] = useState(false);
   const [loanAssetTouched, setLoanAssetTouched] = useState(false);
   const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false); // New state for submit animation
   const [countdown, setCountdown] = useState(5); // Countdown state
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State for error message
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false); // State for modal visibility
 
   // eslint-disable-next-line
   const [verificationStatus, setVerificationStatus] = useState<string | null>(
     null
   );
+
+  // eslint-disable-next-line
   const [baseTokenDecimals, setBaseTokenDecimals] = useState<number | null>(
     null
   );
+
+  // eslint-disable-next-line
   const [quoteTokenDecimals, setQuoteTokenDecimals] = useState<number | null>(
     null
   );
@@ -43,7 +46,13 @@ const OracleDecoder = () => {
   );
   const [oraclePrice, setOraclePrice] = useState<number | null>(null);
 
-  const [decimalCheck, setDecimalCheck] = useState<boolean | null>(null);
+  const [decimalCheck, setDecimalCheck] = useState<{
+    isVerified: boolean;
+    baseTokenDecimalsProvided: number | null;
+    baseTokenDecimalsExpected: number | null;
+    quoteTokenDecimalsProvided: number | null;
+    quoteTokenDecimalsExpected: number | null;
+  } | null>(null);
   const [priceCheck, setPriceCheck] = useState<boolean | null>(null);
   const [warningCheck, setWarningCheck] = useState<{
     isVerified: boolean;
@@ -60,21 +69,17 @@ const OracleDecoder = () => {
   useEffect(() => {
     setIsSubmitEnabled(
       oracleAddressTouched &&
-        txCreationTouched &&
         collateralAssetTouched &&
         loanAssetTouched &&
         oracleAddress.trim() !== "" &&
-        txCreation.trim() !== "" &&
         collateralAsset.trim() !== "" &&
         loanAsset.trim() !== ""
     );
   }, [
     oracleAddress,
-    txCreation,
     collateralAsset,
     loanAsset,
     oracleAddressTouched,
-    txCreationTouched,
     collateralAssetTouched,
     loanAssetTouched,
   ]);
@@ -82,7 +87,7 @@ const OracleDecoder = () => {
   useEffect(() => {
     const fetchAssets = async () => {
       try {
-        const assets = await queryAsset(1); // Assume chainId 1 for Ethereum mainnet
+        const assets = await queryAsset(1);
         const formattedAssets = assets.map((asset: any) => ({
           value: asset.symbol,
           label: asset.symbol,
@@ -98,15 +103,8 @@ const OracleDecoder = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setIsSubmitting(true); // Set submitting state to true
-    const originalLog = console.log;
-    const logMessages: string[] = [];
-    console.log = (...args) => {
-      logMessages.push(args.join(" "));
-      originalLog(...args);
-    };
+    setIsSubmitting(true);
 
-    // Start countdown
     setCountdown(5);
     const countdownInterval = setInterval(() => {
       setCountdown((prevCountdown) => {
@@ -119,33 +117,27 @@ const OracleDecoder = () => {
 
     const result = await processOracleData(
       oracleAddress,
-      txCreation,
       collateralAsset,
       loanAsset,
       options
     );
 
-    if (result) {
+    if (result && !result.error) {
       const { decimalComparison, priceComparison, warningCheck } = result;
 
       if (decimalComparison) {
-        if (decimalComparison.isVerified) {
-          setVerificationStatus("✅ The oracle data matches the market data.");
-          setBaseTokenDecimals(decimalComparison.baseTokenDecimals ?? null);
-          setQuoteTokenDecimals(decimalComparison.quoteTokenDecimals ?? null);
-          setDecimalCheck(true);
-        } else {
-          setVerificationStatus(
-            "❌ The oracle data does not match the market data."
-          );
-          setBaseTokenDecimals(
-            decimalComparison.baseTokenDecimalsProvided ?? null
-          );
-          setQuoteTokenDecimals(
-            decimalComparison.quoteTokenDecimalsProvided ?? null
-          );
-          setDecimalCheck(false);
-        }
+        setVerificationStatus(
+          decimalComparison.isVerified
+            ? "✅ The oracle data matches the market data."
+            : "❌ The oracle data does not match the market data."
+        );
+        setBaseTokenDecimals(
+          decimalComparison.baseTokenDecimalsProvided ?? null
+        );
+        setQuoteTokenDecimals(
+          decimalComparison.quoteTokenDecimalsProvided ?? null
+        );
+        setDecimalCheck(decimalComparison);
       }
 
       if (priceComparison) {
@@ -155,6 +147,14 @@ const OracleDecoder = () => {
       }
 
       setWarningCheck(warningCheck); // Set warning check state
+    } else {
+      setErrorMessage(
+        `Address provided is not in the logs of the Oracle Factory.
+Failed to get transaction hash for the oracle.
+Please check the oracle address and try again.`
+      );
+      setIsErrorModalOpen(true);
+      setWarningCheck(null); // Keep warning check in standby mode
     }
 
     setIsSubmitting(false); // Set submitting state to false
@@ -211,9 +211,6 @@ const OracleDecoder = () => {
                   The <strong>oracle address</strong> deployed.
                 </li>
                 <li>
-                  The <strong>transaction</strong> creation.
-                </li>
-                <li>
                   The <strong>collateral asset</strong> of the market one is
                   expecting to use this oracle with.
                 </li>
@@ -245,31 +242,6 @@ const OracleDecoder = () => {
                     borderRadius: "4px",
                     border: "1px solid var(--ifm-color-dark-600)",
                     color: oracleAddressTouched
-                      ? "var(--ifm-color-dark-700)"
-                      : "#888",
-                  }}
-                />
-              </div>
-              <div style={{ marginBottom: "10px" }}>
-                <label style={{ display: "block", marginBottom: "5px" }}>
-                  Transaction Creation:
-                  <span style={{ color: "var(--ifm-color-red)" }}> *</span>
-                </label>
-                <input
-                  type="text"
-                  value={txCreationTouched ? txCreation : ""}
-                  placeholder="0xb2009ab364305f83bc6cc54d0be8054a19bd38222622da881786110a8a2f13fb"
-                  onChange={(e) => {
-                    setTxCreation(e.target.value);
-                    setTxCreationTouched(true);
-                  }}
-                  style={{
-                    width: "600px",
-                    padding: "8px",
-                    fontSize: "0.8rem",
-                    borderRadius: "4px",
-                    border: "1px solid var(--ifm-color-dark-600)",
-                    color: txCreationTouched
                       ? "var(--ifm-color-dark-700)"
                       : "#888",
                   }}
@@ -376,8 +348,20 @@ const OracleDecoder = () => {
             {decimalCheck !== null && (
               <CheckItem
                 title="Decimals Check"
-                isVerified={decimalCheck}
-                details={`Base Token Decimals: ${baseTokenDecimals}, Quote Token Decimals: ${quoteTokenDecimals}`}
+                isVerified={decimalCheck.isVerified}
+                details={
+                  decimalCheck.isVerified
+                    ? `Base Token Decimals: ${decimalCheck.baseTokenDecimalsProvided}, 
+Quote Token Decimals: ${decimalCheck.quoteTokenDecimalsProvided}`
+                    : `Base Token Decimals: 
+Provided: ${decimalCheck.baseTokenDecimalsProvided}, Expected: ${decimalCheck.baseTokenDecimalsExpected} 
+Quote Token Decimals: 
+Provided: ${decimalCheck.quoteTokenDecimalsProvided}, Expected: ${decimalCheck.quoteTokenDecimalsExpected}`
+                }
+                description={
+                  `verify that the BaseTokenDecimal and QuoteTokenDecimal has been the right one at oracle creation, ` +
+                  `based on the loan and collateral token.`
+                }
               />
             )}
             {priceCheck !== null && (
@@ -394,6 +378,10 @@ const OracleDecoder = () => {
                 details={warningCheck.warnings
                   .map((w) => `${w.level}: ${w.type}`)
                   .join(", ")}
+                description={
+                  `return any oracle related warning, where a market is using this oracle ` +
+                  `with the same loan and collat as the one in input.`
+                }
               />
             )}
             {options.performDecimalCheck && decimalCheck === null && (
@@ -401,6 +389,10 @@ const OracleDecoder = () => {
                 title="Decimals Check"
                 isVerified={null}
                 details="Standby"
+                description={
+                  `verify that the BaseTokenDecimal and QuoteTokenDecimal has been the right one at oracle creation, ` +
+                  `based on the loan and collateral token.`
+                }
               />
             )}
             {options.performPriceCheck && priceCheck === null && (
@@ -415,11 +407,55 @@ const OracleDecoder = () => {
                 title="Warning Check"
                 isVerified={null}
                 details="Standby"
+                description={
+                  `The check warning: ` +
+                  `return any oracle related warning, where a market is using this oracle ` +
+                  `with the same loan and collat as the one in input.`
+                }
               />
             )}
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={isErrorModalOpen}
+        onRequestClose={() => setIsErrorModalOpen(false)}
+        contentLabel="Error Modal"
+        style={{
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            padding: "20px",
+            borderRadius: "10px",
+            backgroundColor: "#fff",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+          },
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+          },
+        }}
+      >
+        <h2>Error</h2>
+        <p>{errorMessage}</p>
+        <button
+          onClick={() => setIsErrorModalOpen(false)}
+          style={{
+            padding: "10px 20px",
+            borderRadius: "4px",
+            border: "none",
+            backgroundColor: "var(--ifm-color-blue-base)",
+            color: "#fff",
+            cursor: "pointer",
+          }}
+        >
+          Close
+        </button>
+      </Modal>
     </div>
   );
 };
