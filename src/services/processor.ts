@@ -54,6 +54,7 @@ export const getOracleDataFromTx = async (
   }
 };
 
+// eslint-disable-next-line
 const fetchFeedPrices = async (
   oracleDataList: OracleData[],
   provider: Provider
