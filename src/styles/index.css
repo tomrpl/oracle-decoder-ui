@@ -1,13 +1,49 @@
+/* FONTS: Fonts in use in the documentation */
+@font-face {
+  font-family: "FKGrotesk";
+  src: url("./fonts/FKGrotesk.ttf") format("truetype");
+  display: block;
+}
+
+@font-face {
+  font-family: "FKGrotesk SemiMono-Medium";
+  src: url("./fonts/FKGroteskSemiMono-Medium.ttf") format("truetype");
+  display: block;
+}
+
+:root {
+  --ifm-color-dark-base: #0f0f0f;
+  --ifm-color-dark-800: #15181a;
+  --ifm-color-dark-700: #24272b;
+  --ifm-color-dark-600: #4b4b4b;
+  --ifm-color-dark-500: #878787;
+  --ifm-color-dark-200: #878787;
+  --ifm-color-dark-0: #ffffff;
+  --ifm-color-blue-base: #2470ff;
+  --ifm-color-blue-light: #5782ff;
+  --ifm-color-red: red; /* Default red color for asterisks */
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "FKGrotesk", Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: "FKGrotesk SemiMono-Medium", Menlo, Monaco, Consolas,
+    "Courier New", monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "FKGrotesk", Helvetica, sans-serif;
+  font-weight: 300;
+  line-height: 110%;
+  color: var(--ifm-color-dark-base);
 }
