@@ -14,7 +14,7 @@ interface OracleReadData {
   quoteVaultConversionSample: bigint;
 }
 
-export const fetchOracleData = async (
+export const fetchOracleDataFromtx = async (
   oracleAddress: string,
   provider: Provider
 ): Promise<OracleReadData | null> => {

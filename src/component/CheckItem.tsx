@@ -4,14 +4,16 @@ interface CheckItemProps {
   title: string;
   isVerified: boolean | null;
   details?: string;
-  description?: string; // Add the description prop
+  description?: string;
+  loading?: boolean; // Add the loading prop
 }
 
 const CheckItem: React.FC<CheckItemProps> = ({
   title,
   isVerified,
   details,
-  description, // Destructure the description prop
+  description,
+  loading, // Destructure the loading prop
 }) => {
   const backgroundColor =
     isVerified === null ? "#e2e3e5" : isVerified ? "#d4edda" : "#f8d7da";
@@ -41,10 +43,14 @@ const CheckItem: React.FC<CheckItemProps> = ({
           {description}
         </p>
       )}
-      <p style={{ margin: "0", fontSize: "0.9rem", whiteSpace: "pre-wrap" }}>
-        {isVerified === null ? "Standby" : isVerified ? "✅" : "❌"}{" "}
-        {isVerified === null ? "" : details}
-      </p>
+      {loading ? (
+        <p style={{ margin: "0", fontSize: "0.9rem" }}>Loading...</p>
+      ) : (
+        <p style={{ margin: "0", fontSize: "0.9rem", whiteSpace: "pre-wrap" }}>
+          {isVerified === null ? "Standby" : isVerified ? "✅" : "❌"}{" "}
+          {isVerified === null ? "" : details}
+        </p>
+      )}
     </div>
   );
 };
