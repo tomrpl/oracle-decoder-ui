@@ -43,7 +43,6 @@ const OracleDecoder = () => {
     ),
   });
 
-  console.log("first hook");
   const {
     loadingState,
     errors,
@@ -51,8 +50,6 @@ const OracleDecoder = () => {
     marketData,
     fetchOracleDataDetails,
   } = useFetchOracleData();
-
-  console.log("second hook");
   const {
     loading: decimalLoading,
     error: decimalError,
@@ -65,7 +62,6 @@ const OracleDecoder = () => {
     loanAsset,
     true
   );
-
   const {
     loading: warningLoading,
     error: warningError,
@@ -301,45 +297,51 @@ const OracleDecoder = () => {
 
             {submitStarted &&
               loadingState === LoadingStates.COMPLETED &&
-              errors.map((error, index) => (
-                <div key={index} className="error-message">
-                  <p>Error: {ErrorMessages[error]}</p>
+              errors.length > 0 && (
+                <div className="error-message">
+                  {errors.map((error, index) => (
+                    <p key={index}>Error: {ErrorMessages[error]}</p>
+                  ))}
                 </div>
-              ))}
+              )}
 
-            {decimalResult && (
-              <CheckItem
-                title="Decimals Check"
-                isVerified={decimalResult.isVerified}
-                details={
-                  decimalResult.isVerified
-                    ? `Base Token Decimals: ${decimalResult.baseTokenDecimalsProvided}, 
+            <CheckItem
+              title="Decimals Check"
+              isVerified={decimalResult?.isVerified ?? null}
+              details={
+                decimalResult?.isVerified
+                  ? `Base Token Decimals: ${decimalResult.baseTokenDecimalsProvided}, 
 Quote Token Decimals: ${decimalResult.quoteTokenDecimalsProvided}`
-                    : `Base Token Decimals: 
+                  : decimalResult
+                  ? `Base Token Decimals: 
 Provided: ${decimalResult.baseTokenDecimalsProvided}, Expected: ${decimalResult.baseTokenDecimalsExpected} 
 Quote Token Decimals: 
 Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult.quoteTokenDecimalsExpected}`
-                }
-                description={
-                  `verify that the BaseTokenDecimal and QuoteTokenDecimal has been the right one at oracle creation, ` +
-                  `based on the loan and collateral token.`
-                }
-                loading={decimalLoading}
-              />
-            )}
-            {warningResult && (
-              <CheckItem
-                title="Warning Check"
-                isVerified={warningResult.isVerified}
-                details={warningResult.warnings
-                  .map((w: any) => `${w.level}: ${w.type}`)
-                  .join(", ")}
-                description={
-                  `return any oracle related warning, where a market is using this oracle ` +
-                  `with the same loan and collat as the one in input.`
-                }
-                loading={warningLoading}
-              />
+                  : ""
+              }
+              description={`verify that the BaseTokenDecimal and QuoteTokenDecimal has been the right one at oracle creation, based on the loan and collateral token.`}
+              loading={decimalLoading}
+            />
+
+            <CheckItem
+              title="Warning Check"
+              isVerified={warningResult?.isVerified ?? null}
+              details={
+                warningResult
+                  ? warningResult.warnings
+                      .map((w: any) => `${w.level}: ${w.type}`)
+                      .join(", ")
+                  : ""
+              }
+              description={`return any oracle related warning, where a market is using this oracle with the same loan and collat as the one in input.`}
+              loading={warningLoading}
+            />
+
+            {(decimalError || warningError) && (
+              <div className="error-message">
+                {decimalError && <p>Error: {decimalError}</p>}
+                {warningError && <p>Error: {warningError}</p>}
+              </div>
             )}
           </div>
         </div>
