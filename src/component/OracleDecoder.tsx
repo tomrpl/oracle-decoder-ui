@@ -161,7 +161,8 @@ const OracleDecoder = () => {
             <div className="instructions">
               <p>
                 Note: This is currently only supporting oracles deployed from
-                the MorphoChainlinkOracleV2Factory on Ethereum mainnet.
+                the MorphoChainlinkOracleV2Factory on Ethereum mainnet and on
+                Base.
               </p>
               <p>Expect improvements very soon.</p>
               <p>Please retrieve:</p>
