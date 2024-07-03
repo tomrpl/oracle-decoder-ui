@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { processOracleData } from "../services/processor";
+import CheckItem from "./CheckItem";
+import Select from "react-select";
+import useFetchOracleData from "../hooks/useFetchOracleData";
+import useDecimalCheck from "../hooks/useDecimalCheck";
+import useWarningCheck from "../hooks/useWarningCheck";
+import "./OracleDecoder.css";
 import { queryAsset } from "../services/fetchers/fetchAPI";
-import CheckItem from "./CheckItem"; // Import the new CheckItem component
-import morphoWallpaper from "../logos/wallpaper.png"; // Ensure correct path
-import Select from "react-select"; // Import react-select
-import Modal from "react-modal";
+import { ErrorMessages, LoadingStates } from "../services/errorTypes";
 
-interface Warning {
-  level: string;
-  type: string;
-}
+const ethLogo = "https://cdn.morpho.org/assets/chains/eth.svg";
+const baseLogo = "https://cdn.morpho.org/assets/chains/base.png";
 
 const OracleDecoder = () => {
   const [oracleAddress, setOracleAddress] = useState(
@@ -22,49 +22,51 @@ const OracleDecoder = () => {
   const [collateralAssetTouched, setCollateralAssetTouched] = useState(false);
   const [loanAssetTouched, setLoanAssetTouched] = useState(false);
   const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false); // New state for submit animation
-  const [countdown, setCountdown] = useState(5); // Countdown state
-  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State for error message
-  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false); // State for modal visibility
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [countdown, setCountdown] = useState(5);
+  const [submitStarted, setSubmitStarted] = useState(false);
 
-  // eslint-disable-next-line
-  const [verificationStatus, setVerificationStatus] = useState<string | null>(
-    null
-  );
-
-  // eslint-disable-next-line
-  const [baseTokenDecimals, setBaseTokenDecimals] = useState<number | null>(
-    null
-  );
-
-  // eslint-disable-next-line
-  const [quoteTokenDecimals, setQuoteTokenDecimals] = useState<number | null>(
-    null
-  );
-  const [reconstructedPrice, setReconstructedPrice] = useState<number | null>(
-    null
-  );
-  const [oraclePrice, setOraclePrice] = useState<number | null>(null);
-
-  const [decimalCheck, setDecimalCheck] = useState<{
-    isVerified: boolean;
-    baseTokenDecimalsProvided: number | null;
-    baseTokenDecimalsExpected: number | null;
-    quoteTokenDecimalsProvided: number | null;
-    quoteTokenDecimalsExpected: number | null;
-  } | null>(null);
-  const [priceCheck, setPriceCheck] = useState<boolean | null>(null);
-  const [warningCheck, setWarningCheck] = useState<{
-    isVerified: boolean;
-    warnings: Warning[];
-  } | null>(null); // New state for warning check
-
-  // eslint-disable-next-line
-  const [options, setOptions] = useState({
-    performDecimalCheck: true,
-    performPriceCheck: false, // Disable in production
-    performWarningCheck: true,
+  const [selectedNetwork, setSelectedNetwork] = useState<{
+    value: number;
+    label: JSX.Element;
+  }>({
+    value: 1,
+    label: (
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <img
+          src={ethLogo}
+          alt="Ethereum"
+          style={{ width: 20, height: 20, marginRight: 10 }}
+        />
+        Ethereum
+      </div>
+    ),
   });
+
+  const {
+    loadingState,
+    errors,
+    oracleData,
+    marketData,
+    fetchOracleDataDetails,
+  } = useFetchOracleData();
+  const {
+    loading: decimalLoading,
+    error: decimalError,
+    result: decimalResult,
+  } = useDecimalCheck(
+    oracleData?.baseTokenDecimals,
+    oracleData?.quoteTokenDecimals,
+    marketData?.markets,
+    collateralAsset,
+    loanAsset,
+    true
+  );
+  const {
+    loading: warningLoading,
+    error: warningError,
+    result: warningResult,
+  } = useWarningCheck(marketData?.markets, collateralAsset, loanAsset, true);
 
   useEffect(() => {
     setIsSubmitEnabled(
@@ -87,7 +89,7 @@ const OracleDecoder = () => {
   useEffect(() => {
     const fetchAssets = async () => {
       try {
-        const assets = await queryAsset(1);
+        const assets = await queryAsset(selectedNetwork.value);
         const formattedAssets = assets.map((asset: any) => ({
           value: asset.symbol,
           label: asset.symbol,
@@ -99,11 +101,12 @@ const OracleDecoder = () => {
     };
 
     fetchAssets();
-  }, []);
+  }, [selectedNetwork]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setIsSubmitting(true);
+    setSubmitStarted(true);
 
     setCountdown(5);
     const countdownInterval = setInterval(() => {
@@ -115,98 +118,54 @@ const OracleDecoder = () => {
       });
     }, 1000);
 
-    const result = await processOracleData(
-      oracleAddress,
-      collateralAsset,
-      loanAsset,
-      options
-    );
+    await fetchOracleDataDetails(oracleAddress, selectedNetwork.value);
 
-    if (result && !result.error) {
-      const { decimalComparison, priceComparison, warningCheck } = result;
-
-      if (decimalComparison) {
-        setVerificationStatus(
-          decimalComparison.isVerified
-            ? "✅ The oracle data matches the market data."
-            : "❌ The oracle data does not match the market data."
-        );
-        setBaseTokenDecimals(
-          decimalComparison.baseTokenDecimalsProvided ?? null
-        );
-        setQuoteTokenDecimals(
-          decimalComparison.quoteTokenDecimalsProvided ?? null
-        );
-        setDecimalCheck(decimalComparison);
-      }
-
-      if (priceComparison) {
-        setReconstructedPrice(priceComparison.reconstructedPrice ?? null);
-        setOraclePrice(priceComparison.oraclePrice ?? null);
-        setPriceCheck(priceComparison.isVerified);
-      }
-
-      setWarningCheck(warningCheck); // Set warning check state
-    } else {
-      setErrorMessage(
-        `Address provided is not in the logs of the Oracle Factory.
-Failed to get transaction hash for the oracle.
-Please check the oracle address and try again.`
-      );
-      setIsErrorModalOpen(true);
-      setWarningCheck(null); // Keep warning check in standby mode
-    }
-
-    setIsSubmitting(false); // Set submitting state to false
+    setIsSubmitting(false);
   };
 
+  const networkOptions = [
+    {
+      value: 1,
+      label: (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={ethLogo}
+            alt="Ethereum"
+            style={{ width: 20, height: 20, marginRight: 10 }}
+          />
+          Ethereum
+        </div>
+      ),
+    },
+    {
+      value: 8453,
+      label: (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={baseLogo}
+            alt="Base"
+            style={{ width: 20, height: 20, marginRight: 10 }}
+          />
+          Base
+        </div>
+      ),
+    },
+  ];
+
   return (
-    <div
-      style={{
-        backgroundImage: `url(${morphoWallpaper})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        padding: "60px",
-        minHeight: "100vh",
-        opacity: "1",
-      }}
-    >
-      <div
-        style={{
-          fontFamily: "FKGrotesk",
-          padding: "30px",
-          backgroundColor: "#F0F2F7",
-          borderRadius: "12px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            color: "var(--ifm-color-dark-800)",
-          }}
-        >
-          <div style={{ flex: 1, marginRight: "20px" }}>
+    <div className="oracle-decoder">
+      <div className="oracle-container">
+        <div className="header">
+          <div className="form-section">
             <h1>Oracle Decoder</h1>
-            <div
-              style={{
-                backgroundColor: "var(--ifm-color-dark-0)",
-                borderRadius: "8px",
-                border: "0.5px solid var(--ifm-color-dark-0)",
-                padding: "10px",
-                marginBottom: "20px",
-              }}
-            >
-              <p style={{ fontSize: "0.8rem" }}>
+            <div className="instructions">
+              <p>
                 Note: This is currently only supporting oracles deployed from
                 the MorphoChainlinkOracleV2Factory on Ethereum mainnet.
               </p>
-              <p style={{ fontSize: "0.8rem" }}>
-                Expect improvements very soon.{" "}
-              </p>
-              <p style={{ fontSize: "0.8rem" }}> Please retrieve:</p>
-              <ol style={{ fontSize: "0.8rem" }}>
+              <p>Expect improvements very soon.</p>
+              <p>Please retrieve:</p>
+              <ol>
                 <li>
                   The <strong>oracle address</strong> deployed.
                 </li>
@@ -222,8 +181,29 @@ Please check the oracle address and try again.`
             </div>
             <h2>Inputs</h2>
             <form onSubmit={handleSubmit}>
-              <div style={{ marginBottom: "10px" }}>
-                <label style={{ display: "block", marginBottom: "5px" }}>
+              <div className="inputs-section">
+                <label className="label">
+                  Network:
+                  <span style={{ color: "var(--ifm-color-red)" }}> *</span>
+                </label>
+                <Select
+                  options={networkOptions}
+                  value={selectedNetwork}
+                  onChange={(selectedOption) => {
+                    setSelectedNetwork(selectedOption || networkOptions[0]);
+                  }}
+                  styles={{
+                    control: (base) => ({
+                      ...base,
+                      fontSize: "0.8rem",
+                      width: "400px",
+                    }),
+                  }}
+                  placeholder="Select a network"
+                />
+              </div>
+              <div className="inputs-section">
+                <label className="label">
                   Oracle Address:
                   <span style={{ color: "var(--ifm-color-red)" }}> *</span>
                 </label>
@@ -235,32 +215,19 @@ Please check the oracle address and try again.`
                     setOracleAddress(e.target.value);
                     setOracleAddressTouched(true);
                   }}
+                  className="input"
                   style={{
-                    width: "400px",
-                    fontSize: "0.8rem",
-                    padding: "8px",
-                    borderRadius: "4px",
-                    border: "1px solid var(--ifm-color-dark-600)",
                     color: oracleAddressTouched
                       ? "var(--ifm-color-dark-700)"
                       : "#888",
                   }}
                 />
               </div>
-              <div style={{ marginBottom: "10px" }}>
-                <label
-                  style={{
-                    display: "block",
-                    marginBottom: "5px",
-                    marginTop: "25px",
-                  }}
-                >
-                  Collateral Asset:
+              <div className="inputs-section">
+                <label className="label">
+                  Collateral Asset Supported (on this network):
                   <span style={{ color: "var(--ifm-color-red)" }}> *</span>
                 </label>
-                <p style={{ fontSize: "0.8rem" }}>
-                  respect the case: wstETH, USDC, etc
-                </p>
                 <Select
                   options={assets}
                   onChange={(selectedOption) => {
@@ -277,9 +244,9 @@ Please check the oracle address and try again.`
                   placeholder="Select an asset"
                 />
               </div>
-              <div style={{ marginBottom: "10px" }}>
-                <label style={{ display: "block", marginBottom: "5px" }}>
-                  Loan Asset:
+              <div className="inputs-section">
+                <label className="label">
+                  Loan Asset Supported (on this network):
                   <span style={{ color: "var(--ifm-color-red)" }}> *</span>
                 </label>
                 <Select
@@ -310,152 +277,75 @@ Please check the oracle address and try again.`
               <div style={{ textAlign: "right" }}>
                 <button
                   type="submit"
-                  disabled={!isSubmitEnabled || isSubmitting} // Disable while submitting
-                  style={{
-                    padding: "10px 20px",
-                    borderRadius: "4px",
-                    border: "none",
-                    backgroundColor: isSubmitEnabled
-                      ? "var(--ifm-color-blue-base)"
-                      : "#ccc",
-                    color: "#fff",
-                    cursor: isSubmitEnabled ? "pointer" : "not-allowed",
-                    opacity: isSubmitting ? 0.6 : 1, // Add opacity to indicate submission
-                  }}
+                  disabled={!isSubmitEnabled || isSubmitting}
+                  className="submit-button"
+                  style={{ opacity: isSubmitting ? 0.6 : 1 }}
                 >
                   {isSubmitting ? `Submitting... (${countdown})` : "Submit"}
                 </button>
               </div>
             </form>
           </div>
-          <div style={{ flex: 1 }}>
+          <div className="checks-section">
             <h1>Checks - Post Submit</h1>
-            <div
-              style={{
-                backgroundColor: "var(--ifm-color-dark-0)",
-                borderRadius: "8px",
-                border: "0.5px solid var(--ifm-color-dark-0)",
-                padding: "10px",
-                marginBottom: "20px",
-              }}
-            >
-              <p style={{ fontSize: "0.8rem" }}>
+            <div className="instructions">
+              <p>
                 The <strong>warning</strong> check is for market(s) using the
                 same oracle, collat and loan asset
               </p>
             </div>
 
-            {decimalCheck !== null && (
-              <CheckItem
-                title="Decimals Check"
-                isVerified={decimalCheck.isVerified}
-                details={
-                  decimalCheck.isVerified
-                    ? `Base Token Decimals: ${decimalCheck.baseTokenDecimalsProvided}, 
-Quote Token Decimals: ${decimalCheck.quoteTokenDecimalsProvided}`
-                    : `Base Token Decimals: 
-Provided: ${decimalCheck.baseTokenDecimalsProvided}, Expected: ${decimalCheck.baseTokenDecimalsExpected} 
+            {submitStarted &&
+              loadingState === LoadingStates.COMPLETED &&
+              errors.length > 0 && (
+                <div className="error-message">
+                  {errors.map((error, index) => (
+                    <p key={index}>Error: {ErrorMessages[error]}</p>
+                  ))}
+                </div>
+              )}
+
+            <CheckItem
+              title="Decimals Check"
+              isVerified={decimalResult?.isVerified ?? null}
+              details={
+                decimalResult?.isVerified
+                  ? `Base Token Decimals: ${decimalResult.baseTokenDecimalsProvided}, 
+Quote Token Decimals: ${decimalResult.quoteTokenDecimalsProvided}`
+                  : decimalResult
+                  ? `Base Token Decimals: 
+Provided: ${decimalResult.baseTokenDecimalsProvided}, Expected: ${decimalResult.baseTokenDecimalsExpected} 
 Quote Token Decimals: 
-Provided: ${decimalCheck.quoteTokenDecimalsProvided}, Expected: ${decimalCheck.quoteTokenDecimalsExpected}`
-                }
-                description={
-                  `verify that the BaseTokenDecimal and QuoteTokenDecimal has been the right one at oracle creation, ` +
-                  `based on the loan and collateral token.`
-                }
-              />
-            )}
-            {priceCheck !== null && (
-              <CheckItem
-                title="Price Check"
-                isVerified={priceCheck}
-                details={`Reconstructed Price: ${reconstructedPrice}, Oracle Price: ${oraclePrice}`}
-              />
-            )}
-            {warningCheck !== null && (
-              <CheckItem
-                title="Warning Check"
-                isVerified={warningCheck.isVerified}
-                details={warningCheck.warnings
-                  .map((w) => `${w.level}: ${w.type}`)
-                  .join(", ")}
-                description={
-                  `return any oracle related warning, where a market is using this oracle ` +
-                  `with the same loan and collat as the one in input.`
-                }
-              />
-            )}
-            {options.performDecimalCheck && decimalCheck === null && (
-              <CheckItem
-                title="Decimals Check"
-                isVerified={null}
-                details="Standby"
-                description={
-                  `verify that the BaseTokenDecimal and QuoteTokenDecimal has been the right one at oracle creation, ` +
-                  `based on the loan and collateral token.`
-                }
-              />
-            )}
-            {options.performPriceCheck && priceCheck === null && (
-              <CheckItem
-                title="Price Check"
-                isVerified={null}
-                details="Standby"
-              />
-            )}
-            {options.performWarningCheck && warningCheck === null && (
-              <CheckItem
-                title="Warning Check"
-                isVerified={null}
-                details="Standby"
-                description={
-                  `The check warning: ` +
-                  `return any oracle related warning, where a market is using this oracle ` +
-                  `with the same loan and collat as the one in input.`
-                }
-              />
+Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult.quoteTokenDecimalsExpected}`
+                  : ""
+              }
+              description={`verify that the BaseTokenDecimal and QuoteTokenDecimal has been the right one at oracle creation, based on the loan and collateral token.`}
+              loading={decimalLoading}
+            />
+
+            <CheckItem
+              title="Warning Check"
+              isVerified={warningResult?.isVerified ?? null}
+              details={
+                warningResult
+                  ? warningResult.warnings
+                      .map((w: any) => `${w.level}: ${w.type}`)
+                      .join(", ")
+                  : ""
+              }
+              description={`return any oracle related warning, where a market is using this oracle with the same loan and collat as the one in input.`}
+              loading={warningLoading}
+            />
+
+            {(decimalError || warningError) && (
+              <div className="error-message">
+                {decimalError && <p>Error: {decimalError}</p>}
+                {warningError && <p>Error: {warningError}</p>}
+              </div>
             )}
           </div>
         </div>
       </div>
-
-      <Modal
-        isOpen={isErrorModalOpen}
-        onRequestClose={() => setIsErrorModalOpen(false)}
-        contentLabel="Error Modal"
-        style={{
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-            padding: "20px",
-            borderRadius: "10px",
-            backgroundColor: "#fff",
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-          },
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-          },
-        }}
-      >
-        <h2>Error</h2>
-        <p>{errorMessage}</p>
-        <button
-          onClick={() => setIsErrorModalOpen(false)}
-          style={{
-            padding: "10px 20px",
-            borderRadius: "4px",
-            border: "none",
-            backgroundColor: "var(--ifm-color-blue-base)",
-            color: "#fff",
-            cursor: "pointer",
-          }}
-        >
-          Close
-        </button>
-      </Modal>
     </div>
   );
 };

@@ -3,26 +3,10 @@ import {
   getSafeOracleData,
   OracleData,
 } from "./decoder/oracleDecoder";
-import { MulticallWrapper } from "ethers-multicall-provider";
-import { ethers, Provider } from "ethers";
+import { Provider } from "ethers";
 import { getFeedPrice } from "./fetchers/feedsFetcher";
 import { ZeroAddress } from "ethers";
-import { fetchOracleData } from "./fetchers/oracleFetcher";
-import { queryOracleApi, queryAssetsPrices } from "./fetchers/fetchAPI";
-import { getOracleTransactionHash } from "./fetchers/fetchTransactionHash";
-
-const rpcUrl = process.env.REACT_APP_RPC_URL;
-
-export const getProvider = (endpoint?: string) => {
-  if (!endpoint) {
-    endpoint = rpcUrl; // Use the environment variable
-    if (!endpoint) {
-      console.log("RPC_URL not set. Exiting…");
-      process.exit(1);
-    }
-  }
-  return new ethers.JsonRpcProvider(endpoint);
-};
+import { queryAssetsPrices } from "./fetchers/fetchAPI";
 
 export const getOracleDataFromTx = async (
   txCreation: string,
@@ -119,10 +103,11 @@ const comparePrices = async (
   oracleData: any,
   market: any,
   baseTokenDecimals: number,
-  quoteTokenDecimals: number
+  quoteTokenDecimals: number,
+  chainId: number
 ) => {
   const assetPrices = await queryAssetsPrices(
-    1,
+    chainId,
     market.collateralAsset.symbol,
     market.loanAsset.symbol
   );
@@ -181,111 +166,4 @@ const checkWarnings = (market: any) => {
   };
 };
 
-const processOracleData = async (
-  oracleAddress: string,
-  collateralAsset: string,
-  loanAsset: string,
-  options: {
-    performDecimalCheck: boolean;
-    performPriceCheck: boolean;
-    performWarningCheck: boolean;
-  }
-) => {
-  const provider = MulticallWrapper.wrap(getProvider(rpcUrl));
-  const txCreationHash = await getOracleTransactionHash(
-    oracleAddress,
-    provider
-  );
-  if (!txCreationHash) {
-    console.log("Failed to get transaction hash for the oracle.");
-    return null;
-  }
-  let result: any = {};
-
-  try {
-    const [oracleData, markets, oracleDataList] = await Promise.all([
-      fetchOracleData(oracleAddress, provider),
-      queryOracleApi(oracleAddress, 1),
-      getOracleDataFromTx(txCreationHash, provider),
-    ]);
-
-    if (!oracleDataList) {
-      console.log("Failed to decode Oracle Data.");
-      return null;
-    }
-
-    const correctOracleData = oracleDataList.find(
-      (data) =>
-        data.baseFeed1 === oracleData?.baseFeed1 &&
-        data.baseFeed2 === oracleData?.baseFeed2 &&
-        data.quoteFeed1 === oracleData?.quoteFeed1 &&
-        data.quoteFeed2 === oracleData?.quoteFeed2
-    );
-
-    if (!correctOracleData) {
-      console.log("Correct Oracle Data not found.");
-      return null;
-    }
-
-    if (!markets || markets.markets.length === 0) {
-      console.log("No markets found in API for the given oracle.");
-      return null;
-    }
-
-    const market = markets.markets.find(
-      (market) =>
-        market.collateralAsset.symbol === collateralAsset &&
-        market.loanAsset.symbol === loanAsset
-    );
-
-    if (!market) {
-      console.log("No matching market found for the provided assets.");
-      return null;
-    }
-
-    const baseTokenDecimals = parseInt(correctOracleData.baseTokenDecimals);
-    const quoteTokenDecimals = parseInt(correctOracleData.quoteTokenDecimals);
-
-    if (options.performDecimalCheck) {
-      const decimalComparison = compareDecimals(
-        baseTokenDecimals,
-        quoteTokenDecimals,
-        market
-      );
-      result.decimalComparison = decimalComparison;
-    }
-
-    if (options.performPriceCheck) {
-      const priceComparison = await comparePrices(
-        oracleData,
-        market,
-        baseTokenDecimals,
-        quoteTokenDecimals
-      );
-      result.priceComparison = priceComparison;
-    }
-
-    if (options.performWarningCheck) {
-      const warningCheck = checkWarnings(market);
-      result.warningCheck = warningCheck;
-    }
-
-    return result;
-  } catch (error) {
-    console.log("Error processing oracle data:", error);
-    return { error: true };
-  }
-};
-
-// Example usage
-
-// const oracleAddress = "0x90CFE73B913ee1B93EA75Aa47134b7330289a458";
-// processOracleData(oracleAddress, txCreation, "weETH", "USDC");
-
-// const oracleAddress = "0x5D916980D5Ae1737a8330Bf24dF812b2911Aae25";
-// processOracleData(oracleAddress, txCreation, "sUSDe", "DAI");
-
-// const oracleAddress = "0x2b6eFE10F7C7c0f2fD172213ad99017855a8E512";
-// processOracleData(oracleAddress, txCreation, "LINK", "USDC");
-
-export { processOracleData };
+export { compareDecimals, comparePrices, checkWarnings };
