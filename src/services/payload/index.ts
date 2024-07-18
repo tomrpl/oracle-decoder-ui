@@ -1,0 +1,1 @@
+export { getPayload } from "./getPayload";

@@ -34,15 +34,10 @@ const useDecimalCheck = (
       const baseTokenDecimalsNumber = Number(baseTokenDecimals);
       const quoteTokenDecimalsNumber = Number(quoteTokenDecimals);
 
-      console.log("baseTokenDecimals", baseTokenDecimalsNumber);
-      console.log("quoteTokenDecimals", quoteTokenDecimalsNumber);
-      console.log("baseTokenMarketDecimals", baseTokenMarketDecimals);
-      console.log("quoteTokenMarketDecimals", quoteTokenMarketDecimals);
-
       const isVerified =
         baseTokenMarketDecimals === baseTokenDecimalsNumber &&
         quoteTokenMarketDecimals === quoteTokenDecimalsNumber;
-      console.log("isVerified", isVerified);
+
       setResult({
         isVerified,
         baseTokenDecimalsProvided: baseTokenDecimalsNumber,

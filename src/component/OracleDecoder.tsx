@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import CheckItem from "./CheckItem";
+import CheckItem from "./common/CheckItem";
 import Select from "react-select";
 import useFetchOracleData from "../hooks/useFetchOracleData";
 import useDecimalCheck from "../hooks/useDecimalCheck";
 import useWarningCheck from "../hooks/useWarningCheck";
-import "./OracleDecoder.css";
+import "./common.css";
 import { queryAsset } from "../services/fetchers/fetchAPI";
 import { ErrorMessages, LoadingStates } from "../services/errorTypes";
+import ToggleButtonGroup from "./common/ToggleButtonGroup";
 
 const ethLogo = "https://cdn.morpho.org/assets/chains/eth.svg";
 const baseLogo = "https://cdn.morpho.org/assets/chains/base.png";
@@ -50,6 +51,7 @@ const OracleDecoder = () => {
     marketData,
     fetchOracleDataDetails,
   } = useFetchOracleData();
+
   const {
     loading: decimalLoading,
     error: decimalError,
@@ -151,22 +153,29 @@ const OracleDecoder = () => {
       ),
     },
   ];
+  const [activeButton, setActiveButton] = useState<string>("decoder");
 
   return (
-    <div className="oracle-decoder">
+    <div className="main-background">
       <div className="oracle-container">
         <div className="header">
           <div className="form-section">
-            <h1>Oracle Decoder</h1>
+            <ToggleButtonGroup
+              activeButton={activeButton}
+              setActiveButton={setActiveButton}
+            />
             <div className="instructions">
               <p>
-                Note: This is currently only supporting oracles deployed from
-                the MorphoChainlinkOracleV2Factory on Ethereum mainnet and on
-                Base.
+                The <strong>Oracle Decoder</strong> is currently only supporting
+                oracles deployed from the{" "}
+                <strong>MorphoChainlinkOracleV2Factory</strong> on Ethereum
+                mainnet and on Base.
               </p>
-              <p>Expect improvements very soon.</p>
-              <p>Please retrieve:</p>
+              <p>Please retrieve/select:</p>
               <ol>
+                <li>
+                  The <strong>network</strong> of your choice.
+                </li>
                 <li>
                   The <strong>oracle address</strong> deployed.
                 </li>
@@ -288,7 +297,7 @@ const OracleDecoder = () => {
             </form>
           </div>
           <div className="checks-section">
-            <h1>Checks - Post Submit</h1>
+            <h2>Checks - Post Submit</h2>
             <div className="instructions">
               <p>
                 The <strong>warning</strong> check is for market(s) using the

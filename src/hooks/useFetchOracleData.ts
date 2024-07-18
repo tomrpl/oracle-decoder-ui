@@ -21,10 +21,8 @@ const useFetchOracleData = () => {
   ) => {
     setLoadingState(LoadingStates.LOADING);
     setErrors([]);
-    console.log("Starting fetchOracleDataDetails for network:", chainId);
     try {
       const provider = MulticallWrapper.wrap(getProvider(chainId));
-      console.log("Provider initialized for network:", chainId);
 
       const txCreationHash = await getOracleTransactionHash(
         oracleAddress,
@@ -40,7 +38,6 @@ const useFetchOracleData = () => {
         setLoadingState(LoadingStates.COMPLETED);
         return;
       }
-      console.log("Transaction Hash:", txCreationHash);
 
       const [oracleData, markets, oracleDataList] = await Promise.all([
         fetchOracleDataFromtx(oracleAddress, provider),
@@ -76,9 +73,6 @@ const useFetchOracleData = () => {
 
       setOracleData(correctOracleData);
       setMarketData(markets);
-      console.log("Fetched Oracle Data:", correctOracleData);
-      console.log("Fetched Market Data:", markets);
-      console.log("Fetched Oracle Data List:", oracleDataList);
     } catch (error) {
       console.error("Error fetching oracle data:", error);
       setErrors((prevErrors) => [...prevErrors, ErrorTypes.FETCH_ERROR]);
