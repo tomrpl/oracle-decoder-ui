@@ -1,0 +1,1 @@
+export { getOraclesWhitelist } from "./oracleMinified";

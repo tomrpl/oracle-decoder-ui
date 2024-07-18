@@ -1,0 +1,23 @@
+[
+  {
+    "contractAddress": "0x4aaf2844c5420bf979d5bc2cf883ef02db07e590",
+    "denomination": "ETH",
+    "deviationThreshold": "1%",
+    "heartbeat": "24h",
+    "symbol": "pufETH"
+  },
+  {
+    "contractAddress": "0xC49F0Dd98F38C525A7ce15E73E60675456F3a161",
+    "denomination": "ETH",
+    "deviationThreshold": "0.5%",
+    "heartbeat": "24h",
+    "symbol": "bsdETH"
+  },
+  {
+    "contractAddress": "0xd9a66Ff1D660aD943F48e9c606D09eA672f312E8",
+    "denomination": "USD",
+    "deviationThreshold": "0.2%",
+    "heartbeat": "24h",
+    "symbol": "USD+"
+  }
+]

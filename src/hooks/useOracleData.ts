@@ -34,52 +34,6 @@ const compareDecimals = (
   };
 };
 
-// const comparePrices = async (
-//   oracleData: any,
-//   market: any,
-//   baseTokenDecimals: number,
-//   quoteTokenDecimals: number,
-//   chainId: number
-// ) => {
-//   const assetPrices = await queryAssetsPrices(
-//     chainId,
-//     market.collateralAsset.symbol,
-//     market.loanAsset.symbol
-//   );
-//   const collateralAssetPrice =
-//     assetPrices[market.collateralAsset.symbol]?.priceUsd;
-//   const loanAssetPrice = assetPrices[market.loanAsset.symbol]?.priceUsd;
-
-//   if (collateralAssetPrice == null || loanAssetPrice == null) {
-//     return {
-//       isVerified: false,
-//       reconstructedPrice: null,
-//       oraclePrice: oracleData?.priceUnscaled,
-//     };
-//   }
-
-//   const reconstructedPrice = parseFloat(
-//     (
-//       BigInt(
-//         Math.round(
-//           collateralAssetPrice * 10 ** (baseTokenDecimals - quoteTokenDecimals)
-//         )
-//       ) * BigInt(Math.round(loanAssetPrice))
-//     ) // /  BigInt(10 ** quoteTokenDecimals)
-//       .toString()
-//   );
-//   const percentageDiff = calculatePercentageDifference(
-//     Number(oracleData?.priceUnscaled),
-//     reconstructedPrice
-//   );
-
-//   return {
-//     isVerified: percentageDiff <= 20,
-//     reconstructedPrice,
-//     oraclePrice: oracleData?.priceUnscaled,
-//   };
-// };
-
 export const getOracleDataFromTx = async (
   txCreation: string,
   provider: Provider

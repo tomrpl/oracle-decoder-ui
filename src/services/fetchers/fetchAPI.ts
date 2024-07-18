@@ -140,7 +140,6 @@ export const queryAssetsPrices = async (
     });
 
     const result: any = await response.json();
-    console.log(result);
     const assets: { [key: string]: Asset } = {};
 
     const collateralKey = `collateralAssets`;
@@ -160,7 +159,6 @@ export const queryAssetsPrices = async (
       assets[loanAssetSymbol] = validLoanItems[0];
     }
 
-    console.log(assets);
     return assets;
   } catch (error) {
     throw error;
@@ -173,6 +171,8 @@ export const queryAsset = async (chainId: number) => {
     items {
       address
       symbol 
+      decimals
+      priceUsd
     }
   }
 }`;

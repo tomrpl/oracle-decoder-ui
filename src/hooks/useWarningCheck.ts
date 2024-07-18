@@ -40,8 +40,6 @@ const useWarningCheck = (
 
       const uniqueWarnings = new Set<string>();
 
-      console.log("Filtered Markets: ", filteredMarkets);
-
       const warningsArray: Warning[] = [];
 
       filteredMarkets.forEach((market: any) => {
@@ -58,8 +56,6 @@ const useWarningCheck = (
         const [level, type] = warning.split(":");
         warningsArray.push({ level, type });
       });
-
-      console.log("Warnings Array: ", warningsArray);
 
       setResult({
         isVerified: warningsArray.length === 0,

@@ -1,0 +1,243 @@
+/* OracleDecoder.css */
+.main-background {
+  background-image: url("../logos/wallpaper.png");
+  background-size: cover;
+  background-position: center;
+  padding: 60px;
+  min-height: 100vh;
+  opacity: 1;
+}
+
+.oracle-container {
+  font-family: "FKGrotesk";
+  padding: 30px;
+  background-color: #f0f2f7;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-height: 80vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  color: var(--ifm-color-dark-800);
+}
+
+.form-section {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.instructions {
+  background-color: var(--ifm-color-dark-0);
+  border-radius: 8px;
+  border: 0.5px solid var(--ifm-color-dark-0);
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 0.75rem;
+}
+
+.instructions p {
+  margin-top: 2px;
+  margin-bottom: 4px;
+}
+
+.inputs-section {
+  margin-bottom: 10px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input {
+  width: 400px;
+  font-size: 0.7rem;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--ifm-color-dark-600);
+}
+
+.submit-button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  background-color: var(--ifm-color-blue-base);
+  color: #fff;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: red;
+}
+
+.checks-section {
+  flex: 1;
+}
+
+.modal-content {
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.inputs-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.inputs-section {
+  flex: 1;
+}
+
+.inputs-title-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.submit-button {
+  background-color: var(--ifm-color-blue-base);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.inputs-section.horizontal-input {
+  display: flex;
+  align-items: center;
+}
+
+.inputs-section.horizontal-input .label {
+  margin-right: 10px; /* Adjust spacing between label and input as needed */
+  min-width: 200px; /* Set a minimum width for labels to align nicely */
+}
+
+.oracle-label {
+  display: block;
+  margin-left: 5px;
+  font-size: 0.8rem;
+  min-width: 40%;
+}
+
+.oracle-input {
+  font-size: 0.65rem;
+  width: 50%;
+  border: 0.5px solid grey;
+  border-radius: 2px;
+  height: 20px;
+  padding: 5px;
+  padding-left: 10px;
+}
+
+.oracle-input-not-supported {
+  background: #e2e3e5;
+  font-size: 0.65rem;
+  width: 50%;
+  border: 0.5px solid grey;
+  border-radius: 2px;
+  height: 20px;
+  padding: 5px;
+  padding-left: 10px;
+}
+
+.oracle-input-details {
+  font-size: 0.65rem;
+  color: grey;
+  font-style: italic;
+  margin-left: 5px;
+}
+
+.payload-section {
+  max-height: 300px; /* Adjust the height as needed */
+  overflow-y: auto;
+  border: 0.5px solid white;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 4px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.payload-content {
+  white-space: pre-wrap;
+  word-break: break-all;
+  font-size: 0.7rem;
+}
+
+.button-section {
+  margin-right: 7%;
+}
+
+.download-button-section {
+  margin-right: 3%;
+}
+
+.payload-section > h2 {
+  margin-top: 5px !important;
+  margin-bottom: 10px !important;
+}
+
+.external-link-button {
+  position: absolute;
+  top: 10px; /* Adjust as needed to fit within the parent */
+  right: 10px; /* Adjust as needed to fit within the parent */
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.6); /* Change to your preferred color */
+  font-size: 16px; /* Adjust font size if needed */
+}
+
+.external-link-button .button-text {
+  margin: 0 5px; /* Adjust spacing between elements */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.external-link-button:hover {
+  color: rgba(0, 0, 0, 0.8); /* Change to your preferred hover color */
+}
+
+.react-logo {
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+}
+
+.safe-icon {
+  width: 20px; /* Match the height if necessary */
+  height: 20px; /* Ensure consistent height */
+  margin-left: 5px; /* Adjust spacing as needed */
+  justify-content: center;
+  align-items: center;
+}

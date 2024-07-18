@@ -1,11 +1,11 @@
 import React from "react";
-
+import { BiCheckDouble, BiError } from "react-icons/bi";
 interface CheckItemProps {
   title: string;
   isVerified: boolean | null;
   details?: string;
   description?: string;
-  loading?: boolean; // Add the loading prop
+  loading?: boolean;
 }
 
 const CheckItem: React.FC<CheckItemProps> = ({
@@ -13,7 +13,7 @@ const CheckItem: React.FC<CheckItemProps> = ({
   isVerified,
   details,
   description,
-  loading, // Destructure the loading prop
+  loading,
 }) => {
   const backgroundColor =
     isVerified === null ? "#e2e3e5" : isVerified ? "#d4edda" : "#f8d7da";
@@ -26,18 +26,30 @@ const CheckItem: React.FC<CheckItemProps> = ({
         border: `0.5px solid ${backgroundColor}`,
         borderRadius: "8px",
         padding: "10px",
-        margin: "10px 0",
+        margin: "10px 0 0 0",
         backgroundColor: backgroundColor,
         color: textColor,
+        maxHeight: "130px",
+        overflowY: "auto",
       }}
     >
-      <h2 style={{ margin: "0" }}>{title}</h2>
+      <h2 style={{ margin: "2px", fontSize: "1rem" }}>
+        {title}
+        {isVerified === null ? (
+          ""
+        ) : isVerified ? (
+          <BiCheckDouble />
+        ) : (
+          <BiError />
+        )}
+      </h2>
       {description && (
         <p
           style={{
-            fontSize: "0.8rem",
+            fontSize: "0.7rem",
             color: "#6c757d",
             fontStyle: "italic",
+            margin: "1px",
           }}
         >
           {description}
@@ -47,8 +59,10 @@ const CheckItem: React.FC<CheckItemProps> = ({
         <p style={{ margin: "0", fontSize: "0.9rem" }}>Loading...</p>
       ) : (
         <p style={{ margin: "0", fontSize: "0.9rem", whiteSpace: "pre-wrap" }}>
-          {isVerified === null ? "Standby" : isVerified ? "✅" : "❌"}{" "}
-          {isVerified === null ? "" : details}
+          {isVerified === null
+            ? ""
+            : `
+${details}`}
         </p>
       )}
     </div>

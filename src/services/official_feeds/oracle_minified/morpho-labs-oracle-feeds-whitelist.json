@@ -1,0 +1,156 @@
+{
+  "oracleFeeds": [
+    {
+      "chainId": 1,
+      "contractName": "WstEthStEthExchangeRateChainlinkAdapter",
+      "contractAddress": "0x905b7dAbCD3Ce6B792D874e303D336424Cdb1421",
+      "description": "wstETH/stETH exchange rate",
+      "pair": ["wstETH", "stETH"],
+      "vendor": "Lido"
+    },
+    {
+      "chainId": 1,
+      "contractName": "WstETHPriceFeed",
+      "contractAddress": "0x4F67e4d9BD67eFa28236013288737D39AeF48e79",
+      "description": "Custom price feed for wstETH / ETH",
+      "pair": ["wstETH", "ETH"],
+      "vendor": "Compound"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0x0F0072fdDB300f9375C999cBcf9BDec07E7227d3",
+      "description": "Oval price feed for Chainlink Lido USDT / ETH price feed",
+      "pair": ["USDT", "ETH"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0xc47641ed51f73A82C62Ba439d90096bccC376fe8",
+      "description": "Oval price feed for Chainlink Lido stETH / ETH price feed",
+      "pair": ["STETH", "ETH"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0xb21d661fd6a3769ADB03e373dc00265f3c78cBfD",
+      "description": "Oval price feed for Chainlink ezETH / ETH price feed",
+      "pair": ["ezETH", "ETH"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0xE8f0CA2d311a9B669f525BFA306eBf59d4b64297",
+      "description": "Oval price feed for Chainlink USDC / ETH price feed",
+      "pair": ["USDC", "ETH"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0x4F78027C9e9B8E11dEc8139e248D74b9dDE05ceb",
+      "description": "Oval price feed for Chainlink weETH / ETH price feed",
+      "pair": ["weETH", "ETH"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0xAd73fF895dC265b5229e61f45226319471C4685e",
+      "description": "Oval price feed for Chainlink USDC / ETH price feed",
+      "pair": ["USDC", "ETH"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0x6a5a24455e5c9C288632944A88ceA923e0496024",
+      "description": "Oval price feed for Chainlink USDC / USD price feed",
+      "pair": ["USDC", "USD"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0xCf17f459F4D1D9e6fb5aa5013Bd2D7EB6083bd45",
+      "description": "Oval price feed for Chainlink TBTC / USD price feed",
+      "pair": ["TBTC", "USD"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "StakedUSDe",
+      "contractAddress": "0x9D39A5DE30e57443BfF2A8307A4256c8797A3497",
+      "description": "sUSDe / USDe exchange rate",
+      "pair": ["sUSDe", "USDe"],
+      "vendor": "Ethena"
+    },
+    {
+      "chainId": 1,
+      "contractName": "Savings DAI",
+      "contractAddress": "0x83F20F44975D03b1b09e64809B757c47f942BEeA",
+      "description": "sDAI / DAI exchange rate",
+      "pair": ["sDAI", "DAI"],
+      "vendor": "Maker"
+    },
+    {
+      "chainId": 1,
+      "contractName": "WOETHProxy",
+      "contractAddress": "0xDcEe70654261AF21C44c093C300eD3Bb97b78192",
+      "description": "WOETH / OETH exchange rate",
+      "pair": ["WOETH", "OETH"],
+      "vendor": "Origin Protocol"
+    },
+    {
+      "chainId": 1,
+      "contractName": "PythAggregatorV3",
+      "contractAddress": "0xF2d7B0F5cB09928DB0f0686F4e64b4aD96E04562",
+      "description": "UNI / USD Pyth price feed",
+      "pair": ["UNI", "USD"],
+      "vendor": "Pyth Network"
+    },
+    {
+      "chainId": 1,
+      "contractName": "PythAggregatorV3",
+      "contractAddress": "0xC5774412Dbd3734A5925936f320EE91a2940488D",
+      "description": "USDC / USD Pyth price feed",
+      "pair": ["USDC", "USD"],
+      "vendor": "Pyth Network"
+    },
+    {
+      "chainId": 1,
+      "contractName": "Staked agEUR",
+      "contractAddress": "0x004626A008B1aCdC4c74ab51644093b155e59A23",
+      "description": "stEUR / agEUR exchange rate",
+      "pair": ["stEUR", "agEUR"],
+      "vendor": "Angle"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0x4fC22E5f89891B6bd00d554B6250503d38EE5E4D",
+      "description": "Oval price feed for pufETH / ETH price feed",
+      "pair": ["pufETH", "ETH"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0x12A52946cFB6761c3cA69389C5FEFfe9CF3Ef4e3",
+      "description": "Oval price feed for USDC / ETH price feed",
+      "pair": ["USDC", "ETH"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "wUSD+ / USD+ exchange rate",
+      "contractAddress": "0xd95ca61CE9aAF2143E81Ef5462C0c2325172E028",
+      "description": "Exchange rate for wUSD+/USD+",
+      "pair": ["wUSD+", "USD+"],
+      "vendor": "Overnight"
+    }
+  ]
+}
