@@ -13,6 +13,7 @@ export const getProvider = (chainId: number): ethers.JsonRpcProvider => {
     console.log("RPC_URL not set. Exiting…");
     process.exit(1);
   }
+
   console.log("setting provider");
   return new ethers.JsonRpcProvider(endpoint);
 };
