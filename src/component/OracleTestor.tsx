@@ -58,6 +58,7 @@ const OracleTestor = () => {
 
   const {
     loading: decimalLoading,
+    // eslint-disable-next-line
     errors: decimalError,
     result: decimalResult,
     fetchDecimalsCheck,
@@ -79,6 +80,7 @@ const OracleTestor = () => {
 
   const {
     generatePayload,
+    // eslint-disable-next-line
     loading: payloadLoading,
     error: payloadError,
     result: payloadResult,
@@ -130,6 +132,7 @@ const OracleTestor = () => {
     };
 
     fetchAssets();
+    // eslint-disable-next-line
   }, [selectedNetwork]);
 
   const handleSubmit = async (event: React.FormEvent) => {
