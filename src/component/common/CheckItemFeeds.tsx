@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BiCheckDouble, BiError, BiCaretDown, BiCaretUp } from "react-icons/bi";
+import { ErrorTypes } from "../../services/errorTypes";
 interface FeedMetadata {
   address: string;
   vendor: string;
@@ -16,8 +17,8 @@ interface CheckItemFeedsProps {
   description?: string;
   loading?: boolean;
   feedsMetadata?: FeedMetadata[];
+  errors?: ErrorTypes[];
 }
-
 const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
   title,
   isVerified,
@@ -25,6 +26,7 @@ const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
   description,
   loading,
   feedsMetadata,
+  errors,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const backgroundColor =
@@ -135,6 +137,18 @@ const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
                           <strong>Chain ID:</strong> {feed.chainId}
                         </p>
                       </div>
+                    ))}
+                  </div>
+                )}
+                {errors && errors.length > 0 && (
+                  <div style={{ marginTop: "10px", color: "red" }}>
+                    {errors.map((error, index) => (
+                      <p
+                        key={index}
+                        style={{ margin: "0", fontSize: "0.8rem" }}
+                      >
+                        {error}
+                      </p>
                     ))}
                   </div>
                 )}

@@ -188,18 +188,19 @@ const useOraclePriceCheck = (
         : BigInt(0);
       const loanPriceUsd = loan ? BigInt(Math.round(loan.priceUsd)) : BigInt(0);
       const collateralDecimals = collateral?.decimals ?? 18;
+      const loanDecimals = loan?.decimals ?? 18;
 
-      const priceNormalized = price.wadDiv(scaleFactor);
       const priceUnscaledInCollateralTokenDecimals = formatUnits(
-        priceNormalized,
-        18 + collateralDecimals
+        price,
+        36 - collateralDecimals + loanDecimals
       );
 
       const ratioUsdPrice = collateralPriceUsd / loanPriceUsd;
-      const oraclePriceEquivalentInUsd = BigInt(priceNormalized);
+      const oraclePriceEquivalentInUsd = BigInt(price);
 
       const percentageDifference =
-        ((oraclePriceEquivalentInUsd / BigInt.pow10(18 + collateralDecimals) -
+        ((oraclePriceEquivalentInUsd /
+          BigInt.pow10(36 - collateralDecimals + loanDecimals) -
           ratioUsdPrice) *
           BigInt(100)) /
         ratioUsdPrice;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BiCheckDouble, BiError, BiCaretDown, BiCaretUp } from "react-icons/bi";
+import { ErrorTypes } from "../../services/errorTypes";
 
 interface CheckItemProps {
   title: string;
@@ -16,6 +17,7 @@ interface CheckItemProps {
   };
   description?: string;
   loading?: boolean;
+  errors?: ErrorTypes[];
 }
 
 const formatNumber = (num: string, decimals = 2) => {
@@ -28,6 +30,7 @@ const CheckItemPrice: React.FC<CheckItemProps> = ({
   details,
   description,
   loading,
+  errors,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -156,6 +159,18 @@ const CheckItemPrice: React.FC<CheckItemProps> = ({
                       %
                     </strong>
                   </p>
+                  {errors && errors.length > 0 && (
+                    <div style={{ marginTop: "10px", color: "red" }}>
+                      {errors.map((error, index) => (
+                        <p
+                          key={index}
+                          style={{ margin: "0", fontSize: "0.8rem" }}
+                        >
+                          {error}
+                        </p>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )
             )}

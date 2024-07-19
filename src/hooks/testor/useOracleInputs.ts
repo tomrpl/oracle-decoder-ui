@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 
 export interface OracleInputs {
   baseVault: string;
@@ -17,24 +17,21 @@ export interface OracleInputs {
 const defaultOracleInputs: OracleInputs = {
   baseVault: "0x0000000000000000000000000000000000000000",
   baseVaultConversionSample: 1,
-  baseFeed1: "0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23",
-  baseFeed2: "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c",
-  baseTokenDecimals: 8,
+  baseFeed1: "0x0000000000000000000000000000000000000000",
+  baseFeed2: "0x0000000000000000000000000000000000000000",
+  baseTokenDecimals: 18,
   quoteVault: "0x0000000000000000000000000000000000000000",
   quoteVaultConversionSample: 1,
-  quoteFeed1: "0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6",
+  quoteFeed1: "0x0000000000000000000000000000000000000000",
   quoteFeed2: "0x0000000000000000000000000000000000000000",
-  quoteTokenDecimals: 6,
+  quoteTokenDecimals: 18,
   salt: "0x0000000000000000000000000000000000000000",
 };
 
 const useOracleInputs = (selectedNetwork: number) => {
   const [oracleInputs, setOracleInputs] =
     useState<OracleInputs>(defaultOracleInputs);
-  // eslint-disable-next-line
   const [assets, setAssets] = useState<any[]>([]);
-
-  useEffect(() => {}, [selectedNetwork]);
 
   const handleOracleInputChange = (field: string, value: any) => {
     setOracleInputs((prevState) => ({
@@ -43,7 +40,38 @@ const useOracleInputs = (selectedNetwork: number) => {
     }));
   };
 
-  return { oracleInputs, handleOracleInputChange, assets };
+  const updateBaseTokenDecimals = useCallback(
+    (collateralAsset: string) => {
+      const collateralDecimals =
+        assets.find((asset) => asset.value === collateralAsset)?.decimals || 18;
+      setOracleInputs((prevState) => ({
+        ...prevState,
+        baseTokenDecimals: collateralDecimals,
+      }));
+    },
+    [assets]
+  );
+
+  const updateQuoteTokenDecimals = useCallback(
+    (loanAsset: string) => {
+      const loanDecimals =
+        assets.find((asset) => asset.value === loanAsset)?.decimals || 18;
+      setOracleInputs((prevState) => ({
+        ...prevState,
+        quoteTokenDecimals: loanDecimals,
+      }));
+    },
+    [assets]
+  );
+
+  return {
+    oracleInputs,
+    handleOracleInputChange,
+    updateBaseTokenDecimals,
+    updateQuoteTokenDecimals,
+    assets,
+    setAssets,
+  };
 };
 
 export default useOracleInputs;
