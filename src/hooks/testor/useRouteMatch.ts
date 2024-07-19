@@ -262,32 +262,3 @@ const useRouteMatch = () => {
 };
 
 export default useRouteMatch;
-
-//       let lastFeedPair;
-//       if (
-//         quoteFeeds.length > 0 &&
-//         quoteFeeds[quoteFeeds.length - 1] !== ZERO_ADDRESS
-//       ) {
-//         lastFeedPair = edges.find(
-//           (e) =>
-//             e.feed.contractAddress.toLowerCase() ===
-//             quoteFeeds[quoteFeeds.length - 1]
-//         )?.feed.pair;
-//       } else if (quoteFeeds.length > 0 && quoteFeeds[0] !== ZERO_ADDRESS) {
-//         lastFeedPair = edges.find(
-//           (e) => e.feed.contractAddress.toLowerCase() === quoteFeeds[0]
-//         )?.feed.pair;
-//       } else if (
-//         baseFeeds.length > 0 &&
-//         baseFeeds[baseFeeds.length - 1] !== ZERO_ADDRESS
-//       ) {
-//         lastFeedPair = edges.find(
-//           (e) =>
-//             e.feed.contractAddress.toLowerCase() ===
-//             baseFeeds[baseFeeds.length - 1]
-//         )?.feed.pair;
-//       } else {
-//         lastFeedPair = edges.find(
-//           (e) => e.feed.contractAddress.toLowerCase() === baseFeeds[0]
-//         )?.feed.pair;
-//       }
