@@ -14,6 +14,9 @@ export enum ErrorTypes {
   INVALID_COLLATERAL_FEED = "INVALID_COLLATERAL_FEED", // New
   INVALID_LOAN_FEED = "INVALID_LOAN_FEED", // New
   INTERMEDIATE_ASSET_MISMATCH = "INTERMEDIATE_ASSET_MISMATCH", // New
+  NO_FEEDS_PROVIDED = "NO_FEEDS_PROVIDED", // New
+  INVALID_BASE_FEEDS = "INVALID_BASE_FEEDS", // New
+  INVALID_QUOTE_FEEDS = "INVALID_QUOTE_FEEDS", // New
 }
 
 export const ErrorMessages: { [key in ErrorTypes]: string } = {
@@ -33,11 +36,16 @@ export const ErrorMessages: { [key in ErrorTypes]: string } = {
   [ErrorTypes.INVALID_FEEDS]: "Feeds are not whitelisted",
   [ErrorTypes.ZERO_ADDRESS_ERROR]: "Wrong Oracle inputs",
   [ErrorTypes.INVALID_COLLATERAL_FEED]:
-    "The first base feed does not match the collateral asset.", // New
+    "The first base feed does not match the collateral asset.",
   [ErrorTypes.INVALID_LOAN_FEED]:
-    "The last quote feed does not match the loan asset.", // New
+    "The last quote feed does not match the loan asset.",
   [ErrorTypes.INTERMEDIATE_ASSET_MISMATCH]:
-    "The intermediate asset does not match between base and quote feeds.", // New
+    "The intermediate asset does not match between base and quote feeds.",
+  [ErrorTypes.NO_FEEDS_PROVIDED]: "No feeds provided",
+  [ErrorTypes.INVALID_BASE_FEEDS]:
+    "The first base feed does not match the collateral asset.",
+  [ErrorTypes.INVALID_QUOTE_FEEDS]:
+    "The last quote feed does not match the loan asset.",
 };
 
 export enum LoadingStates {

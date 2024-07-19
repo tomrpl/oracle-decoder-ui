@@ -132,6 +132,16 @@ const useRouteMatch = () => {
         .filter((feed) => feed !== ZERO_ADDRESS)
         .map((feed) => feed.toLowerCase());
 
+      const feeds = [...baseFeeds, ...quoteFeeds];
+
+      if (feeds.length === 0) {
+        setErrors((prevErrors) => [
+          ...prevErrors,
+          ErrorTypes.NO_FEEDS_PROVIDED,
+        ]);
+        return false;
+      }
+
       const firstBaseFeedPair = edges.find(
         (e) => e.feed.contractAddress.toLowerCase() === baseFeeds[0]
       )?.feed.pair;
@@ -152,43 +162,35 @@ const useRouteMatch = () => {
         ? findIntermediateAsset(baseFeeds[0])
         : null;
 
-      if (!currentAsset) return false;
-
       currentAsset = baseFeeds[1]
-        ? findIntermediateAsset(baseFeeds[1])
+        ? findIntermediateAsset(baseFeeds[1]) || currentAsset
         : currentAsset;
 
-      if (!currentAsset) return false;
-
-      const intermediateAsset = currentAsset;
-
-      const lastQuoteFeedPair = edges.find(
-        (e) =>
-          e.feed.contractAddress.toLowerCase() ===
-          quoteFeeds[quoteFeeds.length - 1]
-      )?.feed.pair;
-      if (
-        !lastQuoteFeedPair ||
-        lastQuoteFeedPair[0].toLowerCase() !== loanAssetSymbol.toLowerCase()
-      ) {
+      if (!currentAsset) {
         setErrors((prevErrors) => [
           ...prevErrors,
-          ErrorTypes.INVALID_LOAN_FEED,
+          ErrorTypes.INVALID_BASE_FEEDS,
         ]);
         return false;
       }
 
+      const intermediateAsset = currentAsset;
+
       currentAsset = quoteFeeds[0]
-        ? findIntermediateAsset(quoteFeeds[0])
-        : null;
-
-      if (!currentAsset) return false;
-
-      currentAsset = quoteFeeds[1]
-        ? findIntermediateAsset(quoteFeeds[1])
+        ? findIntermediateAsset(quoteFeeds[0]) || currentAsset
         : currentAsset;
 
-      if (!currentAsset) return false;
+      currentAsset = quoteFeeds[1]
+        ? findIntermediateAsset(quoteFeeds[1]) || currentAsset
+        : currentAsset;
+
+      if (!currentAsset) {
+        setErrors((prevErrors) => [
+          ...prevErrors,
+          ErrorTypes.INVALID_QUOTE_FEEDS,
+        ]);
+        return false;
+      }
 
       const isValid = intermediateAsset === currentAsset;
 
@@ -260,3 +262,32 @@ const useRouteMatch = () => {
 };
 
 export default useRouteMatch;
+
+//       let lastFeedPair;
+//       if (
+//         quoteFeeds.length > 0 &&
+//         quoteFeeds[quoteFeeds.length - 1] !== ZERO_ADDRESS
+//       ) {
+//         lastFeedPair = edges.find(
+//           (e) =>
+//             e.feed.contractAddress.toLowerCase() ===
+//             quoteFeeds[quoteFeeds.length - 1]
+//         )?.feed.pair;
+//       } else if (quoteFeeds.length > 0 && quoteFeeds[0] !== ZERO_ADDRESS) {
+//         lastFeedPair = edges.find(
+//           (e) => e.feed.contractAddress.toLowerCase() === quoteFeeds[0]
+//         )?.feed.pair;
+//       } else if (
+//         baseFeeds.length > 0 &&
+//         baseFeeds[baseFeeds.length - 1] !== ZERO_ADDRESS
+//       ) {
+//         lastFeedPair = edges.find(
+//           (e) =>
+//             e.feed.contractAddress.toLowerCase() ===
+//             baseFeeds[baseFeeds.length - 1]
+//         )?.feed.pair;
+//       } else {
+//         lastFeedPair = edges.find(
+//           (e) => e.feed.contractAddress.toLowerCase() === baseFeeds[0]
+//         )?.feed.pair;
+//       }

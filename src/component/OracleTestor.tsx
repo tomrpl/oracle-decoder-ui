@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-
 import ToggleButtonGroup from "./common/ToggleButtonGroup";
 import CheckItem from "./common/CheckItem";
 import CheckItemPrice from "./common/CheckItemPrice";
 import "./common.css";
-
 import useOracleInputs from "../hooks/testor/useOracleInputs";
 import useOracleDecimalsCheck from "../hooks/testor/useOracleDecimalsCheck";
 import useRouteMatch from "../hooks/testor/useRouteMatch";
 import useOraclePayload from "../hooks/testor/useOraclePayload";
-
 import { queryAsset } from "../services/fetchers/fetchAPI";
 import { LoadingStates } from "../services/errorTypes";
-
 import { LuExternalLink } from "react-icons/lu";
 import useOraclePriceCheck from "../hooks/testor/useOraclePriceCheck";
 import CheckItemFeeds from "./common/CheckItemFeeds";
@@ -23,9 +19,6 @@ const baseLogo = "https://cdn.morpho.org/assets/chains/base.png";
 
 const OracleTestor = () => {
   const [activeButton, setActiveButton] = useState<string>("testor");
-  const [assets, setAssets] = useState<
-    { value: string; label: string; decimals: number; priceUsd: number }[]
-  >([]);
   const [collateralAsset, setCollateralAsset] = useState("");
   const [loanAsset, setLoanAsset] = useState("");
   const [collateralAssetTouched, setCollateralAssetTouched] = useState(false);
@@ -54,13 +47,17 @@ const OracleTestor = () => {
     ),
   });
 
-  const { oracleInputs, handleOracleInputChange } = useOracleInputs(
-    selectedNetwork.value
-  );
+  const {
+    oracleInputs,
+    handleOracleInputChange,
+    updateBaseTokenDecimals,
+    updateQuoteTokenDecimals,
+    assets,
+    setAssets,
+  } = useOracleInputs(selectedNetwork.value);
 
   const {
     loading: decimalLoading,
-    // eslint-disable-next-line
     errors: decimalError,
     result: decimalResult,
     fetchDecimalsCheck,
@@ -74,7 +71,6 @@ const OracleTestor = () => {
 
   const {
     loading: routeLoading,
-    // eslint-disable-next-line
     errors: routeError,
     result: routeResult,
     tryingRouteMatch,
@@ -83,7 +79,6 @@ const OracleTestor = () => {
 
   const {
     generatePayload,
-    // eslint-disable-next-line
     loading: payloadLoading,
     error: payloadError,
     result: payloadResult,
@@ -91,7 +86,6 @@ const OracleTestor = () => {
 
   const {
     loading: priceLoading,
-    // eslint-disable-next-line
     errors: priceError,
     result: priceResult,
     priceCheck,
@@ -248,7 +242,7 @@ const OracleTestor = () => {
               </p>
               <p>
                 The <strong>Base Vault</strong> and <strong>Quote Vault</strong>{" "}
-                are not suppported yet. The <strong>salt</strong> value can be
+                are not supported yet. The <strong>salt</strong> value can be
                 ignored for now.
               </p>
             </div>
@@ -287,6 +281,7 @@ const OracleTestor = () => {
                     onChange={(selectedOption) => {
                       setCollateralAsset(selectedOption?.value || "");
                       setCollateralAssetTouched(true);
+                      updateBaseTokenDecimals(selectedOption?.value || "");
                     }}
                     styles={{
                       control: (base) => ({
@@ -308,6 +303,7 @@ const OracleTestor = () => {
                     onChange={(selectedOption) => {
                       setLoanAsset(selectedOption?.value || "");
                       setLoanAssetTouched(true);
+                      updateQuoteTokenDecimals(selectedOption?.value || "");
                     }}
                     styles={{
                       control: (base) => ({
@@ -569,6 +565,7 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
                 formSubmitted ? routeLoading === LoadingStates.LOADING : false
               }
               feedsMetadata={formSubmitted ? routeResult?.feedsMetadata : []}
+              errors={routeError}
             />
 
             <CheckItemPrice
@@ -596,6 +593,7 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
               }
               description="Compute the deviation price between the 2 assets priced in the api and the reconstructed oracle price thanks to the underlying feeds."
               loading={formSubmitted ? priceLoading : false}
+              errors={priceError}
             />
 
             {showPayload && (
