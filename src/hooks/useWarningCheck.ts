@@ -8,16 +8,26 @@ interface Warning {
 const useWarningCheck = (
   markets: any[],
   collateralAsset: string,
-  loanAsset: string,
-  performCheck: boolean
+  loanAsset: string
 ) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<any>(null);
 
   useEffect(() => {
-    if (!performCheck || !markets) return;
-
+    if (!markets || markets.length === 0) {
+      setResult({
+        isVerified: false,
+        warnings: [
+          {
+            level: "info",
+            type: "No markets created with this oracle address and provided assets",
+          },
+        ],
+      });
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError(null);
 
@@ -70,7 +80,7 @@ const useWarningCheck = (
     } finally {
       setLoading(false);
     }
-  }, [markets, collateralAsset, loanAsset, performCheck]);
+  }, [markets, collateralAsset, loanAsset]);
 
   return { loading, error, result };
 };

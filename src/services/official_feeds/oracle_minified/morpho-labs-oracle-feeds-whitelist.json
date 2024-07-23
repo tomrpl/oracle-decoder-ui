@@ -151,6 +151,86 @@
       "description": "Exchange rate for wUSD+/USD+",
       "pair": ["wUSD+", "USD+"],
       "vendor": "Overnight"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "Chronicle_WSTETH_USD_1",
+      "contractAddress": "0x02a0eA9F5000472D764293bC77622be6C6Cbc2f0",
+      "description": "wstETH / USD Chronicle price feed",
+      "pair": ["wstETH", "USD"],
+      "vendor": "Chronicle"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "Chronicle_CBETH_USD_1",
+      "contractAddress": "0x371A53bB4203Ad5D7e60e220BaC1876FF3Ddda5B",
+      "description": "cbETH / USD Chronicle price feed",
+      "pair": ["cbETH", "USD"],
+      "vendor": "Chronicle"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "Chronicle_ETH_USD_1",
+      "contractAddress": "0x152598809FB59db55cA76f89a192Fb23555531D8",
+      "description": "ETH / USD Chronicle price feed",
+      "pair": ["ETH", "USD"],
+      "vendor": "Chronicle"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "PythAggregatorV3",
+      "contractAddress": "0x903ab5fae9ba089b1d4fce55bbb40e1a07acef59",
+      "description": "pufETH / USD Pyth price feed",
+      "pair": ["pufETH", "USD"],
+      "vendor": "Pyth Network"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "PythAggregatorV3",
+      "contractAddress": "0x4429B7c2a044DD41fb8CA64d64398e8eF37814e4",
+      "description": "weETH / USD Pyth price feed",
+      "pair": ["weETH", "USD"],
+      "vendor": "Pyth Network"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "PythAggregatorV3",
+      "contractAddress": "0xB9A063eC10abFE6C03D974a82E7A6429F88602bF",
+      "description": "ezETH / USD Pyth price feed",
+      "pair": ["ezETH", "USD"],
+      "vendor": "Pyth Network"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "PythAggregatorV3",
+      "contractAddress": "0x75c5034e268Df404A839Ed89D507F26309217548",
+      "description": "cbETH / USD Pyth price feed",
+      "pair": ["cbETH", "USD"],
+      "vendor": "Pyth Network"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "PythAggregatorV3",
+      "contractAddress": "0xb2c122567229A413bd8fe2aBADedaD2ED97436dB",
+      "description": "wstETH / USD Pyth price feed",
+      "pair": ["wstETH", "USD"],
+      "vendor": "Pyth Network"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "PythAggregatorV3",
+      "contractAddress": "0x4af3E0d3A45Ac89234F5dEAc723d5eE6C0224De3",
+      "description": "USDC / USD Pyth price feed",
+      "pair": ["USDC", "USD"],
+      "vendor": "Pyth Network"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "PythAggregatorV3",
+      "contractAddress": "0x59F78DE21a0b05d96Ae00c547BA951a3B905602f",
+      "description": "ETH / USD Pyth price feed",
+      "pair": ["ETH", "USD"],
+      "vendor": "Pyth Network"
     }
   ]
 }

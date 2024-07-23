@@ -14,6 +14,5 @@ export const getProvider = (chainId: number): ethers.JsonRpcProvider => {
     process.exit(1);
   }
 
-  console.log("setting provider");
   return new ethers.JsonRpcProvider(endpoint);
 };
