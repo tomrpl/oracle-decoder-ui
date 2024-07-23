@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 const useDecimalCheck = (
   baseTokenDecimals: number,
   quoteTokenDecimals: number,
-  markets: any[],
   collateralAsset: string,
   loanAsset: string,
+  assets: any[],
   performCheck: boolean
 ) => {
   const [loading, setLoading] = useState(false);
@@ -13,24 +13,20 @@ const useDecimalCheck = (
   const [result, setResult] = useState<any>(null);
 
   useEffect(() => {
-    if (!performCheck || !markets) return;
+    if (!performCheck) return;
 
     setLoading(true);
     setError(null);
 
     try {
-      const market = markets.find(
-        (market: any) =>
-          market.collateralAsset.symbol === collateralAsset &&
-          market.loanAsset.symbol === loanAsset
-      );
+      const collateralAssetDecimal =
+        assets.find((asset) => asset.value === collateralAsset)?.decimals || "";
 
-      if (!market) {
-        throw new Error("No matching market found for the provided assets.");
-      }
+      const loanAssetDecimal =
+        assets.find((asset) => asset.value === loanAsset)?.decimals || "";
 
-      const baseTokenMarketDecimals = Number(market.collateralAsset.decimals);
-      const quoteTokenMarketDecimals = Number(market.loanAsset.decimals);
+      const baseTokenMarketDecimals = Number(collateralAssetDecimal);
+      const quoteTokenMarketDecimals = Number(loanAssetDecimal);
       const baseTokenDecimalsNumber = Number(baseTokenDecimals);
       const quoteTokenDecimalsNumber = Number(quoteTokenDecimals);
 
@@ -57,9 +53,9 @@ const useDecimalCheck = (
   }, [
     baseTokenDecimals,
     quoteTokenDecimals,
-    markets,
     collateralAsset,
     loanAsset,
+    assets,
     performCheck,
   ]);
 

@@ -67,7 +67,6 @@ const useFetchOracleData = () => {
 
       if (!markets || markets.markets.length === 0) {
         setErrors((prevErrors) => [...prevErrors, ErrorTypes.NO_MARKETS_FOUND]);
-        setLoadingState(LoadingStates.COMPLETED);
         return;
       }
 
@@ -75,7 +74,10 @@ const useFetchOracleData = () => {
       setMarketData(markets);
     } catch (error) {
       console.error("Error fetching oracle data:", error);
-      setErrors((prevErrors) => [...prevErrors, ErrorTypes.FETCH_ERROR]);
+      setErrors((prevErrors) => [
+        ...prevErrors,
+        ErrorTypes.FETCH_ORACLE_ADDRESS_ERROR,
+      ]);
     } finally {
       setLoadingState(LoadingStates.COMPLETED);
     }

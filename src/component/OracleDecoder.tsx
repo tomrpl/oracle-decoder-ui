@@ -8,6 +8,10 @@ import "./common.css";
 import { queryAsset } from "../services/fetchers/fetchAPI";
 import { ErrorMessages, LoadingStates } from "../services/errorTypes";
 import ToggleButtonGroup from "./common/ToggleButtonGroup";
+import CheckItemFeeds from "./common/CheckItemFeeds";
+import useRouteMatch from "../hooks/testor/useRouteMatch";
+import CheckItemPrice from "./common/CheckItemPrice";
+import useOraclePriceCheck from "../hooks/testor/useOraclePriceCheck";
 
 const ethLogo = "https://cdn.morpho.org/assets/chains/eth.svg";
 const baseLogo = "https://cdn.morpho.org/assets/chains/base.png";
@@ -18,10 +22,13 @@ const OracleDecoder = () => {
   );
   const [collateralAsset, setCollateralAsset] = useState("");
   const [loanAsset, setLoanAsset] = useState("");
-  const [assets, setAssets] = useState<{ value: string; label: string }[]>([]);
+  const [assets, setAssets] = useState<
+    { value: string; label: string; decimals: number; priceUsd: number }[]
+  >([]);
   const [oracleAddressTouched, setOracleAddressTouched] = useState(false);
   const [collateralAssetTouched, setCollateralAssetTouched] = useState(false);
   const [loanAssetTouched, setLoanAssetTouched] = useState(false);
+  // eslint-disable-next-line
   const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [countdown, setCountdown] = useState(5);
@@ -54,21 +61,45 @@ const OracleDecoder = () => {
 
   const {
     loading: decimalLoading,
+    // eslint-disable-next-line
     error: decimalError,
     result: decimalResult,
   } = useDecimalCheck(
     oracleData?.baseTokenDecimals,
     oracleData?.quoteTokenDecimals,
-    marketData?.markets,
     collateralAsset,
     loanAsset,
+    assets,
     true
   );
+
   const {
     loading: warningLoading,
+    // eslint-disable-next-line
     error: warningError,
     result: warningResult,
-  } = useWarningCheck(marketData?.markets, collateralAsset, loanAsset, true);
+  } = useWarningCheck(marketData?.markets, collateralAsset, loanAsset);
+
+  const {
+    loading: routeLoading,
+    errors: routeError,
+    result: routeResult,
+    tryingRouteMatch,
+    resetState,
+  } = useRouteMatch();
+
+  const {
+    loading: priceLoading,
+    errors: priceError,
+    result: priceResult,
+    priceCheck,
+  } = useOraclePriceCheck(
+    selectedNetwork.value,
+    oracleData,
+    collateralAsset,
+    loanAsset,
+    assets
+  );
 
   useEffect(() => {
     setIsSubmitEnabled(
@@ -93,8 +124,10 @@ const OracleDecoder = () => {
       try {
         const assets = await queryAsset(selectedNetwork.value);
         const formattedAssets = assets.map((asset: any) => ({
-          value: asset.symbol,
+          value: asset.address,
           label: asset.symbol,
+          decimals: asset.decimals,
+          priceUsd: asset.priceUsd,
         }));
         setAssets(formattedAssets);
       } catch (error) {
@@ -107,6 +140,8 @@ const OracleDecoder = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    resetState();
+
     setIsSubmitting(true);
     setSubmitStarted(true);
 
@@ -122,8 +157,27 @@ const OracleDecoder = () => {
 
     await fetchOracleDataDetails(oracleAddress, selectedNetwork.value);
 
-    setIsSubmitting(false);
+    // Remove the rest of the code from here
   };
+
+  useEffect(() => {
+    if (oracleData) {
+      const collateralAssetSymbol =
+        assets.find((asset) => asset.value === collateralAsset)?.label || "";
+
+      const loanAssetSymbol =
+        assets.find((asset) => asset.value === loanAsset)?.label || "";
+
+      tryingRouteMatch(
+        oracleData,
+        selectedNetwork.value,
+        collateralAssetSymbol,
+        loanAssetSymbol
+      ).finally(() => setIsSubmitting(false));
+
+      priceCheck().finally(() => setIsSubmitting(false));
+    } // eslint-disable-next-line
+  }, [oracleData, selectedNetwork.value, collateralAsset, loanAsset]);
 
   const networkOptions = [
     {
@@ -287,7 +341,7 @@ const OracleDecoder = () => {
               <div style={{ textAlign: "right" }}>
                 <button
                   type="submit"
-                  disabled={!isSubmitEnabled || isSubmitting}
+                  disabled={isSubmitting}
                   className="submit-button"
                   style={{ opacity: isSubmitting ? 0.6 : 1 }}
                 >
@@ -347,12 +401,47 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
               loading={warningLoading}
             />
 
-            {(decimalError || warningError) && (
-              <div className="error-message">
-                {decimalError && <p>Error: {decimalError}</p>}
-                {warningError && <p>Error: {warningError}</p>}
-              </div>
-            )}
+            <CheckItemFeeds
+              title="Feeds Check"
+              isVerified={routeResult?.isValid ?? null}
+              details={
+                routeResult
+                  ? routeResult.isValid
+                    ? "The Route seems Valid"
+                    : "The Route seems not valid"
+                  : ""
+              }
+              description={`Verify that combination of feeds is valid and that the oracle can be deployed with the provided inputs.`}
+              loading={routeLoading === LoadingStates.LOADING ?? false}
+              feedsMetadata={routeResult?.feedsMetadata ?? []}
+              errors={routeError}
+            />
+
+            <CheckItemPrice
+              title="Price Check"
+              isVerified={priceResult?.isVerified ?? null}
+              details={
+                priceResult
+                  ? {
+                      scaleFactor: priceResult.scaleFactor,
+                      oraclePrice: priceResult.price,
+                      oraclePriceUnscaled: priceResult.priceUnscaled,
+                      priceUnscaledInCollateralTokenDecimals:
+                        priceResult.priceUnscaledInCollateralTokenDecimals,
+                      collateralPriceUsd: priceResult.collateralPriceUsd,
+                      loanPriceUsd: priceResult.loanPriceUsd,
+                      ratioUsdPrice: (
+                        parseFloat(priceResult.collateralPriceUsd) /
+                        parseFloat(priceResult.loanPriceUsd)
+                      ).toString(),
+                      percentageDifference: priceResult.percentageDifference,
+                    }
+                  : undefined
+              }
+              description="Compute the deviation price between the 2 assets priced in the api and the reconstructed oracle price thanks to the underlying feeds."
+              loading={priceLoading ?? false}
+              errors={priceError}
+            />
           </div>
         </div>
       </div>

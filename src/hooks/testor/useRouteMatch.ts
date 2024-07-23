@@ -28,6 +28,7 @@ const useRouteMatch = () => {
     setErrors([]);
     setResult(null);
   };
+
   const tryingRouteMatch = async (
     oracleInputs: OracleInputs,
     chainId: number,

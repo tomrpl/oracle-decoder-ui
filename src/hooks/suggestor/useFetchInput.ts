@@ -34,7 +34,6 @@ const fetchFeeds = async ({
   if (!collateralAsset || !loanAsset) {
     throw new Error(ErrorTypes.FETCH_INPUT_ASSET_ERROR);
   }
-  console.log("Fetching feeds for:", collateralAsset, loanAsset);
 
   return {
     baseVault: "0x0000000000000000000000000000000000000000",
@@ -72,7 +71,6 @@ const useFetchInput = () => {
 
     try {
       const result = await fetchFeeds({ collateral, loan, networkId, assets });
-      console.log("Fetched Input Data in hook:", result);
       setInputData(result);
       setError(null); // Ensure error is reset on success
     } catch (err) {
