@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { ErrorTypes, LoadingStates } from "../services/errorTypes";
 
 interface Warning {
   level: string;
@@ -6,15 +7,28 @@ interface Warning {
 }
 
 const useWarningCheck = (
+  triggerCheck: boolean,
   markets: any[],
   collateralAsset: string,
   loanAsset: string
 ) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<LoadingStates>(
+    LoadingStates.NOT_STARTED
+  );
+  const [errors, setErrors] = useState<ErrorTypes[]>([]);
   const [result, setResult] = useState<any>(null);
 
+  const resetState = () => {
+    setLoading(LoadingStates.NOT_STARTED);
+    setErrors([]);
+    setResult(null);
+  };
+
   useEffect(() => {
+    if (!triggerCheck) return;
+    setLoading(LoadingStates.LOADING);
+    setErrors([]);
+
     if (!markets || markets.length === 0) {
       setResult({
         isVerified: false,
@@ -25,11 +39,9 @@ const useWarningCheck = (
           },
         ],
       });
-      setLoading(false);
+      setLoading(LoadingStates.COMPLETED);
       return;
     }
-    setLoading(true);
-    setError(null);
 
     try {
       const criticalWarnings = [
@@ -71,18 +83,20 @@ const useWarningCheck = (
         isVerified: warningsArray.length === 0,
         warnings: warningsArray,
       });
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("An unknown error occurred at warning check level");
-      }
+      setLoading(LoadingStates.COMPLETED);
+    } catch (error) {
+      console.error("Error checking warnings:", error);
+      setErrors((prevErrors) => [
+        ...prevErrors,
+        ErrorTypes.FETCH_WARNING_ERROR,
+      ]);
+      setResult({ isValid: false });
     } finally {
-      setLoading(false);
+      setLoading(LoadingStates.COMPLETED);
     }
-  }, [markets, collateralAsset, loanAsset]);
+  }, [triggerCheck, markets, collateralAsset, loanAsset]);
 
-  return { loading, error, result };
+  return { loading, errors, result, resetState };
 };
 
 export default useWarningCheck;

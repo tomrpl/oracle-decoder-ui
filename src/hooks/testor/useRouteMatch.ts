@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ErrorTypes, LoadingStates } from "../../services/errorTypes";
-import { OracleInputs } from "./useOracleInputs";
+import { OracleInputs } from "../types";
 import { getOraclesWhitelist } from "../../services/official_feeds/oracle_minified";
 
 interface AssetNode {
@@ -46,6 +46,7 @@ const useRouteMatch = () => {
       oracleInputs.baseVault,
       oracleInputs.quoteVault,
     ];
+
     const nonZeroAddressExists = addresses.some(
       (addr) => addr !== ZERO_ADDRESS
     );
@@ -66,10 +67,12 @@ const useRouteMatch = () => {
     }
 
     const feeds = [
+      oracleInputs.baseVault,
       oracleInputs.baseFeed1,
       oracleInputs.baseFeed2,
       oracleInputs.quoteFeed1,
       oracleInputs.quoteFeed2,
+      oracleInputs.quoteVault,
     ].filter((feed) => feed !== ZERO_ADDRESS);
 
     const allFeedsExist = feeds.every(feedExists);
@@ -147,10 +150,12 @@ const useRouteMatch = () => {
         (e) => e.feed.contractAddress.toLowerCase() === baseFeeds[0]
       )?.feed.pair;
 
+      console.log("firstBaseFeedPair", firstBaseFeedPair);
+      console.log("collateralAssetSymbol", collateralAssetSymbol);
+
       if (
-        !firstBaseFeedPair ||
         firstBaseFeedPair[0].toLowerCase() !==
-          collateralAssetSymbol.toLowerCase()
+        collateralAssetSymbol.toLowerCase()
       ) {
         setErrors((prevErrors) => [
           ...prevErrors,

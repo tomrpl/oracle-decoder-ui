@@ -13,12 +13,14 @@ import { LoadingStates } from "../services/errorTypes";
 import { LuExternalLink } from "react-icons/lu";
 import useOraclePriceCheck from "../hooks/testor/useOraclePriceCheck";
 import CheckItemFeeds from "./common/CheckItemFeeds";
+import { Asset } from "../hooks/types";
 
 const ethLogo = "https://cdn.morpho.org/assets/chains/eth.svg";
 const baseLogo = "https://cdn.morpho.org/assets/chains/base.png";
 
 const OracleTestor = () => {
   const [activeButton, setActiveButton] = useState<string>("testor");
+
   const [collateralAsset, setCollateralAsset] = useState("");
   const [loanAsset, setLoanAsset] = useState("");
   const [collateralAssetTouched, setCollateralAssetTouched] = useState(false);
@@ -119,12 +121,28 @@ const OracleTestor = () => {
     const fetchAssets = async () => {
       try {
         const assets = await queryAsset(selectedNetwork.value);
-        const formattedAssets = assets.map((asset: any) => ({
-          value: asset.address,
-          label: asset.symbol,
-          decimals: asset.decimals,
-          priceUsd: asset.priceUsd,
-        }));
+        const formattedAssets = assets.map((asset: any) => {
+          const formattedAsset: Asset = {
+            value: asset.address,
+            label: asset.symbol,
+            decimals: asset.decimals,
+            priceUsd: asset.priceUsd ?? 0, // Provide a default value of 0 when priceUsd is null
+          };
+
+          if (asset.vault) {
+            formattedAsset.vault = {
+              address: asset.vault.address,
+              name: asset.vault.name,
+              asset: {
+                symbol: asset.vault.asset.symbol,
+                address: asset.vault.asset.address,
+                decimals: asset.vault.asset.decimals,
+              },
+            };
+          }
+
+          return formattedAsset;
+        });
         setAssets(formattedAssets);
       } catch (error) {
         console.error("Error fetching assets:", error);
@@ -158,6 +176,8 @@ const OracleTestor = () => {
 
     const collateralAssetSymbol =
       assets.find((asset) => asset.value === collateralAsset)?.label || "";
+
+    console.log("collateral asset symbol", collateralAssetSymbol);
 
     const loanAssetSymbol =
       assets.find((asset) => asset.value === loanAsset)?.label || "";
@@ -586,10 +606,8 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
                         priceResult.priceUnscaledInCollateralTokenDecimals,
                       collateralPriceUsd: priceResult.collateralPriceUsd,
                       loanPriceUsd: priceResult.loanPriceUsd,
-                      ratioUsdPrice: (
-                        parseFloat(priceResult.collateralPriceUsd) /
-                        parseFloat(priceResult.loanPriceUsd)
-                      ).toString(),
+                      ratioUsdPrice: priceResult.ratioUsdPrice,
+                      oraclePriceEquivalent: priceResult.oraclePriceEquivalent,
                       percentageDifference: priceResult.percentageDifference,
                     }
                   : undefined

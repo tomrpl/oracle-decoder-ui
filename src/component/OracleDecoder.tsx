@@ -33,6 +33,7 @@ const OracleDecoder = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [countdown, setCountdown] = useState(5);
   const [submitStarted, setSubmitStarted] = useState(false);
+  const [triggerCheck, setTriggerCheck] = useState(false);
 
   const [selectedNetwork, setSelectedNetwork] = useState<{
     value: number;
@@ -62,23 +63,28 @@ const OracleDecoder = () => {
   const {
     loading: decimalLoading,
     // eslint-disable-next-line
-    error: decimalError,
+    errors: decimalError,
     result: decimalResult,
   } = useDecimalCheck(
+    triggerCheck,
     oracleData?.baseTokenDecimals,
     oracleData?.quoteTokenDecimals,
     collateralAsset,
     loanAsset,
-    assets,
-    true
+    assets
   );
 
   const {
     loading: warningLoading,
     // eslint-disable-next-line
-    error: warningError,
+    errors: warningError,
     result: warningResult,
-  } = useWarningCheck(marketData?.markets, collateralAsset, loanAsset);
+  } = useWarningCheck(
+    triggerCheck,
+    marketData?.markets,
+    collateralAsset,
+    loanAsset
+  );
 
   const {
     loading: routeLoading,
@@ -156,8 +162,7 @@ const OracleDecoder = () => {
     }, 1000);
 
     await fetchOracleDataDetails(oracleAddress, selectedNetwork.value);
-
-    // Remove the rest of the code from here
+    setTriggerCheck(true);
   };
 
   useEffect(() => {
@@ -384,7 +389,7 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
                   : ""
               }
               description={`verify that the BaseTokenDecimal and QuoteTokenDecimal has been the right one at oracle creation, based on the loan and collateral token.`}
-              loading={decimalLoading}
+              loading={decimalLoading === LoadingStates.LOADING ?? false}
             />
 
             <CheckItem
@@ -398,7 +403,7 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
                   : ""
               }
               description={`return any oracle related warning, where a market is using this oracle with the same loan and collat as the one in input.`}
-              loading={warningLoading}
+              loading={warningLoading === LoadingStates.LOADING ?? false}
             />
 
             <CheckItemFeeds
@@ -430,10 +435,8 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
                         priceResult.priceUnscaledInCollateralTokenDecimals,
                       collateralPriceUsd: priceResult.collateralPriceUsd,
                       loanPriceUsd: priceResult.loanPriceUsd,
-                      ratioUsdPrice: (
-                        parseFloat(priceResult.collateralPriceUsd) /
-                        parseFloat(priceResult.loanPriceUsd)
-                      ).toString(),
+                      ratioUsdPrice: priceResult.ratioUsdPrice,
+                      oraclePriceEquivalent: priceResult.oraclePriceEquivalent,
                       percentageDifference: priceResult.percentageDifference,
                     }
                   : undefined

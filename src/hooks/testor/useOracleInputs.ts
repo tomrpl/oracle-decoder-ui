@@ -1,18 +1,5 @@
 import { useState, useCallback } from "react";
-
-export interface OracleInputs {
-  baseVault: string;
-  baseVaultConversionSample: number;
-  baseFeed1: string;
-  baseFeed2: string;
-  baseTokenDecimals: number;
-  quoteVault: string;
-  quoteVaultConversionSample: number;
-  quoteFeed1: string;
-  quoteFeed2: string;
-  quoteTokenDecimals: number;
-  salt: string;
-}
+import { Asset, OracleInputs } from "../types";
 
 const defaultOracleInputs: OracleInputs = {
   baseVault: "0x0000000000000000000000000000000000000000",
@@ -31,7 +18,7 @@ const defaultOracleInputs: OracleInputs = {
 const useOracleInputs = (selectedNetwork: number) => {
   const [oracleInputs, setOracleInputs] =
     useState<OracleInputs>(defaultOracleInputs);
-  const [assets, setAssets] = useState<any[]>([]);
+  const [assets, setAssets] = useState<Asset[]>([]);
 
   const handleOracleInputChange = (field: string, value: any) => {
     setOracleInputs((prevState) => ({
