@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Provider, ZeroAddress, ethers, formatUnits } from "ethers";
-import { OracleInputs } from "./useOracleInputs";
+import { Asset, OracleInputs } from "../types";
 import { ErrorTypes } from "../../services/errorTypes";
 import AggregatorV3Interface from "../../services/abis/AggregatorV3Interface.json";
 import IERC4626 from "../../services/abis/IERC4626.json";
@@ -128,23 +128,27 @@ async function getPrice(
     quoteVaultAssets,
   ] = await Promise.all([
     baseFeed1
-      ? baseFeed1.latestRoundData().then((data) => data.answer)
-      : Promise.resolve(1),
+      ? baseFeed1.latestRoundData().then((data) => BigInt(data.answer))
+      : Promise.resolve(BigInt(1)),
     baseFeed2
-      ? baseFeed2.latestRoundData().then((data) => data.answer)
-      : Promise.resolve(1),
+      ? baseFeed2.latestRoundData().then((data) => BigInt(data.answer))
+      : Promise.resolve(BigInt(1)),
     quoteFeed1
-      ? quoteFeed1.latestRoundData().then((data) => data.answer)
-      : Promise.resolve(1),
+      ? quoteFeed1.latestRoundData().then((data) => BigInt(data.answer))
+      : Promise.resolve(BigInt(1)),
     quoteFeed2
-      ? quoteFeed2.latestRoundData().then((data) => data.answer)
-      : Promise.resolve(1),
+      ? quoteFeed2.latestRoundData().then((data) => BigInt(data.answer))
+      : Promise.resolve(BigInt(1)),
     baseVault
-      ? baseVault.convertToAssets(oracleInputs.baseVaultConversionSample)
-      : Promise.resolve(oracleInputs.baseVaultConversionSample),
+      ? baseVault.convertToAssets(
+          BigInt(oracleInputs.baseVaultConversionSample)
+        )
+      : Promise.resolve(BigInt(oracleInputs.baseVaultConversionSample)),
     quoteVault
-      ? quoteVault.convertToAssets(oracleInputs.quoteVaultConversionSample)
-      : Promise.resolve(oracleInputs.quoteVaultConversionSample),
+      ? quoteVault.convertToAssets(
+          BigInt(oracleInputs.quoteVaultConversionSample)
+        )
+      : Promise.resolve(BigInt(oracleInputs.quoteVaultConversionSample)),
   ]);
 
   const price = scaleFactor.mulDivDown(
@@ -155,21 +159,19 @@ async function getPrice(
   return price;
 }
 
+const PRECISION = BigInt(1e18);
+
 const useOraclePriceCheck = (
   chainId: number,
   oracleInputs: OracleInputs,
   collateralAsset: string,
   loanAsset: string,
-  assets: {
-    value: string;
-    label: string;
-    decimals: number;
-    priceUsd: number;
-  }[]
+  assets: Asset[]
 ) => {
   const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<ErrorTypes[]>([]);
+
   const priceCheck = async () => {
     try {
       setLoading(true);
@@ -178,51 +180,61 @@ const useOraclePriceCheck = (
       const provider = MulticallWrapper.wrap(getProvider(chainId));
       const scaleFactor = await calculateScaleFactor(provider, oracleInputs);
       const price = await getPrice(provider, oracleInputs, scaleFactor);
-
       const collateral = assets.find(
         (asset) => asset.value === collateralAsset
       );
       const loan = assets.find((asset) => asset.value === loanAsset);
+
+      // Helper function to convert a number to BigInt with high precision
+      const toBigIntWithPrecision = (value: number) => {
+        return BigInt(Math.round(value * Number(PRECISION)));
+      };
+
       const collateralPriceUsd = collateral
-        ? BigInt(Math.round(collateral.priceUsd))
+        ? toBigIntWithPrecision(collateral.priceUsd)
         : BigInt(0);
-      const loanPriceUsd = loan ? BigInt(Math.round(loan.priceUsd)) : BigInt(0);
-      const collateralDecimals = collateral?.decimals ?? 18;
-      const loanDecimals = loan?.decimals ?? 18;
 
-      const priceUnscaledInCollateralTokenDecimals = formatUnits(
-        price,
-        36 - collateralDecimals + loanDecimals
-      );
+      const loanPriceUsd = loan
+        ? toBigIntWithPrecision(loan.priceUsd)
+        : BigInt(0);
 
-      const ratioUsdPrice = collateralPriceUsd / loanPriceUsd;
-      const oraclePriceEquivalentInUsd = BigInt(price);
+      const collateralDecimals = BigInt(collateral?.decimals ?? 18);
+      const loanDecimals = BigInt(loan?.decimals ?? 18);
 
+      // Calculate ratio USD Price with high precision
+      const ratioUsdPrice =
+        (collateralPriceUsd * BigInt.pow10(loanDecimals)) / loanPriceUsd;
+
+      // Calculate oracle price equivalent with high precision
+      const oraclePriceEquivalent =
+        price / BigInt.pow10(BigInt(18) - collateralDecimals + loanDecimals); // letting 18 decimals of precision
+
+      // Calculate percentage difference with high precision
       const percentageDifference =
-        ((oraclePriceEquivalentInUsd /
-          BigInt.pow10(36 - collateralDecimals + loanDecimals) -
-          ratioUsdPrice) *
-          BigInt(100)) /
+        ((oraclePriceEquivalent - ratioUsdPrice) * BigInt(100) * PRECISION) /
         ratioUsdPrice;
 
       const isVerified =
-        percentageDifference <= BigInt(10) &&
-        percentageDifference >= -BigInt(10);
+        percentageDifference <= BigInt(10) * PRECISION &&
+        percentageDifference >= BigInt(-10) * PRECISION;
 
       setResult({
         scaleFactor: scaleFactor.toString(),
         price: price.toString(),
-        priceUnscaledInCollateralTokenDecimals:
-          priceUnscaledInCollateralTokenDecimals.toString(),
-        collateralPriceUsd: collateralPriceUsd.toString(),
-        loanPriceUsd: loanPriceUsd.toString(),
-        ratioUsdPrice: ratioUsdPrice.toString(),
-        percentageDifference: percentageDifference.toString(),
+        priceUnscaledInCollateralTokenDecimals: formatUnits(
+          price,
+          Number(36 - Number(collateralDecimals) + Number(loanDecimals))
+        ),
+        collateralPriceUsd: formatUnits(collateralPriceUsd),
+        loanPriceUsd: formatUnits(loanPriceUsd),
+        ratioUsdPrice: formatUnits(ratioUsdPrice),
+        oraclePriceEquivalent: formatUnits(oraclePriceEquivalent),
+        percentageDifference: formatUnits(percentageDifference),
         isVerified,
       });
     } catch (error) {
-      console.error("Error fetching oracle data:", error);
-      setErrors((prevErrors) => [...prevErrors, ErrorTypes.FETCH_ERROR]);
+      console.error("Error fetching price data:", error);
+      setErrors((prevErrors) => [...prevErrors, ErrorTypes.FETCH_PRICE_ERROR]);
     } finally {
       setLoading(false);
     }

@@ -13,12 +13,14 @@ import { LoadingStates } from "../services/errorTypes";
 import { LuExternalLink } from "react-icons/lu";
 import useOraclePriceCheck from "../hooks/testor/useOraclePriceCheck";
 import CheckItemFeeds from "./common/CheckItemFeeds";
+import { Asset } from "../hooks/types";
 
 const ethLogo = "https://cdn.morpho.org/assets/chains/eth.svg";
 const baseLogo = "https://cdn.morpho.org/assets/chains/base.png";
 
 const OracleTestor = () => {
   const [activeButton, setActiveButton] = useState<string>("testor");
+
   const [collateralAsset, setCollateralAsset] = useState("");
   const [loanAsset, setLoanAsset] = useState("");
   const [collateralAssetTouched, setCollateralAssetTouched] = useState(false);
@@ -119,12 +121,28 @@ const OracleTestor = () => {
     const fetchAssets = async () => {
       try {
         const assets = await queryAsset(selectedNetwork.value);
-        const formattedAssets = assets.map((asset: any) => ({
-          value: asset.address,
-          label: asset.symbol,
-          decimals: asset.decimals,
-          priceUsd: asset.priceUsd,
-        }));
+        const formattedAssets = assets.map((asset: any) => {
+          const formattedAsset: Asset = {
+            value: asset.address,
+            label: asset.symbol,
+            decimals: asset.decimals,
+            priceUsd: asset.priceUsd ?? 0, // Provide a default value of 0 when priceUsd is null
+          };
+
+          if (asset.vault) {
+            formattedAsset.vault = {
+              address: asset.vault.address,
+              name: asset.vault.name,
+              asset: {
+                symbol: asset.vault.asset.symbol,
+                address: asset.vault.asset.address,
+                decimals: asset.vault.asset.decimals,
+              },
+            };
+          }
+
+          return formattedAsset;
+        });
         setAssets(formattedAssets);
       } catch (error) {
         console.error("Error fetching assets:", error);
@@ -560,7 +578,7 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
                 formSubmitted && routeResult
                   ? routeResult.isValid
                     ? "The Route seems Valid"
-                    : "The Route seems not valid"
+                    : "The Route seems not valid - is there an assumption of an hardcoded price oracle?"
                   : ""
               }
               description={`Verify that combination of feeds is valid and that the oracle can be deployed with the provided inputs.`}
@@ -586,10 +604,8 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
                         priceResult.priceUnscaledInCollateralTokenDecimals,
                       collateralPriceUsd: priceResult.collateralPriceUsd,
                       loanPriceUsd: priceResult.loanPriceUsd,
-                      ratioUsdPrice: (
-                        parseFloat(priceResult.collateralPriceUsd) /
-                        parseFloat(priceResult.loanPriceUsd)
-                      ).toString(),
+                      ratioUsdPrice: priceResult.ratioUsdPrice,
+                      oraclePriceEquivalent: priceResult.oraclePriceEquivalent,
                       percentageDifference: priceResult.percentageDifference,
                     }
                   : undefined

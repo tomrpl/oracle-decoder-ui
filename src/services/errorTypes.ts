@@ -18,6 +18,12 @@ export enum ErrorTypes {
   NO_FEEDS_PROVIDED = "NO_FEEDS_PROVIDED",
   INVALID_BASE_FEEDS = "INVALID_BASE_FEEDS",
   INVALID_QUOTE_FEEDS = "INVALID_QUOTE_FEEDS",
+  FETCH_PRICE_ERROR = "FETCH_PRICE_ERROR",
+  FETCH_DECIMALS_ERROR = "FETCH_DECIMALS_ERROR",
+  FETCH_WARNING_ERROR = "FETCH_WARNING_ERROR",
+  NO_VALID_PATH = "NO_VALID_PATH",
+  BASE_MATCH_ERROR = "BASE_MATCH_ERROR",
+  QUOTE_MATCH_ERROR = "QUOTE_MATCH_ERROR",
 }
 
 export const ErrorMessages: { [key in ErrorTypes]: string } = {
@@ -49,6 +55,12 @@ export const ErrorMessages: { [key in ErrorTypes]: string } = {
     "The first base feed does not match the collateral asset.",
   [ErrorTypes.INVALID_QUOTE_FEEDS]:
     "The last quote feed does not match the loan asset.",
+  [ErrorTypes.FETCH_PRICE_ERROR]: "Error fetching price data.",
+  [ErrorTypes.FETCH_DECIMALS_ERROR]: "Error fetching decimals data.",
+  [ErrorTypes.FETCH_WARNING_ERROR]: "Error fetching warning data.",
+  [ErrorTypes.NO_VALID_PATH]: "No valid path found.",
+  [ErrorTypes.BASE_MATCH_ERROR]: "Base token does not match.",
+  [ErrorTypes.QUOTE_MATCH_ERROR]: "Quote token does not match.",
 };
 
 export enum LoadingStates {

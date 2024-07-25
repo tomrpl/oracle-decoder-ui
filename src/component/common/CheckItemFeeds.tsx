@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BiCheckDouble, BiError, BiCaretDown, BiCaretUp } from "react-icons/bi";
-import { ErrorTypes } from "../../services/errorTypes";
+import { ErrorTypes, ErrorMessages } from "../../services/errorTypes";
+
 interface FeedMetadata {
   address: string;
   vendor: string;
@@ -39,10 +40,13 @@ const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
       .filter(
         (feed) => feed.address !== "0x0000000000000000000000000000000000000000"
       )
-      .map((feed) => `${feed.position}: ${feed.description}`)
-      .join("\n");
+      .map((feed, index) => (
+        <React.Fragment key={index}>
+          <strong>{feed.position}:</strong> {feed.description}
+          <br />
+        </React.Fragment>
+      ));
   };
-
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -147,7 +151,7 @@ const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
                         key={index}
                         style={{ margin: "0", fontSize: "0.8rem" }}
                       >
-                        {error}
+                        {ErrorMessages[error] || error}
                       </p>
                     ))}
                   </div>

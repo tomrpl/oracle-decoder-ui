@@ -1,22 +1,30 @@
 import { useState, useEffect } from "react";
+import { ErrorTypes, LoadingStates } from "../services/errorTypes";
 
 const useDecimalCheck = (
+  triggerCheck: boolean,
   baseTokenDecimals: number,
   quoteTokenDecimals: number,
   collateralAsset: string,
   loanAsset: string,
-  assets: any[],
-  performCheck: boolean
+  assets: any[]
 ) => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<LoadingStates>(
+    LoadingStates.NOT_STARTED
+  );
+  const [errors, setErrors] = useState<ErrorTypes[]>([]);
   const [result, setResult] = useState<any>(null);
 
-  useEffect(() => {
-    if (!performCheck) return;
+  const resetState = () => {
+    setLoading(LoadingStates.NOT_STARTED);
+    setErrors([]);
+    setResult(null);
+  };
 
-    setLoading(true);
-    setError(null);
+  useEffect(() => {
+    if (!triggerCheck) return;
+    setLoading(LoadingStates.LOADING);
+    setErrors([]);
 
     try {
       const collateralAssetDecimal =
@@ -41,25 +49,27 @@ const useDecimalCheck = (
         quoteTokenDecimalsProvided: quoteTokenDecimalsNumber,
         quoteTokenDecimalsExpected: quoteTokenMarketDecimals,
       });
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("An unknown error occurred at decimal check level");
-      }
+      setLoading(LoadingStates.COMPLETED);
+    } catch (error) {
+      console.error("Error checking decimals:", error);
+      setErrors((prevErrors) => [
+        ...prevErrors,
+        ErrorTypes.FETCH_DECIMALS_ERROR,
+      ]);
+      setResult({ isValid: false });
     } finally {
-      setLoading(false);
+      setLoading(LoadingStates.COMPLETED);
     }
   }, [
+    triggerCheck,
     baseTokenDecimals,
     quoteTokenDecimals,
     collateralAsset,
     loanAsset,
     assets,
-    performCheck,
   ]);
 
-  return { loading, error, result };
+  return { loading, errors, result, resetState };
 };
 
 export default useDecimalCheck;

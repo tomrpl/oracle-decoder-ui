@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { OracleInputs } from "./useOracleInputs";
+import { OracleInputs } from "../types";
 import { getPayload } from "../../services/payload";
 import { LoadingStates } from "../../services/errorTypes";
 

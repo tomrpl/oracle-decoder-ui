@@ -173,6 +173,15 @@ export const queryAsset = async (chainId: number) => {
       symbol 
       decimals
       priceUsd
+      vault {
+        address
+        name
+        asset {
+          symbol
+          address
+          decimals
+        }
+      }
     }
   }
 }`;
