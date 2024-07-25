@@ -346,6 +346,7 @@ const useRouteMatch = () => {
         relevantFeeds
       );
 
+      console.log("here");
       if (
         !resolvableOracleFeedGraphs ||
         resolvableOracleFeedGraphs.length === 0
@@ -354,6 +355,7 @@ const useRouteMatch = () => {
         setResult({ isValid: false });
         return;
       }
+      console.log("there");
 
       const baseMatches = baseExchangeRateMatchesToken(
         resolvableOracleFeedGraphs,
@@ -368,16 +370,13 @@ const useRouteMatch = () => {
       const isValid = baseMatches && quoteMatches;
 
       if (!baseMatches) {
-        setErrors((prevErrors) => [
-          ...prevErrors,
-          ErrorTypes.INVALID_COLLATERAL_FEED,
-        ]);
+        setErrors((prevErrors) => [...prevErrors, ErrorTypes.BASE_MATCH_ERROR]);
       }
 
       if (!quoteMatches) {
         setErrors((prevErrors) => [
           ...prevErrors,
-          ErrorTypes.INVALID_LOAN_FEED,
+          ErrorTypes.QUOTE_MATCH_ERROR,
         ]);
       }
 

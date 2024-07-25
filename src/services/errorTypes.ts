@@ -22,6 +22,8 @@ export enum ErrorTypes {
   FETCH_DECIMALS_ERROR = "FETCH_DECIMALS_ERROR",
   FETCH_WARNING_ERROR = "FETCH_WARNING_ERROR",
   NO_VALID_PATH = "NO_VALID_PATH",
+  BASE_MATCH_ERROR = "BASE_MATCH_ERROR",
+  QUOTE_MATCH_ERROR = "QUOTE_MATCH_ERROR",
 }
 
 export const ErrorMessages: { [key in ErrorTypes]: string } = {
@@ -57,6 +59,8 @@ export const ErrorMessages: { [key in ErrorTypes]: string } = {
   [ErrorTypes.FETCH_DECIMALS_ERROR]: "Error fetching decimals data.",
   [ErrorTypes.FETCH_WARNING_ERROR]: "Error fetching warning data.",
   [ErrorTypes.NO_VALID_PATH]: "No valid path found.",
+  [ErrorTypes.BASE_MATCH_ERROR]: "Base token does not match.",
+  [ErrorTypes.QUOTE_MATCH_ERROR]: "Quote token does not match.",
 };
 
 export enum LoadingStates {

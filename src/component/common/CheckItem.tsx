@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { BiCheckDouble, BiError, BiCaretDown, BiCaretUp } from "react-icons/bi";
+import { ErrorTypes, ErrorMessages } from "../../services/errorTypes";
+
 interface CheckItemProps {
   title: string;
   isVerified: boolean | null;

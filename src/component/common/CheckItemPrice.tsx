@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BiCheckDouble, BiError, BiCaretDown, BiCaretUp } from "react-icons/bi";
-import { ErrorTypes } from "../../services/errorTypes";
+import { ErrorTypes, ErrorMessages } from "../../services/errorTypes";
 
 interface CheckItemProps {
   title: string;
@@ -203,7 +203,7 @@ const CheckItemPrice: React.FC<CheckItemProps> = ({
                           key={index}
                           style={{ margin: "0", fontSize: "0.8rem" }}
                         >
-                          {error}
+                          {ErrorMessages[error] || error}
                         </p>
                       ))}
                     </div>
