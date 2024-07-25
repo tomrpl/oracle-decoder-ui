@@ -177,8 +177,6 @@ const OracleTestor = () => {
     const collateralAssetSymbol =
       assets.find((asset) => asset.value === collateralAsset)?.label || "";
 
-    console.log("collateral asset symbol", collateralAssetSymbol);
-
     const loanAssetSymbol =
       assets.find((asset) => asset.value === loanAsset)?.label || "";
 
@@ -580,7 +578,7 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
                 formSubmitted && routeResult
                   ? routeResult.isValid
                     ? "The Route seems Valid"
-                    : "The Route seems not valid"
+                    : "The Route seems not valid - is there an assumption of an hardcoded price oracle?"
                   : ""
               }
               description={`Verify that combination of feeds is valid and that the oracle can be deployed with the provided inputs.`}

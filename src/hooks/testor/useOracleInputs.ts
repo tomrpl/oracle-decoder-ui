@@ -2,9 +2,9 @@ import { useState, useCallback } from "react";
 import { Asset, OracleInputs } from "../types";
 
 const defaultOracleInputs: OracleInputs = {
-  baseVault: "0x0000000000000000000000000000000000000000",
-  baseVaultConversionSample: 1,
-  baseFeed1: "0x0000000000000000000000000000000000000000",
+  baseVault: "0x78Fc2c2eD1A4cDb5402365934aE5648aDAd094d0",
+  baseVaultConversionSample: 1000000000000000000,
+  baseFeed1: "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
   baseFeed2: "0x0000000000000000000000000000000000000000",
   baseTokenDecimals: 18,
   quoteVault: "0x0000000000000000000000000000000000000000",

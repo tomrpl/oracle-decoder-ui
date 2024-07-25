@@ -128,23 +128,27 @@ async function getPrice(
     quoteVaultAssets,
   ] = await Promise.all([
     baseFeed1
-      ? baseFeed1.latestRoundData().then((data) => data.answer)
-      : Promise.resolve(1),
+      ? baseFeed1.latestRoundData().then((data) => BigInt(data.answer))
+      : Promise.resolve(BigInt(1)),
     baseFeed2
-      ? baseFeed2.latestRoundData().then((data) => data.answer)
-      : Promise.resolve(1),
+      ? baseFeed2.latestRoundData().then((data) => BigInt(data.answer))
+      : Promise.resolve(BigInt(1)),
     quoteFeed1
-      ? quoteFeed1.latestRoundData().then((data) => data.answer)
-      : Promise.resolve(1),
+      ? quoteFeed1.latestRoundData().then((data) => BigInt(data.answer))
+      : Promise.resolve(BigInt(1)),
     quoteFeed2
-      ? quoteFeed2.latestRoundData().then((data) => data.answer)
-      : Promise.resolve(1),
+      ? quoteFeed2.latestRoundData().then((data) => BigInt(data.answer))
+      : Promise.resolve(BigInt(1)),
     baseVault
-      ? baseVault.convertToAssets(oracleInputs.baseVaultConversionSample)
-      : Promise.resolve(oracleInputs.baseVaultConversionSample),
+      ? baseVault.convertToAssets(
+          BigInt(oracleInputs.baseVaultConversionSample)
+        )
+      : Promise.resolve(BigInt(oracleInputs.baseVaultConversionSample)),
     quoteVault
-      ? quoteVault.convertToAssets(oracleInputs.quoteVaultConversionSample)
-      : Promise.resolve(oracleInputs.quoteVaultConversionSample),
+      ? quoteVault.convertToAssets(
+          BigInt(oracleInputs.quoteVaultConversionSample)
+        )
+      : Promise.resolve(BigInt(oracleInputs.quoteVaultConversionSample)),
   ]);
 
   const price = scaleFactor.mulDivDown(
@@ -176,7 +180,6 @@ const useOraclePriceCheck = (
       const provider = MulticallWrapper.wrap(getProvider(chainId));
       const scaleFactor = await calculateScaleFactor(provider, oracleInputs);
       const price = await getPrice(provider, oracleInputs, scaleFactor);
-
       const collateral = assets.find(
         (asset) => asset.value === collateralAsset
       );

@@ -413,7 +413,7 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
                 routeResult
                   ? routeResult.isValid
                     ? "The Route seems Valid"
-                    : "The Route seems not valid"
+                    : "The Route seems not valid - is there an assumption of an hardcoded price oracle?"
                   : ""
               }
               description={`Verify that combination of feeds is valid and that the oracle can be deployed with the provided inputs.`}

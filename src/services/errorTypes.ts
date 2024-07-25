@@ -21,6 +21,7 @@ export enum ErrorTypes {
   FETCH_PRICE_ERROR = "FETCH_PRICE_ERROR",
   FETCH_DECIMALS_ERROR = "FETCH_DECIMALS_ERROR",
   FETCH_WARNING_ERROR = "FETCH_WARNING_ERROR",
+  NO_VALID_PATH = "NO_VALID_PATH",
 }
 
 export const ErrorMessages: { [key in ErrorTypes]: string } = {
@@ -55,6 +56,7 @@ export const ErrorMessages: { [key in ErrorTypes]: string } = {
   [ErrorTypes.FETCH_PRICE_ERROR]: "Error fetching price data.",
   [ErrorTypes.FETCH_DECIMALS_ERROR]: "Error fetching decimals data.",
   [ErrorTypes.FETCH_WARNING_ERROR]: "Error fetching warning data.",
+  [ErrorTypes.NO_VALID_PATH]: "No valid path found.",
 };
 
 export enum LoadingStates {
