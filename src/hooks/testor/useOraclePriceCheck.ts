@@ -201,13 +201,12 @@ const useOraclePriceCheck = (
       const collateralDecimals = BigInt(collateral?.decimals ?? 18);
       const loanDecimals = BigInt(loan?.decimals ?? 18);
 
-      // Calculate ratio USD Price with high precision
-      const ratioUsdPrice =
-        (collateralPriceUsd * BigInt.pow10(loanDecimals)) / loanPriceUsd;
+      const ratioUsdPrice = collateralPriceUsd.wadDiv(loanPriceUsd);
 
       // Calculate oracle price equivalent with high precision
       const oraclePriceEquivalent =
-        price / BigInt.pow10(BigInt(18) - collateralDecimals + loanDecimals); // letting 18 decimals of precision
+        (price * PRECISION) /
+        BigInt.pow10(BigInt(36) + loanDecimals - collateralDecimals);
 
       // Calculate percentage difference with high precision
       const percentageDifference =
