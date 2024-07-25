@@ -346,7 +346,6 @@ const useRouteMatch = () => {
         relevantFeeds
       );
 
-      console.log("here");
       if (
         !resolvableOracleFeedGraphs ||
         resolvableOracleFeedGraphs.length === 0
@@ -355,7 +354,6 @@ const useRouteMatch = () => {
         setResult({ isValid: false });
         return;
       }
-      console.log("there");
 
       const baseMatches = baseExchangeRateMatchesToken(
         resolvableOracleFeedGraphs,

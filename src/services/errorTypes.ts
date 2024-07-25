@@ -59,8 +59,10 @@ export const ErrorMessages: { [key in ErrorTypes]: string } = {
   [ErrorTypes.FETCH_DECIMALS_ERROR]: "Error fetching decimals data.",
   [ErrorTypes.FETCH_WARNING_ERROR]: "Error fetching warning data.",
   [ErrorTypes.NO_VALID_PATH]: "No valid path found.",
-  [ErrorTypes.BASE_MATCH_ERROR]: "Base token does not match.",
-  [ErrorTypes.QUOTE_MATCH_ERROR]: "Quote token does not match.",
+  [ErrorTypes.BASE_MATCH_ERROR]:
+    "Base token does not match. Is there any harcoded oracle price?",
+  [ErrorTypes.QUOTE_MATCH_ERROR]:
+    "Quote token does not match. Is there any harcoded oracle price?",
 };
 
 export enum LoadingStates {

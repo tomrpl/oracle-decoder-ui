@@ -2,7 +2,7 @@ import { useState } from "react";
 import { fetchOracleDataFromtx } from "../services/fetchers/oracleFetcher";
 import { queryOracleApi } from "../services/fetchers/fetchAPI";
 import { getOracleTransactionHash } from "../services/fetchers/fetchTransactionHash";
-import { getOracleDataFromTx } from "../services/processor";
+import { getOracleDataFromTx } from "../services/decoder/processor";
 import { getProvider } from "../services/provider/provider";
 import { MulticallWrapper } from "ethers-multicall-provider";
 import { ErrorTypes, LoadingStates } from "../services/errorTypes";
