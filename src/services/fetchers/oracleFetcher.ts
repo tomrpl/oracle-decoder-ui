@@ -1,4 +1,6 @@
 import { ethers, Provider } from "ethers";
+import { OracleInputs } from "../../hooks/types";
+import { queryOracles } from "./fetchAPI";
 
 interface OracleReadData {
   priceUnscaled: number;
@@ -77,4 +79,36 @@ export const fetchOracleDataFromtx = async (
     console.error("Error fetching oracle data:", error);
     return null;
   }
+};
+
+export const checkOracleDeployment = async (
+  chainId: number,
+  oracleInputs: OracleInputs
+) => {
+  const oracles = await queryOracles(chainId);
+
+  for (const oracle of oracles) {
+    if (
+      oracle.data.baseVault === oracleInputs.baseVault &&
+      oracle.data.quoteVault === oracleInputs.quoteVault &&
+      oracle.data.baseFeedOne.address === oracleInputs.baseFeed1 &&
+      oracle.data.baseFeedTwo.address === oracleInputs.baseFeed2 &&
+      oracle.data.quoteFeedOne.address === oracleInputs.quoteFeed1 &&
+      oracle.data.quoteFeedTwo.address === oracleInputs.quoteFeed2 &&
+      BigInt(oracle.data.baseVaultConversionSample) ===
+        BigInt(oracleInputs.baseVaultConversionSample) &&
+      BigInt(oracle.data.quoteVaultConversionSample) ===
+        BigInt(oracleInputs.quoteVaultConversionSample)
+    ) {
+      return {
+        isDeployed: true,
+        address: oracle.address,
+      };
+    }
+  }
+
+  return {
+    isDeployed: false,
+    address: null,
+  };
 };

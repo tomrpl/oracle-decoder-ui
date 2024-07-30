@@ -216,10 +216,6 @@ const useRouteMatch = () => {
     edges: OracleFeedGraphEdge[],
     allowHardcoded?: boolean
   ) => {
-    if (edges.length === 0) {
-      throw new Error("Empty oracle feed graph.");
-    }
-
     if (edges.length === 1) {
       return true;
     }
@@ -340,6 +336,19 @@ const useRouteMatch = () => {
           }
         }
       }
+      const allAddressesZero = [
+        oracleInputs.baseVault,
+        oracleInputs.baseFeed1,
+        oracleInputs.baseFeed2,
+        oracleInputs.quoteFeed1,
+        oracleInputs.quoteFeed2,
+        oracleInputs.quoteVault,
+      ].every((address) => address === ZERO_ADDRESS);
+
+      if (allAddressesZero) {
+        setResult({ isValid: true, feedsMetadata: [], isHardcoded: true });
+        return;
+      }
 
       const resolvableOracleFeedGraphs = getResolvableOracleFeedGraphs(
         oracleInputs,
@@ -426,7 +435,7 @@ const useRouteMatch = () => {
           }
         });
 
-      setResult({ isValid, feedsMetadata });
+      setResult({ isValid, feedsMetadata, isHardcoded: false });
     } catch (error) {
       console.error("Error validating route:", error);
       setErrors((prevErrors) => [...prevErrors, ErrorTypes.FETCH_ERROR]);

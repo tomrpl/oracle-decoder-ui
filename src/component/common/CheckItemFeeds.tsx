@@ -14,6 +14,7 @@ interface FeedMetadata {
 interface CheckItemFeedsProps {
   title: string;
   isVerified: boolean | null;
+  isHardcoded: boolean | null;
   details?: string;
   description?: string;
   loading?: boolean;
@@ -23,6 +24,7 @@ interface CheckItemFeedsProps {
 const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
   title,
   isVerified,
+  isHardcoded,
   details,
   description,
   loading,
@@ -31,11 +33,27 @@ const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const backgroundColor =
-    isVerified === null ? "#e2e3e5" : isVerified ? "#d4edda" : "#f8d7da";
+    isVerified === null
+      ? "#e2e3e5"
+      : isHardcoded
+      ? "#ffeeba" // Light orange color for hardcoded case
+      : isVerified
+      ? "#d4edda"
+      : "#f8d7da";
+
   const textColor =
     isVerified === null ? "#6c757d" : isVerified ? "#155724" : "#721c24";
 
   const formatDescription = (feeds: FeedMetadata[]) => {
+    if (isHardcoded) {
+      return (
+        <p style={{ color: "#856404", fontStyle: "italic" }}>
+          All feeds are set to zero. You might want to check if this is done on
+          purpose.
+        </p>
+      );
+    }
+
     return feeds
       .filter(
         (feed) => feed.address !== "0x0000000000000000000000000000000000000000"
