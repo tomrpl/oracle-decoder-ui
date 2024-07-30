@@ -53,6 +53,8 @@ const useFetchOracleData = () => {
 
       const correctOracleData = oracleDataList.find(
         (data: any) =>
+          data.baseVault === oracleData?.baseVault &&
+          data.quoteVault === oracleData?.quoteVault &&
           data.baseFeed1 === oracleData?.baseFeed1 &&
           data.baseFeed2 === oracleData?.baseFeed2 &&
           data.quoteFeed1 === oracleData?.quoteFeed1 &&
