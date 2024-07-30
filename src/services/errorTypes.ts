@@ -24,6 +24,7 @@ export enum ErrorTypes {
   NO_VALID_PATH = "NO_VALID_PATH",
   BASE_MATCH_ERROR = "BASE_MATCH_ERROR",
   QUOTE_MATCH_ERROR = "QUOTE_MATCH_ERROR",
+  LOAN_ASSET_ZERO_PRICE = "LOAN_ASSET_ZERO_PRICE",
 }
 
 export const ErrorMessages: { [key in ErrorTypes]: string } = {
@@ -63,6 +64,8 @@ export const ErrorMessages: { [key in ErrorTypes]: string } = {
     "Base token does not match. Is there any harcoded oracle price?",
   [ErrorTypes.QUOTE_MATCH_ERROR]:
     "Quote token does not match. Is there any harcoded oracle price?",
+  [ErrorTypes.LOAN_ASSET_ZERO_PRICE]:
+    "Can't fetch the USD value of the loan asset. The Morpho-Blue API seems to not be pricing it.",
 };
 
 export enum LoadingStates {
