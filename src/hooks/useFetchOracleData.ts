@@ -65,11 +65,6 @@ const useFetchOracleData = () => {
         return;
       }
 
-      if (!markets || markets.markets.length === 0) {
-        setErrors((prevErrors) => [...prevErrors, ErrorTypes.NO_MARKETS_FOUND]);
-        return;
-      }
-
       setOracleData(correctOracleData);
       setMarketData(markets);
     } catch (error) {
