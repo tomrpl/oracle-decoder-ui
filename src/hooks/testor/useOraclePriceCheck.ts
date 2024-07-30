@@ -197,12 +197,35 @@ const useOraclePriceCheck = (
       const loanPriceUsd = loan
         ? toBigIntWithPrecision(loan.priceUsd)
         : BigInt(0);
-
+      if (loanPriceUsd === BigInt(0)) {
+        setErrors((prevErrors) => [
+          ...prevErrors,
+          ErrorTypes.LOAN_ASSET_ZERO_PRICE,
+        ]);
+        setResult({
+          scaleFactor: scaleFactor.toString(),
+          price: price.toString(),
+          priceUnscaledInCollateralTokenDecimals: formatUnits(
+            price,
+            Number(
+              36 -
+                Number(collateral?.decimals ?? 18) +
+                Number(loan?.decimals ?? 18)
+            )
+          ),
+          collateralPriceUsd: formatUnits(collateralPriceUsd),
+          loanPriceUsd: "0",
+          ratioUsdPrice: "N/A",
+          oraclePriceEquivalent: "N/A",
+          percentageDifference: "N/A",
+          isVerified: false,
+        });
+        return;
+      }
       const collateralDecimals = BigInt(collateral?.decimals ?? 18);
       const loanDecimals = BigInt(loan?.decimals ?? 18);
 
       const ratioUsdPrice = collateralPriceUsd.wadDiv(loanPriceUsd);
-
       // Calculate oracle price equivalent with high precision
       const oraclePriceEquivalent =
         (price * PRECISION) /
