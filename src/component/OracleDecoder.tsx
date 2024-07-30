@@ -359,12 +359,6 @@ const OracleDecoder = () => {
           </div>
           <div className="checks-section">
             <h2>Checks - Post Submit</h2>
-            <div className="instructions">
-              <p>
-                The <strong>warning</strong> check is for market(s) using the
-                same oracle, collat and loan asset
-              </p>
-            </div>
 
             {submitStarted &&
               loadingState === LoadingStates.COMPLETED &&

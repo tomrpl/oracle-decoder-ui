@@ -262,9 +262,8 @@ const OracleTestor = () => {
                 deployer to test the inputs to set at oracle deployment.
               </p>
               <p>
-                The <strong>Base Vault</strong> and <strong>Quote Vault</strong>{" "}
-                are not supported yet. The <strong>salt</strong> value can be
-                ignored for now.
+                {" "}
+                The <strong>salt</strong> value can be ignored for now.
               </p>
             </div>
 
