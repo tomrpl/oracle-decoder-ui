@@ -163,6 +163,8 @@ const OracleDecoder = () => {
 
     await fetchOracleDataDetails(oracleAddress, selectedNetwork.value);
     setTriggerCheck(true);
+
+    setIsSubmitting(false);
   };
 
   useEffect(() => {
