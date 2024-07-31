@@ -66,33 +66,29 @@ const CheckItem: React.FC<CheckItemProps> = ({
           {description}
         </p>
       )}
-      {isOpen && (
-        <>
-          <div
-            style={{
-              background: "white",
-              borderRadius: "4px",
-              padding: "0.3rem",
-              marginTop: "10px",
-            }}
-          >
-            {loading ? (
-              <p style={{ margin: "0", fontSize: "0.7rem" }}>Loading...</p>
-            ) : (
-              details && (
-                <div
-                  style={{
-                    fontSize: "0.8rem",
-                    margin: "0",
-                    whiteSpace: "pre-wrap",
-                  }}
-                >
-                  <p>{details}</p>
-                </div>
-              )
-            )}
-          </div>
-        </>
+      {isOpen && details && (
+        <div
+          style={{
+            background: "white",
+            borderRadius: "4px",
+            padding: "0.3rem",
+            marginTop: "10px",
+          }}
+        >
+          {loading ? (
+            <p style={{ margin: "0", fontSize: "0.7rem" }}>Loading...</p>
+          ) : (
+            <div
+              style={{
+                fontSize: "0.8rem",
+                margin: "0",
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              <p>{details}</p>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

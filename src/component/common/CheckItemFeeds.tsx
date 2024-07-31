@@ -21,6 +21,7 @@ interface CheckItemFeedsProps {
   feedsMetadata?: FeedMetadata[];
   errors?: ErrorTypes[];
 }
+
 const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
   title,
   isVerified,
@@ -36,7 +37,7 @@ const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
     isVerified === null
       ? "#e2e3e5"
       : isHardcoded
-      ? "#ffeeba" // Light orange color for hardcoded case
+      ? "#ffeeba"
       : isVerified
       ? "#d4edda"
       : "#f8d7da";
@@ -114,70 +115,65 @@ const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
           <strong>{details}</strong>
         </p>
       )}
-      {isOpen && (
-        <>
+      {isOpen && (feedsMetadata || (errors && errors.length > 0)) && (
+        <div
+          style={{
+            background: "white",
+            borderRadius: "4px",
+            padding: "0.3rem",
+            marginTop: "10px",
+          }}
+        >
           {loading ? (
             <p style={{ margin: "0", fontSize: "0.7rem" }}>Loading...</p>
           ) : (
             <>
-              <div
-                style={{
-                  background: "white",
-                  borderRadius: "4px",
-                  padding: "0.3rem",
-                  marginTop: "10px",
-                }}
-              >
-                {feedsMetadata && (
-                  <div style={{ marginTop: "10px" }}>
-                    <p
-                      style={{
-                        margin: "0",
-                        fontSize: "0.9rem",
-                        whiteSpace: "pre-wrap",
-                      }}
-                    >
-                      {formatDescription(feedsMetadata)}
-                      {"\n "}
-                    </p>
-                    {feedsMetadata.map((feed, index) => (
-                      <div key={index} style={{ marginBottom: "10px" }}>
-                        <p style={{ margin: "0", fontSize: "0.8rem" }}>
-                          <strong>Address:</strong> {feed.address}
-                        </p>
-                        <p style={{ margin: "0", fontSize: "0.8rem" }}>
-                          <strong>Vendor:</strong> {feed.vendor}
-                        </p>
-                        <p style={{ margin: "0", fontSize: "0.8rem" }}>
-                          <strong>Description:</strong> {feed.description}
-                        </p>
-                        <p style={{ margin: "0", fontSize: "0.8rem" }}>
-                          <strong>Pair:</strong>{" "}
-                          {feed.pair ? feed.pair.join(" / ") : "N/A"}
-                        </p>
-                        <p style={{ margin: "0", fontSize: "0.8rem" }}>
-                          <strong>Chain ID:</strong> {feed.chainId}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                {errors && errors.length > 0 && (
-                  <div style={{ marginTop: "10px", color: "red" }}>
-                    {errors.map((error, index) => (
-                      <p
-                        key={index}
-                        style={{ margin: "0", fontSize: "0.8rem" }}
-                      >
-                        {ErrorMessages[error] || error}
+              {feedsMetadata && (
+                <div style={{ marginTop: "10px" }}>
+                  <p
+                    style={{
+                      margin: "0",
+                      fontSize: "0.9rem",
+                      whiteSpace: "pre-wrap",
+                    }}
+                  >
+                    {formatDescription(feedsMetadata)}
+                    {"\n "}
+                  </p>
+                  {feedsMetadata.map((feed, index) => (
+                    <div key={index} style={{ marginBottom: "10px" }}>
+                      <p style={{ margin: "0", fontSize: "0.8rem" }}>
+                        <strong>Address:</strong> {feed.address}
                       </p>
-                    ))}
-                  </div>
-                )}
-              </div>
+                      <p style={{ margin: "0", fontSize: "0.8rem" }}>
+                        <strong>Vendor:</strong> {feed.vendor}
+                      </p>
+                      <p style={{ margin: "0", fontSize: "0.8rem" }}>
+                        <strong>Description:</strong> {feed.description}
+                      </p>
+                      <p style={{ margin: "0", fontSize: "0.8rem" }}>
+                        <strong>Pair:</strong>{" "}
+                        {feed.pair ? feed.pair.join(" / ") : "N/A"}
+                      </p>
+                      <p style={{ margin: "0", fontSize: "0.8rem" }}>
+                        <strong>Chain ID:</strong> {feed.chainId}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {errors && errors.length > 0 && (
+                <div style={{ marginTop: "10px", color: "red" }}>
+                  {errors.map((error, index) => (
+                    <p key={index} style={{ margin: "0", fontSize: "0.8rem" }}>
+                      {ErrorMessages[error] || error}
+                    </p>
+                  ))}
+                </div>
+              )}
             </>
           )}
-        </>
+        </div>
       )}
     </div>
   );

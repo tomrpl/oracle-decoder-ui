@@ -66,7 +66,7 @@ const CheckItem: React.FC<CheckItemProps> = ({
           {description}
         </p>
       )}
-      {isOpen && (
+      {isOpen && details && (
         <>
           <div
             style={{
@@ -79,17 +79,15 @@ const CheckItem: React.FC<CheckItemProps> = ({
             {loading ? (
               <p style={{ margin: "0", fontSize: "0.7rem" }}>Loading...</p>
             ) : (
-              details && (
-                <div
-                  style={{
-                    fontSize: "0.8rem",
-                    margin: "0",
-                    whiteSpace: "pre-wrap",
-                  }}
-                >
-                  <p>{details}</p>
-                </div>
-              )
+              <div
+                style={{
+                  fontSize: "0.8rem",
+                  margin: "0",
+                  whiteSpace: "pre-wrap",
+                }}
+              >
+                <p>{details}</p>
+              </div>
             )}
           </div>
         </>

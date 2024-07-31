@@ -138,7 +138,7 @@ const CheckItemPrice: React.FC<CheckItemProps> = ({
           {formatNumber(details.percentageDifference, 2)}%
         </p>
       )}
-      {isOpen && (
+      {isOpen && (details || (errors && errors.length > 0)) && (
         <div
           style={{
             background: "white",
@@ -150,67 +150,66 @@ const CheckItemPrice: React.FC<CheckItemProps> = ({
           {loading ? (
             <p style={{ margin: "0", fontSize: "0.7rem" }}>Loading...</p>
           ) : (
-            details && (
-              <div style={{ fontSize: "0.8rem", margin: "0" }}>
-                {renderDetailItem(
-                  "Scale Factor",
-                  details.scaleFactor,
-                  formatNumber(details.scaleFactor)
-                )}
-                {renderDetailItem(
-                  "Oracle Price",
-                  details.oraclePrice,
-                  formatNumber(details.oraclePrice, 0)
-                )}
-                {renderDetailItem(
-                  "Price in Collateral Token Decimals",
-                  formatNumber(
-                    details.priceUnscaledInCollateralTokenDecimals,
-                    4
-                  )
-                )}
-                {renderDetailItem(
-                  "Collateral USD Price",
-                  `$${formatNumber(details.collateralPriceUsd)}`
-                )}
-                {renderDetailItem(
-                  "Loan USD Price",
-                  `$${formatNumber(details.loanPriceUsd)}`
-                )}
-                <div
-                  style={{
-                    marginTop: "15px",
-                    fontWeight: "bold",
-                    color: "blue",
-                  }}
-                >
+            <>
+              {details && (
+                <div style={{ fontSize: "0.8rem", margin: "0" }}>
                   {renderDetailItem(
-                    "Ratio USD Price",
-                    formatNumber(details.ratioUsdPrice, 4)
+                    "Scale Factor",
+                    details.scaleFactor,
+                    formatNumber(details.scaleFactor)
                   )}
                   {renderDetailItem(
-                    "Oracle price equivalent",
-                    formatNumber(details.oraclePriceEquivalent, 4)
+                    "Oracle Price",
+                    details.oraclePrice,
+                    formatNumber(details.oraclePrice, 0)
                   )}
                   {renderDetailItem(
-                    "Deviation",
-                    `${formatNumber(details.percentageDifference, 2)}%`
+                    "Price in Collateral Token Decimals",
+                    formatNumber(
+                      details.priceUnscaledInCollateralTokenDecimals,
+                      4
+                    )
                   )}
-                  {errors && errors.length > 0 && (
-                    <div style={{ marginTop: "10px", color: "red" }}>
-                      {errors.map((error, index) => (
-                        <p
-                          key={index}
-                          style={{ margin: "0", fontSize: "0.8rem" }}
-                        >
-                          {ErrorMessages[error] || error}
-                        </p>
-                      ))}
-                    </div>
+                  {renderDetailItem(
+                    "Collateral USD Price",
+                    `$${formatNumber(details.collateralPriceUsd)}`
                   )}
+                  {renderDetailItem(
+                    "Loan USD Price",
+                    `$${formatNumber(details.loanPriceUsd)}`
+                  )}
+                  <div
+                    style={{
+                      marginTop: "15px",
+                      fontWeight: "bold",
+                      color: "blue",
+                    }}
+                  >
+                    {renderDetailItem(
+                      "Ratio USD Price",
+                      formatNumber(details.ratioUsdPrice, 4)
+                    )}
+                    {renderDetailItem(
+                      "Oracle price equivalent",
+                      formatNumber(details.oraclePriceEquivalent, 4)
+                    )}
+                    {renderDetailItem(
+                      "Deviation",
+                      `${formatNumber(details.percentageDifference, 2)}%`
+                    )}
+                  </div>
                 </div>
-              </div>
-            )
+              )}
+              {errors && errors.length > 0 && (
+                <div style={{ marginTop: "10px", color: "red" }}>
+                  {errors.map((error, index) => (
+                    <p key={index} style={{ margin: "0", fontSize: "0.8rem" }}>
+                      {ErrorMessages[error] || error}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </div>
       )}
