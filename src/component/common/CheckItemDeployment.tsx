@@ -4,7 +4,7 @@ import { BiCheckDouble, BiError, BiCaretDown, BiCaretUp } from "react-icons/bi";
 interface CheckItemProps {
   title: string;
   isVerified: boolean | null;
-  details?: string;
+  details?: React.ReactNode;
   description?: string;
   loading?: boolean;
 }
