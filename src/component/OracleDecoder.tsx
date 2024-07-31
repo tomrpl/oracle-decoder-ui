@@ -405,6 +405,7 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
             <CheckItemFeeds
               title="Feeds Check"
               isVerified={routeResult?.isValid ?? null}
+              isHardcoded={routeResult?.isHardcoded ?? null}
               details={
                 routeResult
                   ? routeResult.isValid

@@ -25,6 +25,7 @@ export enum ErrorTypes {
   BASE_MATCH_ERROR = "BASE_MATCH_ERROR",
   QUOTE_MATCH_ERROR = "QUOTE_MATCH_ERROR",
   LOAN_ASSET_ZERO_PRICE = "LOAN_ASSET_ZERO_PRICE",
+  ORACLE_API_FETCH_ERROR = "ORACLE_API_FETCH_ERROR",
 }
 
 export const ErrorMessages: { [key in ErrorTypes]: string } = {
@@ -66,6 +67,7 @@ export const ErrorMessages: { [key in ErrorTypes]: string } = {
     "Quote token does not match. Is there any harcoded oracle price?",
   [ErrorTypes.LOAN_ASSET_ZERO_PRICE]:
     "Can't fetch the USD value of the loan asset. The Morpho-Blue API seems to not be pricing it.",
+  [ErrorTypes.ORACLE_API_FETCH_ERROR]: "Error fetching oracle data on the api.",
 };
 
 export enum LoadingStates {

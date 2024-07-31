@@ -4,7 +4,7 @@ import { BiCheckDouble, BiError, BiCaretDown, BiCaretUp } from "react-icons/bi";
 interface CheckItemProps {
   title: string;
   isVerified: boolean | null;
-  details?: string;
+  details?: React.ReactNode;
   description?: string;
   loading?: boolean;
 }
@@ -19,9 +19,9 @@ const CheckItem: React.FC<CheckItemProps> = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const backgroundColor =
-    isVerified === null ? "#e2e3e5" : isVerified ? "#d4edda" : "#f8d7da";
+    isVerified === null ? "#e2e3e5" : isVerified ? "#d4edda" : "#ffeeba";
   const textColor =
-    isVerified === null ? "#6c757d" : isVerified ? "#155724" : "#721c24";
+    isVerified === null ? "#6c757d" : isVerified ? "#155724" : "#6c757d";
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
@@ -67,30 +67,28 @@ const CheckItem: React.FC<CheckItemProps> = ({
         </p>
       )}
       {isOpen && details && (
-        <>
-          <div
-            style={{
-              background: "white",
-              borderRadius: "4px",
-              padding: "0.3rem",
-              marginTop: "10px",
-            }}
-          >
-            {loading ? (
-              <p style={{ margin: "0", fontSize: "0.7rem" }}>Loading...</p>
-            ) : (
-              <div
-                style={{
-                  fontSize: "0.8rem",
-                  margin: "0",
-                  whiteSpace: "pre-wrap",
-                }}
-              >
-                <p>{details}</p>
-              </div>
-            )}
-          </div>
-        </>
+        <div
+          style={{
+            background: "white",
+            borderRadius: "4px",
+            padding: "0.3rem",
+            marginTop: "10px",
+          }}
+        >
+          {loading ? (
+            <p style={{ margin: "0", fontSize: "0.7rem" }}>Loading...</p>
+          ) : (
+            <div
+              style={{
+                fontSize: "0.8rem",
+                margin: "0",
+                whiteSpace: "pre-wrap",
+              }}
+            >
+              <p>{details}</p>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

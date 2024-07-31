@@ -225,7 +225,8 @@ const useOraclePriceCheck = (
       const collateralDecimals = BigInt(collateral?.decimals ?? 18);
       const loanDecimals = BigInt(loan?.decimals ?? 18);
 
-      const ratioUsdPrice = collateralPriceUsd.wadDiv(loanPriceUsd);
+      // allowing us to not suffer of a div by zero error.
+      const ratioUsdPrice = collateralPriceUsd.wadDiv(loanPriceUsd) + BigInt(1);
       // Calculate oracle price equivalent with high precision
       const oraclePriceEquivalent =
         (price * PRECISION) /

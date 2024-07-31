@@ -14,6 +14,8 @@ import { LuExternalLink } from "react-icons/lu";
 import useOraclePriceCheck from "../hooks/testor/useOraclePriceCheck";
 import CheckItemFeeds from "./common/CheckItemFeeds";
 import { Asset } from "../hooks/types";
+import useOracleDeploymentCheck from "../hooks/testor/useOracleDeploymentCheck";
+import CheckItemDeployment from "./common/CheckItemDeployment";
 
 const ethLogo = "https://cdn.morpho.org/assets/chains/eth.svg";
 const baseLogo = "https://cdn.morpho.org/assets/chains/base.png";
@@ -101,6 +103,14 @@ const OracleTestor = () => {
     assets
   );
 
+  const {
+    result: deploymentResult,
+    loading: deploymentLoading,
+    //eslint-disable-next-line
+    errors: deploymentError,
+    checkDeployment,
+  } = useOracleDeploymentCheck();
+
   useEffect(() => {
     setIsSubmitEnabled(
       collateralAssetTouched &&
@@ -187,6 +197,7 @@ const OracleTestor = () => {
       loanAssetSymbol
     );
     await priceCheck();
+    await checkDeployment(selectedNetwork.value, oracleInputs);
     setIsSubmitting(false);
   };
 
@@ -246,6 +257,14 @@ const OracleTestor = () => {
       ),
     },
   ];
+
+  const getExplorerUrl = (address: string) => {
+    const baseUrl =
+      selectedNetwork.value === 1
+        ? "https://etherscan.io/address/"
+        : "https://basescan.org/address/";
+    return `${baseUrl}${address}`;
+  };
 
   return (
     <div className="main-background">
@@ -570,9 +589,43 @@ Provided: ${decimalResult.quoteTokenDecimalsProvided}, Expected: ${decimalResult
               loading={formSubmitted ? decimalLoading : false}
             />
 
+            <CheckItemDeployment
+              title="Deployment Check"
+              isVerified={
+                deploymentResult ? !deploymentResult.isDeployed : null
+              }
+              details={
+                deploymentResult ? (
+                  deploymentResult.isDeployed ? (
+                    <>
+                      An oracle with these inputs is already deployed at
+                      address:{" "}
+                      <a
+                        href={getExplorerUrl(deploymentResult.address || "")}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ fontWeight: "bold" }}
+                      >
+                        {deploymentResult.address}
+                      </a>
+                    </>
+                  ) : (
+                    "No oracle with these inputs has been deployed yet, feel free to proceed."
+                  )
+                ) : (
+                  ""
+                )
+              }
+              description="Check if an oracle with the same inputs has already been deployed."
+              loading={deploymentLoading}
+            />
+
             <CheckItemFeeds
               title="Feeds Check"
               isVerified={formSubmitted ? routeResult?.isValid ?? null : null}
+              isHardcoded={
+                formSubmitted ? routeResult?.isHardcoded ?? null : null
+              }
               details={
                 formSubmitted && routeResult
                   ? routeResult.isValid

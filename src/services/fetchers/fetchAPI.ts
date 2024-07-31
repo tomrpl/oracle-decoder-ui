@@ -198,3 +198,84 @@ export const queryAsset = async (chainId: number) => {
     throw error;
   }
 };
+
+export const queryOracles = async (chainId: number) => {
+  let allOracles: any[] = [];
+  let hasNextPage = true;
+  let skip = 0;
+  const zeroAddress = "0x0000000000000000000000000000000000000000";
+
+  while (hasNextPage) {
+    const query = `query {
+      oracles(first: 100, skip: ${skip}, where: { chainId_in: [${chainId}] }) {
+        items {
+          address
+          data {
+            ... on MorphoChainlinkOracleV2Data {
+              baseVault
+              baseFeedOne {
+                address
+              }
+              baseFeedTwo {
+                address
+              }
+              quoteVault
+              quoteFeedOne {
+                address
+              }
+              quoteFeedTwo {
+                address
+              }
+              baseVaultConversionSample
+              quoteVaultConversionSample
+            }
+          }
+          chain {
+            network
+          }
+        }
+      }
+    }`;
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query }),
+      });
+
+      const result: any = await response.json();
+      const oraclesData = result.data.oracles;
+
+      // Replace null values with zero address and filter out items with null data
+      const sanitizedItems = oraclesData.items
+        .filter((item: any) => item.data !== null)
+        .map((item: any) => {
+          const data = item.data;
+          if (data.baseFeedOne === null)
+            data.baseFeedOne = { address: zeroAddress };
+          if (data.baseFeedTwo === null)
+            data.baseFeedTwo = { address: zeroAddress };
+          if (data.quoteFeedOne === null)
+            data.quoteFeedOne = { address: zeroAddress };
+          if (data.quoteFeedTwo === null)
+            data.quoteFeedTwo = { address: zeroAddress };
+          return item;
+        });
+
+      allOracles = [...allOracles, ...sanitizedItems];
+
+      // Check if we received exactly 100 items
+      if (oraclesData.items.length < 100) {
+        hasNextPage = false;
+      } else {
+        skip += 100;
+      }
+    } catch (error) {
+      console.error("Error fetching oracles:", error);
+      throw error;
+    }
+  }
+
+  return allOracles;
+};
