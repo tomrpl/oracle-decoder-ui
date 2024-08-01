@@ -5,8 +5,10 @@ export const getProvider = (chainId: number): ethers.JsonRpcProvider => {
 
   if (chainId === 1) {
     endpoint = process.env.REACT_APP_RPC_URL_MAINNET;
+    console.log("chaindId: 1 - Ethereum Mainnet");
   } else if (chainId === 8453) {
     endpoint = process.env.REACT_APP_RPC_URL_BASE;
+    console.log("chaindId: 8453 - Base");
   }
 
   if (!endpoint) {
