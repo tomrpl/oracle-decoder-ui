@@ -150,14 +150,12 @@ const OracleDecoder = () => {
     event.preventDefault();
     resetState();
     try {
-      const userClick =
-        (event.target as HTMLFormElement).ownerDocument.defaultView?.location
-          .hostname ?? "unknown";
+      const locationAddress = window.location.hostname;
       if (!userId) {
-        const newUserId = await initializeUser(userClick);
+        const newUserId = await initializeUser(locationAddress);
         setUserId(newUserId);
       }
-      await recordQuery(userId || "", userClick);
+      await recordQuery(userId || "", locationAddress);
     } catch (error) {
       console.log("Error updating click count");
     }

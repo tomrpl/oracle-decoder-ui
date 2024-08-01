@@ -27,6 +27,22 @@ class RedisManager {
     };
   }
 
+  public async getRedisValue(key: string): Promise<string | null> {
+    try {
+      const response = await fetch(
+        `${this.UPSTASH_REDIS_REST_URL}/get/${key}`,
+        {
+          headers: this.getAuthHeaders(),
+        }
+      );
+      if (!response.ok) return null;
+      const data = await response.json();
+      return data.result;
+    } catch {
+      return null;
+    }
+  }
+
   public async incrementRedisValue(key: string): Promise<number | null> {
     try {
       const response = await fetch(
@@ -53,13 +69,36 @@ class RedisManager {
     }
   }
 
+  public async getUserIdByLocation(
+    locationAddress: string
+  ): Promise<string | null> {
+    const totalUsers = await this.getRedisValue("totalUsers");
+    if (totalUsers === null) return null;
+
+    for (let i = 1; i <= parseInt(totalUsers); i++) {
+      const userId = `user:${i}`;
+      const storedLocation = await this.getRedisValue(`${userId}:location`);
+      if (storedLocation === locationAddress) {
+        return userId;
+      }
+    }
+    return null;
+  }
+
   public async initializeUser(locationAddress: string): Promise<string | null> {
     try {
+      // Check if user already exists
+      const existingUserId = await this.getUserIdByLocation(locationAddress);
+      if (existingUserId) {
+        return existingUserId;
+      }
+
       const totalUsers = await this.incrementRedisValue("totalUsers");
       if (totalUsers === null) return null;
       const userId = `user:${totalUsers}`;
       await this.setRedisValue(`${userId}:location`, locationAddress);
       await this.setRedisValue(`${userId}:queries`, "0");
+      await this.setRedisValue(`${userId}:createdAt`, new Date().toISOString());
       return userId;
     } catch {
       return null;
@@ -71,9 +110,15 @@ class RedisManager {
     locationAddress: string
   ): Promise<void> {
     try {
+      const date = new Date().toISOString().split("T")[0]; // Get current date in YYYY-MM-DD format
       await this.incrementRedisValue(`${userId}:queries`);
+      await this.incrementRedisValue(`${userId}:queries:${date}`);
       await this.incrementRedisValue("totalQueries");
       await this.setRedisValue(`${userId}:location`, locationAddress);
+      await this.setRedisValue(
+        `${userId}:lastQueryAt`,
+        new Date().toISOString()
+      );
     } catch {
       // Silently fail
     }
