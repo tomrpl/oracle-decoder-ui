@@ -24,7 +24,6 @@ const useFetchOracleData = () => {
     try {
       const provider = MulticallWrapper.wrap(getProvider(chainId));
 
-      console.log(provider);
       const txCreationHash = await getOracleTransactionHash(
         oracleAddress,
         provider,
