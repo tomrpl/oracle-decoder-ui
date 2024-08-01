@@ -16,6 +16,7 @@ import CheckItemFeeds from "./common/CheckItemFeeds";
 import { Asset } from "../hooks/types";
 import useOracleDeploymentCheck from "../hooks/testor/useOracleDeploymentCheck";
 import CheckItemDeployment from "./common/CheckItemDeployment";
+import { initializeUser, recordQuery } from "../services/rate/userClick";
 
 const ethLogo = "https://cdn.morpho.org/assets/chains/eth.svg";
 const baseLogo = "https://cdn.morpho.org/assets/chains/base.png";
@@ -33,7 +34,7 @@ const OracleTestor = () => {
   const [submitStarted, setSubmitStarted] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [showPayload, setShowPayload] = useState(false);
-
+  const [userId, setUserId] = useState<string | null>(null);
   const [selectedNetwork, setSelectedNetwork] = useState<{
     value: number;
     label: JSX.Element;
@@ -167,7 +168,18 @@ const OracleTestor = () => {
     event.preventDefault();
 
     resetState();
-
+    try {
+      const userClick =
+        (event.target as HTMLFormElement).ownerDocument.defaultView?.location
+          .hostname ?? "unknown";
+      if (!userId) {
+        const newUserId = await initializeUser(userClick);
+        setUserId(newUserId);
+      }
+      await recordQuery(userId || "", userClick);
+    } catch (error) {
+      console.log("Error updating click count");
+    }
     setIsSubmitting(true);
     setSubmitStarted(true);
     setFormSubmitted(true);
