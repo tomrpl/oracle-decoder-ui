@@ -12,6 +12,7 @@ import CheckItemFeeds from "./common/CheckItemFeeds";
 import useRouteMatch from "../hooks/testor/useRouteMatch";
 import CheckItemPrice from "./common/CheckItemPrice";
 import useOraclePriceCheck from "../hooks/testor/useOraclePriceCheck";
+import { initializeUser, recordQuery } from "../services/rate/userClick";
 
 const ethLogo = "https://cdn.morpho.org/assets/chains/eth.svg";
 const baseLogo = "https://cdn.morpho.org/assets/chains/base.png";
@@ -34,6 +35,7 @@ const OracleDecoder = () => {
   const [countdown, setCountdown] = useState(5);
   const [submitStarted, setSubmitStarted] = useState(false);
   const [triggerCheck, setTriggerCheck] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
   const [selectedNetwork, setSelectedNetwork] = useState<{
     value: number;
@@ -147,7 +149,16 @@ const OracleDecoder = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     resetState();
-
+    try {
+      const locationAddress = window.location.hostname;
+      if (!userId) {
+        const newUserId = await initializeUser(locationAddress);
+        setUserId(newUserId);
+      }
+      await recordQuery(userId || "", locationAddress);
+    } catch (error) {
+      console.log("Error updating click count");
+    }
     setIsSubmitting(true);
     setSubmitStarted(true);
 
