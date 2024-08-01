@@ -12,5 +12,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src", "dotenv-webpack.d.ts"]
+  "include": ["src"]
 }
