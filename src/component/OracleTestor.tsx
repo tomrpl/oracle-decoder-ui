@@ -132,28 +132,33 @@ const OracleTestor = () => {
     const fetchAssets = async () => {
       try {
         const assets = await queryAsset(selectedNetwork.value);
-        const formattedAssets = assets.map((asset: any) => {
-          const formattedAsset: Asset = {
-            value: asset.address,
-            label: asset.symbol,
-            decimals: asset.decimals,
-            priceUsd: asset.priceUsd ?? 0, // Provide a default value of 0 when priceUsd is null
-          };
-
-          if (asset.vault) {
-            formattedAsset.vault = {
-              address: asset.vault.address,
-              name: asset.vault.name,
-              asset: {
-                symbol: asset.vault.asset.symbol,
-                address: asset.vault.asset.address,
-                decimals: asset.vault.asset.decimals,
-              },
+        const formattedAssets = assets
+          .filter(
+            (asset: any) =>
+              asset.address !== "0xcbfb9B444d9735C345Df3A0F66cd89bD741692E9"
+          )
+          .map((asset: any) => {
+            const formattedAsset: Asset = {
+              value: asset.address,
+              label: asset.symbol,
+              decimals: asset.decimals,
+              priceUsd: asset.priceUsd ?? 0, // Provide a default value of 0 when priceUsd is null
             };
-          }
 
-          return formattedAsset;
-        });
+            if (asset.vault) {
+              formattedAsset.vault = {
+                address: asset.vault.address,
+                name: asset.vault.name,
+                asset: {
+                  symbol: asset.vault.asset.symbol,
+                  address: asset.vault.asset.address,
+                  decimals: asset.vault.asset.decimals,
+                },
+              };
+            }
+
+            return formattedAsset;
+          });
         setAssets(formattedAssets);
       } catch (error) {
         console.error("Error fetching assets:", error);

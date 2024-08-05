@@ -184,7 +184,6 @@ const useOraclePriceCheck = (
         (asset) => asset.value === collateralAsset
       );
       const loan = assets.find((asset) => asset.value === loanAsset);
-
       // Helper function to convert a number to BigInt with high precision
       const toBigIntWithPrecision = (value: number) => {
         return BigInt(Math.round(value * Number(PRECISION)));
@@ -224,7 +223,6 @@ const useOraclePriceCheck = (
       }
       const collateralDecimals = BigInt(collateral?.decimals ?? 18);
       const loanDecimals = BigInt(loan?.decimals ?? 18);
-
       // allowing us to not suffer of a div by zero error.
       const ratioUsdPrice = collateralPriceUsd.wadDiv(loanPriceUsd) + BigInt(1);
       // Calculate oracle price equivalent with high precision
