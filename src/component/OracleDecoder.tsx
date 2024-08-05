@@ -131,12 +131,17 @@ const OracleDecoder = () => {
     const fetchAssets = async () => {
       try {
         const assets = await queryAsset(selectedNetwork.value);
-        const formattedAssets = assets.map((asset: any) => ({
-          value: asset.address,
-          label: asset.symbol,
-          decimals: asset.decimals,
-          priceUsd: asset.priceUsd,
-        }));
+        const formattedAssets = assets
+          .filter(
+            (asset: any) =>
+              asset.address !== "0xcbfb9B444d9735C345Df3A0F66cd89bD741692E9" // remove old usdc
+          )
+          .map((asset: any) => ({
+            value: asset.address,
+            label: asset.symbol,
+            decimals: asset.decimals,
+            priceUsd: asset.priceUsd,
+          }));
         setAssets(formattedAssets);
       } catch (error) {
         console.error("Error fetching assets:", error);
