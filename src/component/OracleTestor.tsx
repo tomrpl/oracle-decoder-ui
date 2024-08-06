@@ -580,7 +580,7 @@ const OracleTestor = () => {
           </div>
 
           <div className="checks-section">
-            <h2>Checks - Post Submit</h2>
+            <h2 style={{ marginLeft: "10px" }}>Checks - Post Submit</h2>
 
             {submitStarted && decimalLoading === true}
 

@@ -34,6 +34,39 @@ interface OracleData {
   markets: Market[];
 }
 
+export interface Feed {
+  address: string;
+  description: string;
+  vendor: string;
+}
+
+interface OracleData2 {
+  baseVault: string;
+  baseVaultConversionSample: number;
+  baseFeedOne: Feed | null;
+  baseFeedTwo: Feed | null;
+  quoteVault: string;
+  quoteFeedOne: Feed | null;
+  quoteFeedTwo: Feed | null;
+  quoteVaultConversionSample: number;
+}
+
+interface Oracle {
+  address: string;
+  data: OracleData2 | null;
+}
+
+interface OracleInfo {
+  type: string;
+}
+
+export interface Market2 {
+  uniqueKey: string;
+  warnings: Warning[];
+  oracle: Oracle;
+  oracleInfo: OracleInfo;
+}
+
 export const queryOracleApi = async (
   oracleAddress: string,
   chainId: number
@@ -278,4 +311,99 @@ export const queryOracles = async (chainId: number) => {
   }
 
   return allOracles;
+};
+
+export const queryOraclesDeployed = async (
+  loanAssetAddress: string,
+  collateralAssetAddress: string,
+  chainId: number
+): Promise<Market2[]> => {
+  const query = `
+    query {
+      markets(
+        where: {
+          loanAssetAddress_in: ["${loanAssetAddress}"]
+          collateralAssetAddress_in: ["${collateralAssetAddress}"]
+          chainId_in: [${chainId}]
+        }
+      ) {
+        items {
+          uniqueKey
+          warnings {
+            type
+            level
+          }
+          oracle {
+            address
+            data {
+              ... on MorphoChainlinkOracleV2Data {
+                baseVault
+                baseVaultConversionSample
+                baseFeedOne {
+                  address
+                  description
+                  vendor
+                }
+                baseFeedTwo {
+                  address
+                  description
+                  vendor
+                }
+                quoteVault
+                quoteFeedOne {
+                  address
+                  description
+                  vendor
+                }
+                quoteFeedTwo {
+                  address
+                  description
+                  vendor
+                }
+                quoteVaultConversionSample
+              }
+            }
+          }
+          oracleInfo {
+            type
+          }
+        }
+      }
+    }
+  `;
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result: { data: { markets: { items: Market2[] } } } =
+      await response.json();
+    console.log("response from api", result);
+    // Handle potential null values and transform the data
+    return result.data.markets.items.map((market) => ({
+      ...market,
+      oracle: {
+        ...market.oracle,
+        data: market.oracle.data
+          ? {
+              ...market.oracle.data,
+              baseFeedOne: market.oracle.data.baseFeedOne || null,
+              baseFeedTwo: market.oracle.data.baseFeedTwo || null,
+              quoteFeedOne: market.oracle.data.quoteFeedOne || null,
+              quoteFeedTwo: market.oracle.data.quoteFeedTwo || null,
+            }
+          : null,
+      },
+    }));
+  } catch (error) {
+    console.error("Error fetching oracles deployed:", error);
+    throw error;
+  }
 };

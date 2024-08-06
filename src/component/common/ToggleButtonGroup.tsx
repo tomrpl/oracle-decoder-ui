@@ -11,13 +11,17 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   setActiveButton,
 }) => {
   const location = useLocation();
-
+  const buttonStyle = {
+    // ... existing styles ...
+    fontFamily: "FKGrotesk, sans-serif",
+    fontSize: "25px",
+    fontWeight: 350,
+  };
   React.useEffect(() => {
-    if (location.pathname.includes("second-page")) {
-      setActiveButton("suggestor");
-    }
     if (location.pathname.includes("testor-page")) {
       setActiveButton("testor");
+    } else if (location.pathname.includes("suggestor-page")) {
+      setActiveButton("suggestor");
     } else {
       setActiveButton("decoder");
     }
@@ -30,19 +34,20 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
         display: "flex",
         justifyContent: "left",
         alignItems: "center",
-        marginBottom: "10px",
+        marginBottom: "20px",
+        marginTop: "15px",
       }}
     >
       <button
         onClick={() => setActiveButton("decoder")}
         style={{
+          ...buttonStyle,
           position: "relative",
           backgroundColor:
             activeButton === "decoder"
               ? "var(--ifm-color-blue-base)"
               : "#f0f0f0",
           border: "none",
-          fontWeight: "lighter",
           cursor: "pointer",
           padding: "10px",
           color: activeButton === "decoder" ? "white" : "black",
@@ -51,22 +56,22 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
       >
         <Link
           to="/"
-          style={{ textDecoration: "none", color: "inherit", fontSize: "25px" }}
+          style={{ textDecoration: "none", color: "inherit", fontSize: "30px" }}
         >
-          Oracle Decoder
+          Decoder
         </Link>
       </button>
 
       <button
         onClick={() => setActiveButton("testor")}
         style={{
+          ...buttonStyle,
           position: "relative",
           backgroundColor:
             activeButton === "testor"
               ? "var(--ifm-color-blue-base)"
               : "#f0f0f0",
           border: "none",
-          fontWeight: "lighter",
           cursor: "pointer",
           padding: "10px",
           color: activeButton === "testor" ? "white" : "black",
@@ -75,9 +80,9 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
       >
         <Link
           to="/testor-page"
-          style={{ textDecoration: "none", color: "inherit", fontSize: "25px" }}
+          style={{ textDecoration: "none", color: "inherit", fontSize: "30px" }}
         >
-          Oracle Testor
+          Testor
         </Link>
         <span
           style={{
@@ -89,35 +94,34 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
             padding: "2px 5px",
             borderRadius: "5px",
             fontSize: "0.75rem",
-            fontWeight: "bold",
           }}
         >
           New
         </span>
       </button>
 
-      {/* <button
+      <button
         onClick={() => setActiveButton("suggestor")}
         style={{
+          ...buttonStyle,
           position: "relative",
           backgroundColor:
             activeButton === "suggestor"
               ? "var(--ifm-color-blue-base)"
               : "#f0f0f0",
           border: "none",
-          
           cursor: "pointer",
           padding: "10px",
           color: activeButton === "suggestor" ? "white" : "black",
           borderRadius: "8px",
-          margin: "0 10px",
+          marginLeft: "15px",
         }}
       >
         <Link
-          to="/second-page"
-          style={{ textDecoration: "none", color: "inherit" }}
+          to="/suggestor-page"
+          style={{ textDecoration: "none", color: "inherit", fontSize: "30px" }}
         >
-          Oracle Suggestor
+          Suggestor
         </Link>
         <span
           style={{
@@ -129,12 +133,11 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
             padding: "2px 5px",
             borderRadius: "5px",
             fontSize: "0.75rem",
-            fontWeight: "bold",
           }}
         >
           New
         </span>
-      </button> */}
+      </button>
     </div>
   );
 };
