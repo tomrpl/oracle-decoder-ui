@@ -22,14 +22,18 @@ const OracleSuggestor = () => {
   const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [countdown, setCountdown] = useState(5);
+  //eslint-disable-next-line
   const [submitStarted, setSubmitStarted] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [userId, setUserId] = useState<string | null>(null);
   const [assets, setAssets] = useState<Asset[]>([]);
+  //eslint-disable-next-line
   const [loading, setLoadingState] = useState<LoadingStates>(
     LoadingStates.NOT_STARTED
   );
+  //eslint-disable-next-line
   const [errors, setErrors] = useState<ErrorTypes[]>([]);
+  //eslint-disable-next-line
   const [result, setResult] = useState<any>(null);
   const [showOracleDetails, setShowOracleDetails] = useState(false); // New state for showOracleDetails
 
@@ -52,6 +56,7 @@ const OracleSuggestor = () => {
 
   const {
     loading: deployedLoading,
+    //eslint-disable-next-line
     errors: deployedErrors,
     result: deployedResult,
     fetchOracleData,
