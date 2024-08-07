@@ -39,7 +39,6 @@ const useOracleDeployed = () => {
           chainId
         );
 
-        console.log(response);
         if (response.length > 0) {
           setResult({ isValid: true, oracleData: response });
         } else {

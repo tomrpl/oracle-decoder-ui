@@ -385,7 +385,6 @@ export const queryOraclesDeployed = async (
 
     const result: { data: { markets: { items: Market2[] } } } =
       await response.json();
-    console.log("response from api", result);
     // Handle potential null values and transform the data
     return result.data.markets.items.map((market) => ({
       ...market,

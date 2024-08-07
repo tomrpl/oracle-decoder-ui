@@ -237,10 +237,6 @@ const OracleSuggestor = () => {
                 the already deployed oracles for a given collateral and loan
                 asset.
               </p>
-              <p>
-                {" "}
-                The <strong>salt</strong> value can be ignored for now.
-              </p>
             </div>
 
             <h2>Inputs</h2>
