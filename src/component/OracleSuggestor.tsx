@@ -322,6 +322,18 @@ const OracleSuggestor = () => {
                 </button>
               </div>
             </form>
+            <h2>Information</h2>
+            <p style={{ fontSize: "0.8rem" }}>
+              Check the{" "}
+              <a
+                href="https://docs.morpho.org/interface/warnings"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Morpho documentation
+              </a>{" "}
+              to get details about potential warnings.
+            </p>
           </div>
 
           <div className="checks-section">
