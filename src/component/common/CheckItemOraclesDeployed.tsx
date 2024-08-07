@@ -144,82 +144,138 @@ const CheckItemOraclesDeployed: React.FC<CheckItemProps> = ({
                   >
                     {oracleItem.oracle.data ? (
                       <>
-                        <p
-                          style={{
-                            fontWeight: "600",
-                            marginBottom: "8px",
-                            fontSize: "0.8rem",
-                          }}
-                        >
-                          Feed Information:
-                        </p>
-                        <div
-                          style={{
-                            display: "grid",
-                            gridTemplateColumns: "1fr 1fr",
-                            gap: "16px",
-                            fontSize: "0.8rem",
-                          }}
-                        >
-                          <FeedInfo
-                            title="Base Feed One"
-                            feed={oracleItem.oracle.data.baseFeedOne}
-                          />
-                          <FeedInfo
-                            title="Base Feed Two"
-                            feed={oracleItem.oracle.data.baseFeedTwo}
-                          />
-                          <FeedInfo
-                            title="Quote Feed One"
-                            feed={oracleItem.oracle.data.quoteFeedOne}
-                          />
-                          <FeedInfo
-                            title="Quote Feed Two"
-                            feed={oracleItem.oracle.data.quoteFeedTwo}
-                          />
-                        </div>
-                        <div
-                          style={{
-                            marginTop: "16px",
-                            display: "grid",
-                            gridTemplateColumns: "1fr 1fr",
-                            gap: "16px",
-                            fontSize: "0.8rem",
-                          }}
-                        >
-                          <p>
-                            <strong
-                              style={{ color: "var(--ifm-color-blue-base)" }}
-                            >
-                              Base Vault:
-                            </strong>{" "}
-                            {oracleItem.oracle.data.baseVault}
+                        {oracleItem.oracle.data.baseFeedOne ||
+                        oracleItem.oracle.data.baseFeedTwo ||
+                        oracleItem.oracle.data.quoteFeedOne ||
+                        oracleItem.oracle.data.quoteFeedTwo ||
+                        oracleItem.oracle.data.baseVault ||
+                        oracleItem.oracle.data.quoteVault ||
+                        oracleItem.oracle.data.baseVaultConversionSample ||
+                        oracleItem.oracle.data.quoteVaultConversionSample ? (
+                          <>
+                            {/* Check if any feed data exists before rendering Feed Information section */}
+                            {(oracleItem.oracle.data.baseFeedOne ||
+                              oracleItem.oracle.data.baseFeedTwo ||
+                              oracleItem.oracle.data.quoteFeedOne ||
+                              oracleItem.oracle.data.quoteFeedTwo) && (
+                              <>
+                                <p
+                                  style={{
+                                    fontWeight: "600",
+                                    marginBottom: "8px",
+                                    fontSize: "0.8rem",
+                                  }}
+                                >
+                                  Feed Information:
+                                </p>
+                                <div
+                                  style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "1fr 1fr",
+                                    gap: "16px",
+                                    fontSize: "0.8rem",
+                                  }}
+                                >
+                                  <FeedInfo
+                                    title="Base Feed One"
+                                    feed={oracleItem.oracle.data.baseFeedOne}
+                                  />
+                                  <FeedInfo
+                                    title="Base Feed Two"
+                                    feed={oracleItem.oracle.data.baseFeedTwo}
+                                  />
+                                  <FeedInfo
+                                    title="Quote Feed One"
+                                    feed={oracleItem.oracle.data.quoteFeedOne}
+                                  />
+                                  <FeedInfo
+                                    title="Quote Feed Two"
+                                    feed={oracleItem.oracle.data.quoteFeedTwo}
+                                  />
+                                </div>
+                              </>
+                            )}
+                            {/* Check if any vault or conversion sample data exists before rendering */}
+                            {(oracleItem.oracle.data.baseVault ||
+                              oracleItem.oracle.data.quoteVault ||
+                              oracleItem.oracle.data
+                                .baseVaultConversionSample ||
+                              oracleItem.oracle.data
+                                .quoteVaultConversionSample) && (
+                              <div
+                                style={{
+                                  marginTop: "16px",
+                                  display: "grid",
+                                  gridTemplateColumns: "1fr 1fr",
+                                  gap: "16px",
+                                  fontSize: "0.8rem",
+                                }}
+                              >
+                                {oracleItem.oracle.data.baseVault && (
+                                  <p>
+                                    <strong
+                                      style={{
+                                        color: "var(--ifm-color-blue-base)",
+                                      }}
+                                    >
+                                      Base Vault:
+                                    </strong>{" "}
+                                    {oracleItem.oracle.data.baseVault}
+                                  </p>
+                                )}
+                                {oracleItem.oracle.data.quoteVault && (
+                                  <p>
+                                    <strong
+                                      style={{
+                                        color: "var(--ifm-color-blue-base)",
+                                      }}
+                                    >
+                                      Quote Vault:
+                                    </strong>{" "}
+                                    {oracleItem.oracle.data.quoteVault}
+                                  </p>
+                                )}
+                                {oracleItem.oracle.data
+                                  .baseVaultConversionSample && (
+                                  <p>
+                                    <strong
+                                      style={{
+                                        color: "var(--ifm-color-blue-base)",
+                                      }}
+                                    >
+                                      Base Vault Conversion Sample:
+                                    </strong>{" "}
+                                    {
+                                      oracleItem.oracle.data
+                                        .baseVaultConversionSample
+                                    }
+                                  </p>
+                                )}
+                                {oracleItem.oracle.data
+                                  .quoteVaultConversionSample && (
+                                  <p>
+                                    <strong
+                                      style={{
+                                        color: "var(--ifm-color-blue-base)",
+                                      }}
+                                    >
+                                      Quote Vault Conversion Sample:
+                                    </strong>{" "}
+                                    {
+                                      oracleItem.oracle.data
+                                        .quoteVaultConversionSample
+                                    }
+                                  </p>
+                                )}
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <p style={{ color: "#718096", fontStyle: "italic" }}>
+                            No info for this oracle, or it might be an old
+                            version. (Not a ChainlinkOracleV2)
                           </p>
-                          <p>
-                            <strong
-                              style={{ color: "var(--ifm-color-blue-base)" }}
-                            >
-                              Quote Vault:
-                            </strong>{" "}
-                            {oracleItem.oracle.data.quoteVault}
-                          </p>
-                          <p>
-                            <strong
-                              style={{ color: "var(--ifm-color-blue-base)" }}
-                            >
-                              Base Vault Conversion Sample:
-                            </strong>{" "}
-                            {oracleItem.oracle.data.baseVaultConversionSample}
-                          </p>
-                          <p>
-                            <strong
-                              style={{ color: "var(--ifm-color-blue-base)" }}
-                            >
-                              Quote Vault Conversion Sample:
-                            </strong>{" "}
-                            {oracleItem.oracle.data.quoteVaultConversionSample}
-                          </p>
-                        </div>
+                        )}
                       </>
                     ) : (
                       <p style={{ color: "#e53e3e", fontWeight: "bold" }}>
