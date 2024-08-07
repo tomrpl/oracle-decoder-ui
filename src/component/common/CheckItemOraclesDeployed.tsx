@@ -29,7 +29,9 @@ const CheckItemOraclesDeployed: React.FC<CheckItemProps> = ({
   const toggleOracleDetails = (index: number) => {
     setExpandedOracles((prev) => ({ ...prev, [index]: !prev[index] }));
   };
-
+  if (!showDetails) {
+    return null; // Return null if showDetails is false
+  }
   return (
     <div
       style={{
@@ -110,7 +112,7 @@ const CheckItemOraclesDeployed: React.FC<CheckItemProps> = ({
                     )}
                   </button>
                 </div>
-                {expandedOracles[index] && oracleItem.oracle.data && (
+                {expandedOracles[index] && (
                   <div
                     style={{
                       backgroundColor: "#f7fafc",
@@ -120,66 +122,74 @@ const CheckItemOraclesDeployed: React.FC<CheckItemProps> = ({
                       fontSize: "0.7rem",
                     }}
                   >
-                    <p
-                      style={{
-                        fontWeight: "600",
-                        marginBottom: "8px",
-                        fontSize: "0.8rem",
-                      }}
-                    >
-                      Feed Information:
-                    </p>
-                    <div
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: "16px",
-                        fontSize: "0.6rem",
-                      }}
-                    >
-                      <FeedInfo
-                        title="Base Feed One"
-                        feed={oracleItem.oracle.data.baseFeedOne}
-                      />
-                      <FeedInfo
-                        title="Base Feed Two"
-                        feed={oracleItem.oracle.data.baseFeedTwo}
-                      />
-                      <FeedInfo
-                        title="Quote Feed One"
-                        feed={oracleItem.oracle.data.quoteFeedOne}
-                      />
-                      <FeedInfo
-                        title="Quote Feed Two"
-                        feed={oracleItem.oracle.data.quoteFeedTwo}
-                      />
-                    </div>
-                    <div
-                      style={{
-                        marginTop: "16px",
-                        display: "grid",
-                        gridTemplateColumns: "1fr 1fr",
-                        gap: "16px",
-                        fontSize: "0.6rem",
-                      }}
-                    >
-                      <p>
-                        <strong>Base Vault:</strong>{" "}
-                        {oracleItem.oracle.data.baseVault}
+                    {oracleItem.oracle.data ? (
+                      <>
+                        <p
+                          style={{
+                            fontWeight: "600",
+                            marginBottom: "8px",
+                            fontSize: "0.8rem",
+                          }}
+                        >
+                          Feed Information:
+                        </p>
+                        <div
+                          style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr 1fr",
+                            gap: "16px",
+                            fontSize: "0.6rem",
+                          }}
+                        >
+                          <FeedInfo
+                            title="Base Feed One"
+                            feed={oracleItem.oracle.data.baseFeedOne}
+                          />
+                          <FeedInfo
+                            title="Base Feed Two"
+                            feed={oracleItem.oracle.data.baseFeedTwo}
+                          />
+                          <FeedInfo
+                            title="Quote Feed One"
+                            feed={oracleItem.oracle.data.quoteFeedOne}
+                          />
+                          <FeedInfo
+                            title="Quote Feed Two"
+                            feed={oracleItem.oracle.data.quoteFeedTwo}
+                          />
+                        </div>
+                        <div
+                          style={{
+                            marginTop: "16px",
+                            display: "grid",
+                            gridTemplateColumns: "1fr 1fr",
+                            gap: "16px",
+                            fontSize: "0.6rem",
+                          }}
+                        >
+                          <p>
+                            <strong>Base Vault:</strong>{" "}
+                            {oracleItem.oracle.data.baseVault}
+                          </p>
+                          <p>
+                            <strong>Quote Vault:</strong>{" "}
+                            {oracleItem.oracle.data.quoteVault}
+                          </p>
+                          <p>
+                            <strong>Base Vault Conversion Sample:</strong>{" "}
+                            {oracleItem.oracle.data.baseVaultConversionSample}
+                          </p>
+                          <p>
+                            <strong>Quote Vault Conversion Sample:</strong>{" "}
+                            {oracleItem.oracle.data.quoteVaultConversionSample}
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <p style={{ color: "#e53e3e", fontWeight: "bold" }}>
+                        No info is provided on this oracle. Do not use it!
                       </p>
-                      <p>
-                        <strong>Quote Vault:</strong>{" "}
-                        {oracleItem.oracle.data.quoteVault}
-                      </p>
-                      <p>
-                        <strong>Base Vault Conversion Sample:</strong>{" "}
-                        {oracleItem.oracle.data.baseVaultConversionSample}
-                      </p>
-                      <p>
-                        <strong>Quote Vault Conversion Sample:</strong>{" "}
-                        {oracleItem.oracle.data.quoteVaultConversionSample}
-                      </p>
-                    </div>
+                    )}
                   </div>
                 )}
               </div>

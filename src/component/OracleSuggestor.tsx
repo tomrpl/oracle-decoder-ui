@@ -207,6 +207,16 @@ const OracleSuggestor = () => {
     return `${baseUrl}${address}`;
   };
 
+  const handleNetworkChange = (selectedOption: any) => {
+    setSelectedNetwork(selectedOption || networkOptions[0]);
+    // Reset collateral and loan asset states
+    setCollateralAsset("");
+    setLoanAsset("");
+    setCollateralAssetTouched(false);
+    setLoanAssetTouched(false);
+    setShowOracleDetails(false); // Hide oracle details when network changes
+  };
+
   return (
     <div className="main-background">
       <div className="oracle-container">
@@ -239,9 +249,7 @@ const OracleSuggestor = () => {
                   <Select
                     options={networkOptions}
                     value={selectedNetwork}
-                    onChange={(selectedOption) => {
-                      setSelectedNetwork(selectedOption || networkOptions[0]);
-                    }}
+                    onChange={handleNetworkChange}
                     styles={{
                       control: (base) => ({
                         ...base,
@@ -259,6 +267,9 @@ const OracleSuggestor = () => {
                   </label>
                   <Select
                     options={assets}
+                    value={assets.find(
+                      (asset) => asset.value === collateralAsset
+                    )}
                     onChange={(selectedOption) => {
                       setCollateralAsset(selectedOption?.value || "");
                       setCollateralAssetTouched(true);
@@ -280,6 +291,7 @@ const OracleSuggestor = () => {
                   </label>
                   <Select
                     options={assets}
+                    value={assets.find((asset) => asset.value === loanAsset)}
                     onChange={(selectedOption) => {
                       setLoanAsset(selectedOption?.value || "");
                       setLoanAssetTouched(true);
@@ -312,9 +324,7 @@ const OracleSuggestor = () => {
           </div>
 
           <div className="checks-section">
-            <h2 style={{ marginLeft: "10px" }}>
-              Existing Oracles for such pair:
-            </h2>
+            <h2 style={{ marginLeft: "10px" }}>Existing Oracles?</h2>
             <CheckItemOraclesDeployed
               title=""
               isVerified={deployedResult?.isValid ?? null}
