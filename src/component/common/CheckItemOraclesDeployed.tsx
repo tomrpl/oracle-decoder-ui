@@ -32,6 +32,17 @@ const CheckItemOraclesDeployed: React.FC<CheckItemProps> = ({
   if (!showDetails) {
     return null; // Return null if showDetails is false
   }
+
+  const getWarningColor = (level: string) => {
+    switch (level.toUpperCase()) {
+      case "YELLOW":
+        return "#ffa700";
+      case "RED":
+        return "#ff0000";
+      default:
+        return "#000000";
+    }
+  };
   return (
     <div
       style={{
@@ -64,7 +75,7 @@ const CheckItemOraclesDeployed: React.FC<CheckItemProps> = ({
                   marginTop: "16px",
                 }}
               >
-                <div style={{ padding: "16px", fontSize: "0.8rem" }}>
+                <div style={{ padding: "16px" }}>
                   <p style={{ marginBottom: "8px" }}>
                     <strong>Oracle Address:</strong>{" "}
                     <a
@@ -84,9 +95,18 @@ const CheckItemOraclesDeployed: React.FC<CheckItemProps> = ({
                   </p>
                   <p style={{ marginBottom: "8px" }}>
                     <strong>Warnings:</strong>{" "}
-                    {oracleItem.warnings
-                      .map((w) => `${w.type} (${w.level})`)
-                      .join(", ") || "None"}
+                    {oracleItem.warnings.map((w, i) => (
+                      <span
+                        key={i}
+                        style={{
+                          color: getWarningColor(w.level),
+                          marginRight: "8px",
+                        }}
+                      >
+                        <strong>{w.type}</strong>
+                      </span>
+                    ))}
+                    {oracleItem.warnings.length === 0 && "None"}
                   </p>
                   <button
                     onClick={() => toggleOracleDetails(index)}
@@ -138,7 +158,7 @@ const CheckItemOraclesDeployed: React.FC<CheckItemProps> = ({
                             display: "grid",
                             gridTemplateColumns: "1fr 1fr",
                             gap: "16px",
-                            fontSize: "0.6rem",
+                            fontSize: "0.8rem",
                           }}
                         >
                           <FeedInfo
@@ -164,23 +184,39 @@ const CheckItemOraclesDeployed: React.FC<CheckItemProps> = ({
                             display: "grid",
                             gridTemplateColumns: "1fr 1fr",
                             gap: "16px",
-                            fontSize: "0.6rem",
+                            fontSize: "0.8rem",
                           }}
                         >
                           <p>
-                            <strong>Base Vault:</strong>{" "}
+                            <strong
+                              style={{ color: "var(--ifm-color-blue-base)" }}
+                            >
+                              Base Vault:
+                            </strong>{" "}
                             {oracleItem.oracle.data.baseVault}
                           </p>
                           <p>
-                            <strong>Quote Vault:</strong>{" "}
+                            <strong
+                              style={{ color: "var(--ifm-color-blue-base)" }}
+                            >
+                              Quote Vault:
+                            </strong>{" "}
                             {oracleItem.oracle.data.quoteVault}
                           </p>
                           <p>
-                            <strong>Base Vault Conversion Sample:</strong>{" "}
+                            <strong
+                              style={{ color: "var(--ifm-color-blue-base)" }}
+                            >
+                              Base Vault Conversion Sample:
+                            </strong>{" "}
                             {oracleItem.oracle.data.baseVaultConversionSample}
                           </p>
                           <p>
-                            <strong>Quote Vault Conversion Sample:</strong>{" "}
+                            <strong
+                              style={{ color: "var(--ifm-color-blue-base)" }}
+                            >
+                              Quote Vault Conversion Sample:
+                            </strong>{" "}
                             {oracleItem.oracle.data.quoteVaultConversionSample}
                           </p>
                         </div>
@@ -214,7 +250,15 @@ const FeedInfo: React.FC<FeedInfoProps> = ({ title, feed }) => {
   if (!feed) return null;
   return (
     <div style={{ marginBottom: "8px" }}>
-      <p style={{ fontWeight: "600", marginBottom: "4px" }}>{title}:</p>
+      <p
+        style={{
+          fontWeight: "600",
+          marginBottom: "4px",
+          color: "var(--ifm-color-blue-base)",
+        }}
+      >
+        {title}:
+      </p>
       <p style={{ margin: "2px 0" }}>
         <strong>Address:</strong> {feed.address}
       </p>
