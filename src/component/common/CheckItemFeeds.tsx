@@ -8,7 +8,15 @@ interface FeedMetadata {
   description: string;
   pair: [string, string] | null;
   chainId: number;
-  position: "Base 1" | "Base 2" | "Quote 1" | "Quote 2";
+}
+
+interface FeedsMetadata {
+  baseVault: FeedMetadata | null;
+  baseFeed1: FeedMetadata | null;
+  baseFeed2: FeedMetadata | null;
+  quoteFeed1: FeedMetadata | null;
+  quoteFeed2: FeedMetadata | null;
+  quoteVault: FeedMetadata | null;
 }
 
 interface CheckItemFeedsProps {
@@ -18,7 +26,7 @@ interface CheckItemFeedsProps {
   details?: string;
   description?: string;
   loading?: boolean;
-  feedsMetadata?: FeedMetadata[];
+  feedsMetadata?: FeedsMetadata;
   errors?: ErrorTypes[];
 }
 
@@ -45,7 +53,7 @@ const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
   const textColor =
     isVerified === null ? "#6c757d" : isVerified ? "#155724" : "#721c24";
 
-  const formatDescription = (feeds: FeedMetadata[]) => {
+  const formatDescription = (feeds: FeedsMetadata) => {
     if (isHardcoded) {
       return (
         <p style={{ color: "#856404", fontStyle: "italic" }}>
@@ -55,16 +63,44 @@ const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
       );
     }
 
-    return feeds
-      .filter(
-        (feed) => feed.address !== "0x0000000000000000000000000000000000000000"
-      )
-      .map((feed, index) => (
-        <React.Fragment key={index}>
-          <strong>{feed.position}:</strong> {feed.description}
-          <br />
-        </React.Fragment>
-      ));
+    return (
+      <>
+        {feeds.baseVault && (
+          <p>
+            <strong>Base Vault:</strong> {feeds.baseVault.description}
+          </p>
+        )}
+        {feeds.baseFeed1 && (
+          <p>
+            <strong>Base Feed 1:</strong> {feeds.baseFeed1.vendor} -{" "}
+            {feeds.baseFeed1.description}
+          </p>
+        )}
+        {feeds.baseFeed2 && (
+          <p>
+            <strong>Base Feed 2:</strong> {feeds.baseFeed2.vendor} -{" "}
+            {feeds.baseFeed2.description}
+          </p>
+        )}
+        {feeds.quoteFeed1 && (
+          <p>
+            <strong>Quote Feed 1:</strong> {feeds.quoteFeed1.vendor} -{" "}
+            {feeds.quoteFeed1.description}
+          </p>
+        )}
+        {feeds.quoteFeed2 && (
+          <p>
+            <strong>Quote Feed 2:</strong> {feeds.quoteFeed2.vendor} -{" "}
+            {feeds.quoteFeed2.description}
+          </p>
+        )}
+        {feeds.quoteVault && (
+          <p>
+            <strong>Quote Vault:</strong> {feeds.quoteVault.description}
+          </p>
+        )}
+      </>
+    );
   };
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -130,36 +166,35 @@ const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
             <>
               {feedsMetadata && (
                 <div style={{ marginTop: "10px" }}>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontSize: "0.9rem",
-                      whiteSpace: "pre-wrap",
-                    }}
-                  >
-                    {formatDescription(feedsMetadata)}
-                    {"\n "}
-                  </p>
-                  {feedsMetadata.map((feed, index) => (
-                    <div key={index} style={{ marginBottom: "10px" }}>
-                      <p style={{ margin: "0", fontSize: "0.8rem" }}>
-                        <strong>Address:</strong> {feed.address}
-                      </p>
-                      <p style={{ margin: "0", fontSize: "0.8rem" }}>
-                        <strong>Vendor:</strong> {feed.vendor}
-                      </p>
-                      <p style={{ margin: "0", fontSize: "0.8rem" }}>
-                        <strong>Description:</strong> {feed.description}
-                      </p>
-                      <p style={{ margin: "0", fontSize: "0.8rem" }}>
-                        <strong>Pair:</strong>{" "}
-                        {feed.pair ? feed.pair.join(" / ") : "N/A"}
-                      </p>
-                      <p style={{ margin: "0", fontSize: "0.8rem" }}>
-                        <strong>Chain ID:</strong> {feed.chainId}
-                      </p>
-                    </div>
-                  ))}
+                  {formatDescription(feedsMetadata)}
+                  {Object.entries(feedsMetadata).map(([key, feed]) => {
+                    if (feed) {
+                      return (
+                        <div key={key} style={{ marginBottom: "10px" }}>
+                          <p style={{ margin: "0", fontSize: "0.8rem" }}>
+                            <strong>{key}:</strong>
+                          </p>
+                          <p style={{ margin: "0", fontSize: "0.8rem" }}>
+                            <strong>Address:</strong> {feed.address}
+                          </p>
+                          <p style={{ margin: "0", fontSize: "0.8rem" }}>
+                            <strong>Oracle Vendor:</strong> {feed.vendor}
+                          </p>
+                          <p style={{ margin: "0", fontSize: "0.8rem" }}>
+                            <strong>Description:</strong> {feed.description}
+                          </p>
+                          <p style={{ margin: "0", fontSize: "0.8rem" }}>
+                            <strong>Pair:</strong>{" "}
+                            {feed.pair ? feed.pair.join(" / ") : "N/A"}
+                          </p>
+                          <p style={{ margin: "0", fontSize: "0.8rem" }}>
+                            <strong>Chain ID:</strong> {feed.chainId}
+                          </p>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })}
                 </div>
               )}
               {errors && errors.length > 0 && (

@@ -16,6 +16,22 @@ interface OracleGraphNode {
 
 type OracleFeedGraphEdge = [OracleGraphNode, OracleGraphNode];
 
+interface FeedData {
+  address: string;
+  vendor: string;
+  description: string;
+  pair: [string, string];
+  chainId: number | string;
+}
+
+interface FeedsMetadata {
+  baseVault: FeedData | null;
+  baseFeed1: FeedData | null;
+  baseFeed2: FeedData | null;
+  quoteFeed1: FeedData | null;
+  quoteFeed2: FeedData | null;
+  quoteVault: FeedData | null;
+}
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 const useRouteMatch = () => {
@@ -386,54 +402,66 @@ const useRouteMatch = () => {
           ErrorTypes.QUOTE_MATCH_ERROR,
         ]);
       }
+      const feedsMetadata: FeedsMetadata = {
+        baseVault: null,
+        baseFeed1: null,
+        baseFeed2: null,
+        quoteFeed1: null,
+        quoteFeed2: null,
+        quoteVault: null,
+      };
 
-      const feedsMetadata = [
+      [
         oracleInputs.baseVault,
         oracleInputs.baseFeed1,
         oracleInputs.baseFeed2,
         oracleInputs.quoteFeed1,
         oracleInputs.quoteFeed2,
         oracleInputs.quoteVault,
-      ]
-        .filter((feed) => feed !== ZERO_ADDRESS)
-        .map((feed, index) => {
+      ].forEach((feed, index) => {
+        if (feed !== ZERO_ADDRESS) {
           let feedInfo = relevantFeeds.find(
             (f) => f.contractAddress.toLowerCase() === feed.toLowerCase()
           );
 
-          const position =
-            index === 0
-              ? "Base Vault"
-              : index === 1
-              ? "Base 1"
-              : index === 2
-              ? "Base 2"
-              : index === 3
-              ? "Quote 1"
-              : index === 4
-              ? "Quote 2"
-              : "Quote Vault";
+          const feedData: FeedData = feedInfo
+            ? {
+                address: feed,
+                vendor: feedInfo.vendor,
+                description: feedInfo.description,
+                pair: feedInfo.pair || ["Unknown", "Unknown"],
+                chainId: feedInfo.chainId,
+              }
+            : {
+                address: feed,
+                vendor: "Unknown",
+                description: "Unknown",
+                pair: ["Unknown", "Unknown"],
+                chainId: "Unknown",
+              };
 
-          if (feedInfo) {
-            return {
-              address: feed,
-              vendor: feedInfo.vendor,
-              description: feedInfo.description,
-              pair: feedInfo.pair,
-              chainId: feedInfo.chainId,
-              position,
-            };
-          } else {
-            return {
-              address: feed,
-              vendor: "Unknown",
-              description: "Unknown",
-              pair: ["Unknown", "Unknown"],
-              chainId: "Unknown",
-              position,
-            };
+          switch (index) {
+            case 0:
+              feedsMetadata.baseVault = feedData;
+              break;
+            case 1:
+              feedsMetadata.baseFeed1 = feedData;
+              break;
+            case 2:
+              feedsMetadata.baseFeed2 = feedData;
+              break;
+            case 3:
+              feedsMetadata.quoteFeed1 = feedData;
+              break;
+            case 4:
+              feedsMetadata.quoteFeed2 = feedData;
+              break;
+            case 5:
+              feedsMetadata.quoteVault = feedData;
+              break;
           }
-        });
+        }
+      });
 
       setResult({ isValid, feedsMetadata, isHardcoded: false });
     } catch (error) {

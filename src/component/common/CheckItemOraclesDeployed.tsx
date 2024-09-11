@@ -91,7 +91,7 @@ const CheckItemOraclesDeployed: React.FC<CheckItemProps> = ({
                     </a>
                   </p>
                   <p style={{ marginBottom: "8px" }}>
-                    <strong>Oracle Type:</strong> {oracleItem.oracleInfo.type}
+                    <strong>Interface:</strong> {oracleItem.oracleInfo.type}
                   </p>
                   <p style={{ marginBottom: "8px" }}>
                     <strong>Warnings:</strong>{" "}
@@ -322,7 +322,7 @@ const FeedInfo: React.FC<FeedInfoProps> = ({ title, feed }) => {
         <strong>Description:</strong> {feed.description}
       </p>
       <p style={{ margin: "2px 0" }}>
-        <strong>Vendor:</strong> {feed.vendor}
+        <strong>Oracle Vendor:</strong> {feed.vendor}
       </p>
     </div>
   );
