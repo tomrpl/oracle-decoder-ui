@@ -178,7 +178,7 @@ const CheckItemFeeds: React.FC<CheckItemFeedsProps> = ({
                             <strong>Address:</strong> {feed.address}
                           </p>
                           <p style={{ margin: "0", fontSize: "0.8rem" }}>
-                            <strong>Vendor:</strong> {feed.vendor}
+                            <strong>Oracle Vendor:</strong> {feed.vendor}
                           </p>
                           <p style={{ margin: "0", fontSize: "0.8rem" }}>
                             <strong>Description:</strong> {feed.description}
