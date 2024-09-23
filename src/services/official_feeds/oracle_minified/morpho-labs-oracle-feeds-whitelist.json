@@ -48,6 +48,15 @@
       "pair": ["USDC", "ETH"],
       "vendor": "Oval"
     },
+
+    {
+      "chainId": 1,
+      "contractName": "FxUSDCompounder4626",
+      "contractAddress": "0x07D1718fF05a8C53C8F05aDAEd57C0d672945f9a",
+      "description": "arUSD / rUSD exchange rate",
+      "pair": ["arUSD", "rUSD"],
+      "vendor": "AladdinDAO"
+    },
     {
       "chainId": 1,
       "contractName": "ChainlinkOvalBase",
@@ -63,6 +72,14 @@
       "description": "Oval price feed for Chainlink USDC / ETH price feed",
       "pair": ["USDC", "ETH"],
       "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0x4c48bcb2160F8e0aDbf9D4F3B034f1e36d1f8b3e",
+      "description": "USYC / USD Hashnote price feed",
+      "pair": ["USYC", "USD"],
+      "vendor": "Hashnote"
     },
     {
       "chainId": 1,
@@ -105,6 +122,14 @@
       "vendor": "Origin Protocol"
     },
     {
+      "chainId": 8453,
+      "contractName": "wsuperOETHBase",
+      "contractAddress": "0x7FcD174E80f264448ebeE8c88a7C4476AAF58Ea6",
+      "description": "wsuperOETHb / superOETHb exchange rate",
+      "pair": ["wsuperOETHb", "superOETHb"],
+      "vendor": "Origin Protocol"
+    },
+    {
       "chainId": 1,
       "contractName": "PythAggregatorV3",
       "contractAddress": "0xF2d7B0F5cB09928DB0f0686F4e64b4aD96E04562",
@@ -122,10 +147,26 @@
     },
     {
       "chainId": 1,
-      "contractName": "Staked agEUR",
+      "contractName": "PythAggregatorV3",
+      "contractAddress": "0x7C4561Bb0F2d6947BeDA10F667191f6026E7Ac0c",
+      "description": "PAXG / USD Pyth price feed",
+      "pair": ["PAXG", "USD"],
+      "vendor": "Pyth Network"
+    },
+    {
+      "chainId": 1,
+      "contractName": "Staked EURA",
       "contractAddress": "0x004626A008B1aCdC4c74ab51644093b155e59A23",
-      "description": "stEUR / agEUR exchange rate",
-      "pair": ["stEUR", "agEUR"],
+      "description": "stEUR / EURA exchange rate",
+      "pair": ["stEUR", "EURA"],
+      "vendor": "Angle"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "Staked EURA",
+      "contractAddress": "0x004626A008B1aCdC4c74ab51644093b155e59A23",
+      "description": "stEUR / EURA exchange rate",
+      "pair": ["stEUR", "EURA"],
       "vendor": "Angle"
     },
     {
@@ -231,6 +272,126 @@
       "description": "ETH / USD Pyth price feed",
       "pair": ["ETH", "USD"],
       "vendor": "Pyth Network"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "Chronicle_HYUSD_USD_1",
+      "contractAddress": "0x834c4f996B8a6411AEC0f8a0cF6fAfd4423dBEe2",
+      "description": "HYUSD / USD Chronicle price feed",
+      "pair": ["HYUSD", "USD"],
+      "vendor": "Chronicle"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "DelayedERC4626Oracle",
+      "contractAddress": "0x4ca5403e23d5c71DDE4e4fe60fBE73b0ea0802F4",
+      "description": "WUSDM / USDM custom exchange rate",
+      "pair": ["WUSDM", "USDM"],
+      "vendor": "Mountain"
+    },
+    {
+      "chainId": 1,
+      "contractName": "DelayedERC4626Oracle",
+      "contractAddress": "0x363FFfe9e293Df351feC24bDE69954C472C52321",
+      "description": "WUSDM / USDM custom exchange rate",
+      "pair": ["WUSDM", "USDM"],
+      "vendor": "Mountain"
+    },
+    {
+      "chainId": 1,
+      "contractName": "EzEthToEthExchangeRateAdapter",
+      "contractAddress": "0xb2Ca3C47b1BeA4AD7Cfd187A522be0F1bfc8652B",
+      "description": "ezETH/ETH exchange rate",
+      "pair": ["ezETH", "ETH"],
+      "vendor": "Origami"
+    },
+    {
+      "chainId": 1,
+      "contractName": "wUSDM",
+      "contractAddress": "0x57F5E098CaD7A3D1Eed53991D4d66C45C9AF7812",
+      "description": "WUSDM / USDM exchange rate",
+      "pair": ["WUSDM", "USDM"],
+      "vendor": "Mountain"
+    },
+    {
+      "chainId": 1,
+      "contractName": "swBTC",
+      "contractAddress": "0x8DB2350D78aBc13f5673A411D4700BCF87864dDE",
+      "description": "swBTC / WBTC exchange rate",
+      "pair": ["swBTC", "WBTC"],
+      "vendor": "Swell"
+    },
+    {
+      "chainId": 8453,
+      "contractName": "ERC7540Vault",
+      "contractAddress": "0x270Ee1564eC483DD83f284E4D7bDFbfaa2feA76E",
+      "description": "LTF/USDC exchange rate",
+      "pair": ["LTF", "USDC"],
+      "vendor": "Centrifuge"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0xE2380c199F07e78012c6D0b076A4137E6D1Ba022",
+      "description": "Oval price feed for SAND / USD price feed",
+      "pair": ["SAND", "USD"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "ChainlinkOvalBase",
+      "contractAddress": "0x09717Bb4EE122Bb5dBf2457F727FfE8Ed3097F48",
+      "description": "Oval price feed for USDC / USD price feed",
+      "pair": ["USDC", "USD"],
+      "vendor": "Oval"
+    },
+    {
+      "chainId": 1,
+      "contractName": "RswEthToEthExchangeRateAdapter",
+      "contractAddress": "0xb2b18E668CE6326760e3B063f72684fdF2a2D582",
+      "description": "rswETH/ETH exchange rate",
+      "pair": ["rswETH", "ETH"],
+      "vendor": "Origami"
+    },
+    {
+      "chainId": 1,
+      "contractName": "Chronicle_STONE_ETH_1",
+      "contractAddress": "0x057f30e63A69175C69A4Af5656b8C9EE647De3D0",
+      "description": "STONE / ETH Chronicle price feed",
+      "pair": ["STONE", "ETH"],
+      "vendor": "Chronicle"
+    },
+    {
+      "chainId": 1,
+      "contractName": "BackedOracleForwarder",
+      "contractAddress": "0x83bC9a0611497A3160CA4e37F7641Bc4CD191a31",
+      "description": "bC3M / EUR Backed price Feed",
+      "pair": ["wbC3M", "EUR"],
+      "vendor": "Backed"
+    },
+    {
+      "chainId": 1,
+      "contractName": "EthereumPriceFeedLbtcFundamentalWithoutRoundsV1",
+      "contractAddress": "0xb415eAA355D8440ac7eCB602D3fb67ccC1f0bc81",
+      "description": "LBTC / BTC Redstone redemption price feed",
+      "pair": ["LBTC", "BTC"],
+      "vendor": "Redstone"
+    },
+    {
+      "chainId": 1,
+      "contractName": "SavingsNameable",
+      "contractAddress": "0x0022228a2cc5E7eF0274A7Baa600d44da5aB5776",
+      "description": "stUSD / USDA exchange rate",
+      "pair": ["stUSD", "USDA"],
+      "vendor": "Angle"
+    },
+    {
+      "chainId": 1,
+      "contractName": "EthPlusPriceAdapter",
+      "contractAddress": "0xf87d2F4d42856f0B6Eae140Aaf78bF0F777e9936",
+      "description": "ETH+ / USD exchange rate adapter",
+      "pair": ["ETH+", "USD"],
+      "vendor": "MEV Capital"
     }
   ]
 }
