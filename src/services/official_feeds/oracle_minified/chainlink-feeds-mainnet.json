@@ -12,10 +12,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "JPY / USD",
-    "pair": [
-      "JPY",
-      "USD"
-    ],
+    "pair": ["JPY", "USD"],
     "path": "jpy-usd",
     "proxyAddress": "0xBcE206caE7f0ec07b545EddE332A47C2F75bbeb3",
     "threshold": 0.15,
@@ -55,10 +52,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "UST / USD",
-    "pair": [
-      "UST",
-      "USD"
-    ],
+    "pair": ["UST", "USD"],
     "path": "ust-usd",
     "proxyAddress": "0x8b6d9085f310396C6E4f0012783E9f850eaa8a82",
     "threshold": 5,
@@ -99,10 +93,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "EUR / USD",
-    "pair": [
-      "EUR",
-      "USD"
-    ],
+    "pair": ["EUR", "USD"],
     "path": "eur-usd",
     "proxyAddress": "0xb49f677943BC038e9857d61E7d053CaA2C1734C1",
     "threshold": 0.15,
@@ -142,10 +133,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "STBT PoR",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "stbt-por",
     "proxyAddress": "0xad4A9bED9a5E2c1c9a6E43D35Db53c83873dd901",
     "threshold": 0.001,
@@ -182,10 +170,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "SNX / USD",
-    "pair": [
-      "SNX",
-      "USD"
-    ],
+    "pair": ["SNX", "USD"],
     "path": "snx-usd",
     "proxyAddress": "0xDC3EA94CD0AC27d9A86C180091e7f78C683d3699",
     "threshold": 1,
@@ -225,10 +210,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "SPELL / USD",
-    "pair": [
-      "SPELL",
-      "USD"
-    ],
+    "pair": ["SPELL", "USD"],
     "path": "spell-usd",
     "proxyAddress": "0x8c110B94C5f1d347fAcF5E1E938AB2db60E3c9a8",
     "threshold": 1,
@@ -268,10 +250,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "FDUSD / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "fdusd-usd-ocr2",
     "proxyAddress": null,
     "threshold": 0.3,
@@ -314,10 +293,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "TBTC / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "tbtc-usd",
     "proxyAddress": "0x8350b7De6a6a2C1368E7D4Bd968190e13E354297",
     "threshold": 2,
@@ -359,10 +335,7 @@
     "history": null,
     "multiply": "1",
     "name": "Scroll Healthcheck",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "scroll-hc-ocr2",
     "proxyAddress": null,
     "threshold": 0.1,
@@ -389,10 +362,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "CSPX / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "cspx-usd-ocr2",
     "proxyAddress": null,
     "threshold": 2,
@@ -433,10 +403,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "GBPT PoR",
-    "pair": [
-      "GBPT",
-      "PoR"
-    ],
+    "pair": ["GBPT", "PoR"],
     "path": "gbpt-por",
     "proxyAddress": "0xF6f5b570aB6E39E55558AfD8E1E30c5f20E6527E",
     "threshold": 2,
@@ -477,10 +444,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "ETH / BTC",
-    "pair": [
-      "ETH",
-      "BTC"
-    ],
+    "pair": ["ETH", "BTC"],
     "path": "eth-btc",
     "proxyAddress": "0xAc559F25B1619171CbC396a50854A3240b6A4e99",
     "threshold": 0.5,
@@ -520,10 +484,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "AVAX / USD",
-    "pair": [
-      "AVAX",
-      "USD"
-    ],
+    "pair": ["AVAX", "USD"],
     "path": "avax-usd",
     "proxyAddress": "0xFF3EEb22B5E3dE6e705b44749C2559d704923FD7",
     "threshold": 2,
@@ -563,10 +524,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "CRVUSD / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "crvusd-usd",
     "proxyAddress": "0xEEf0C605546958c1f899b6fB336C20671f9cD49F",
     "threshold": 0.5,
@@ -609,10 +567,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "APE / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "ape-usd",
     "proxyAddress": "0xD10aBbC76679a20055E167BB80A24ac851b37056",
     "threshold": 2,
@@ -650,10 +605,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "IDR / USD",
-    "pair": [
-      "IDR",
-      "USD"
-    ],
+    "pair": ["IDR", "USD"],
     "path": "idr-usd",
     "proxyAddress": "0x91b99C9b75aF469a71eE1AB528e8da994A5D7030",
     "threshold": 0.5,
@@ -694,10 +646,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "DAI / ETH",
-    "pair": [
-      "DAI",
-      "ETH"
-    ],
+    "pair": ["DAI", "ETH"],
     "path": "dai-eth",
     "proxyAddress": "0x773616E4d11A78F511299002da57A0a94577F1f4",
     "threshold": 1,
@@ -740,10 +689,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "MIM / USD",
-    "pair": [
-      "MIM",
-      "USD"
-    ],
+    "pair": ["MIM", "USD"],
     "path": "mim-usd",
     "proxyAddress": "0x7A364e8770418566e3eb2001A96116E6138Eb32F",
     "threshold": 0.5,
@@ -786,10 +732,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Pudgy Penguins Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-pudgy-penguins-floor-price",
     "proxyAddress": "0x9f2ba149c2A0Ee76043d83558C4E79E9F3E5731B",
     "threshold": 2,
@@ -826,10 +769,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "CAKE / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "cake-usd",
     "proxyAddress": "0xEb0adf5C06861d6c07174288ce4D0a8128164003",
     "threshold": 2,
@@ -869,10 +809,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "FTT / ETH",
-    "pair": [
-      "FTT",
-      "ETH"
-    ],
+    "pair": ["FTT", "ETH"],
     "path": "ftt-eth",
     "proxyAddress": "0xF0985f7E2CaBFf22CecC5a71282a89582c382EFE",
     "threshold": 2,
@@ -912,10 +849,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "LINK / USD",
-    "pair": [
-      "LINK",
-      "USD"
-    ],
+    "pair": ["LINK", "USD"],
     "path": "link-usd",
     "proxyAddress": "0x2c1d072e956AFFC0D435Cb7AC38EF18d24d9127c",
     "threshold": 1,
@@ -954,10 +888,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "Optimism Healthcheck",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "optimism-hc-ocr2",
     "proxyAddress": null,
     "threshold": 1,
@@ -989,10 +920,7 @@
     "history": false,
     "multiply": "1",
     "name": "Base Healthcheck",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "base-hc",
     "proxyAddress": "0x48D9DA600EC48DDd6ce7FC1D47D683818e511c81",
     "threshold": 0.1,
@@ -1024,10 +952,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "LUSD / USD",
-    "pair": [
-      "LUSD",
-      "USD"
-    ],
+    "pair": ["LUSD", "USD"],
     "path": "lusd-usd",
     "proxyAddress": "0x3D7aE7E594f2f2091Ad8798313450130d0Aba3a0",
     "threshold": 1,
@@ -1070,10 +995,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "C3M / EUR",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "c3m-eur",
     "proxyAddress": "0xD41390267Afec3fA5b4c0B3aA6c706556CCE75ec",
     "threshold": 2,
@@ -1114,10 +1036,7 @@
     "history": null,
     "multiply": "1000000000000000000",
     "name": "World of Women Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-worldofwomen-floor-price-ocr2",
     "proxyAddress": null,
     "threshold": 2,
@@ -1154,10 +1073,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "GHO / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "gho-usd",
     "proxyAddress": "0x3f12643D3f6f874d39C2a4c9f2Cd6f2DbAC877FC",
     "threshold": 0.5,
@@ -1200,10 +1116,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "BAL / ETH",
-    "pair": [
-      "BAL",
-      "ETH"
-    ],
+    "pair": ["BAL", "ETH"],
     "path": "bal-eth",
     "proxyAddress": "0xC1438AA3823A6Ba0C159CfA8D98dF5A994bA120b",
     "threshold": 2,
@@ -1243,10 +1156,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "Metis Healthcheck",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "metis-hc",
     "proxyAddress": "0x3425455fe737cdaE8564640df27bbF2eCD56E584",
     "threshold": 1,
@@ -1278,10 +1188,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "DPI / ETH",
-    "pair": [
-      "DPI",
-      "ETH"
-    ],
+    "pair": ["DPI", "ETH"],
     "path": "dpi-eth",
     "proxyAddress": "0x029849bbc0b1d93b85a8b6190e979fd38F5760E2",
     "threshold": 2,
@@ -1322,10 +1229,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "UNI / USD",
-    "pair": [
-      "UNI",
-      "USD"
-    ],
+    "pair": ["UNI", "USD"],
     "path": "uni-usd",
     "proxyAddress": "0x553303d460EE0afB37EdFf9bE42922D8FF63220e",
     "threshold": 1,
@@ -1364,10 +1268,7 @@
     "history": false,
     "multiply": "1000000",
     "name": "EURR Reserves",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "eurr-reserves",
     "proxyAddress": "0x652Ac4468688f277fB84b26940e736a20A87Ac2d",
     "threshold": 1,
@@ -1402,10 +1303,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "PYUSD / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "pyusd-usd-ocr2",
     "proxyAddress": null,
     "threshold": 0.3,
@@ -1448,10 +1346,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "SUSHI / USD",
-    "pair": [
-      "SUSHI",
-      "USD"
-    ],
+    "pair": ["SUSHI", "USD"],
     "path": "sushi-usd",
     "proxyAddress": "0xCc70F09A6CC17553b2E31954cD36E4A2d89501f7",
     "threshold": 1,
@@ -1490,10 +1385,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "JPEGd Cryptopunks Floor Price ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "cryptopunks-floor-eth",
     "proxyAddress": "0x35f08E1b5a18F1F085AA092aAed10EDd47457484",
     "threshold": 5,
@@ -1530,10 +1422,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "IMX / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "imx-usd",
     "proxyAddress": "0xBAEbEFc1D023c0feCcc047Bff42E75F15Ff213E6",
     "threshold": 2,
@@ -1573,10 +1462,7 @@
     "history": null,
     "multiply": "1000000000000000000",
     "name": "VeeFriends Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-veefriends-floor-price-ocr2",
     "proxyAddress": null,
     "threshold": 2,
@@ -1613,10 +1499,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Doodles Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-doodles-floor-price",
     "proxyAddress": "0x027828052840a43Cc2D0187BcfA6e3D6AcE60336",
     "threshold": 2,
@@ -1653,10 +1536,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "World of Women Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-worldofwomen-floor-price",
     "proxyAddress": "0xDdf0B85C600DAF9e308AFed9F597ACA212354764",
     "threshold": 2,
@@ -1693,10 +1573,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "USDD / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "usdd-usd-ocr2",
     "proxyAddress": null,
     "threshold": 1,
@@ -1739,10 +1616,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "SUSD / ETH",
-    "pair": [
-      "SUSD",
-      "ETH"
-    ],
+    "pair": ["SUSD", "ETH"],
     "path": "susd-eth",
     "proxyAddress": "0x8e0b7e6062272B5eF4524250bFFF8e5Bd3497757",
     "threshold": 1,
@@ -1785,10 +1659,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "MANA / ETH",
-    "pair": [
-      "MANA",
-      "ETH"
-    ],
+    "pair": ["MANA", "ETH"],
     "path": "mana-eth",
     "proxyAddress": "0x82A44D92D6c329826dc557c5E1Be6ebeC5D5FeB9",
     "threshold": 2,
@@ -1828,10 +1699,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Swell ETH PoR",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "swell-eth-por",
     "proxyAddress": "0x60cbE8D88EF519cF3C62414D76f50818D211fea1",
     "threshold": 2,
@@ -1870,10 +1738,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "DAI / USD",
-    "pair": [
-      "DAI",
-      "USD"
-    ],
+    "pair": ["DAI", "USD"],
     "path": "dai-usd",
     "proxyAddress": "0xAed0c38402a5d19df6E4c03F4E2DceD6e29c1ee9",
     "threshold": 0.25,
@@ -1916,10 +1781,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "CacheGold PoR USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "cachegold-por-usd-ocr2",
     "proxyAddress": null,
     "threshold": 0.1,
@@ -1959,10 +1821,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "MATIC / USD",
-    "pair": [
-      "MATIC",
-      "USD"
-    ],
+    "pair": ["MATIC", "USD"],
     "path": "matic-usd",
     "proxyAddress": "0x7bAC85A8a13A4BcD8abb3eB7d6b4d632c5a57676",
     "threshold": 1,
@@ -2002,10 +1861,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "ZRX / USD",
-    "pair": [
-      "ZRX",
-      "USD"
-    ],
+    "pair": ["ZRX", "USD"],
     "path": "zrx-usd",
     "proxyAddress": "0x2885d15b8Af22648b98B122b22FDF4D2a56c6023",
     "threshold": 1,
@@ -2044,10 +1900,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "UST / ETH",
-    "pair": [
-      "UST",
-      "ETH"
-    ],
+    "pair": ["UST", "ETH"],
     "path": "ust-eth",
     "proxyAddress": "0xa20623070413d42a5C01Db2c8111640DD7A5A03a",
     "threshold": 3,
@@ -2088,10 +1941,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "OCEAN / ETH",
-    "pair": [
-      "OCEAN",
-      "ETH"
-    ],
+    "pair": ["OCEAN", "ETH"],
     "path": "ocean-eth",
     "proxyAddress": "0x9b0FC4bb9981e5333689d69BdBF66351B9861E62",
     "threshold": 2,
@@ -2133,10 +1983,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "weETH / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "weeth-eth",
     "proxyAddress": "0x5c9C449BbC9a6075A2c061dF312a35fd1E05fF22",
     "threshold": 0.5,
@@ -2179,10 +2026,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "CAD / USD",
-    "pair": [
-      "CAD",
-      "USD"
-    ],
+    "pair": ["CAD", "USD"],
     "path": "cad-usd",
     "proxyAddress": "0xa34317DB73e77d453b1B8d04550c44D10e981C8e",
     "threshold": 0.15,
@@ -2222,10 +2066,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "Metis Healthcheck",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "metis-hc-ocr2",
     "proxyAddress": null,
     "threshold": 1,
@@ -2257,10 +2098,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "GBP / USD",
-    "pair": [
-      "GBP",
-      "USD"
-    ],
+    "pair": ["GBP", "USD"],
     "path": "gbp-usd",
     "proxyAddress": "0x5c0Ab2d9b5a7ed9f470386e82BB36A3613cDd4b5",
     "threshold": 0.15,
@@ -2300,10 +2138,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "FRAX / ETH",
-    "pair": [
-      "FRAX",
-      "ETH"
-    ],
+    "pair": ["FRAX", "ETH"],
     "path": "frax-eth",
     "proxyAddress": "0x14d04Fff8D21bd62987a5cE9ce543d2F1edF5D3E",
     "threshold": 2,
@@ -2346,10 +2181,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "BADGER / ETH",
-    "pair": [
-      "BADGER",
-      "ETH"
-    ],
+    "pair": ["BADGER", "ETH"],
     "path": "badger-eth",
     "proxyAddress": "0x58921Ac140522867bf50b9E009599Da0CA4A2379",
     "threshold": 2,
@@ -2389,10 +2221,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "USDD / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "usdd-usd",
     "proxyAddress": "0x0ed39A19D2a68b722408d84e4d970827f61E6c0A",
     "threshold": 1,
@@ -2435,10 +2264,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "BUSD / ETH",
-    "pair": [
-      "BUSD",
-      "ETH"
-    ],
+    "pair": ["BUSD", "ETH"],
     "path": "busd-eth",
     "proxyAddress": "0x614715d2Af89E6EC99A233818275142cE88d1Cfd",
     "threshold": 1,
@@ -2482,10 +2308,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Synthetix Aggregator Issued Synths",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "synthetix-aggregator-issued-synths",
     "proxyAddress": "0xbCF5792575bA3A875D8C406F4E7270f51a902539",
     "threshold": 1,
@@ -2514,10 +2337,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "RPL / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "rpl-usd",
     "proxyAddress": "0x4E155eD98aFE9034b7A5962f6C84c86d869daA9d",
     "threshold": 2,
@@ -2556,10 +2376,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "IB01 / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "ib01-usd",
     "proxyAddress": "0x32d1463EB53b73C095625719Afa544D5426354cB",
     "threshold": 2,
@@ -2600,10 +2417,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Consumer Price Index",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "consumer-price-index",
     "proxyAddress": "0x9a51192e065ECC6BDEafE5e194ce54702DE4f1f5",
     "threshold": 1000,
@@ -2638,10 +2452,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "IBTA / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "ibta-usd",
     "proxyAddress": "0xd27e6D02b72eB6FCe04Ad5690C419196B4EF2885",
     "threshold": 2,
@@ -2682,10 +2493,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "PYUSD / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "pyusd-usd",
     "proxyAddress": "0x8f1dF6D7F2db73eECE86a18b4381F4707b918FB1",
     "threshold": 0.3,
@@ -2728,10 +2536,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "FRAX / USD",
-    "pair": [
-      "FRAX",
-      "USD"
-    ],
+    "pair": ["FRAX", "USD"],
     "path": "frax-usd",
     "proxyAddress": "0xB9E1E3A9feFf48998E45Fa90847ed4D467E8BcfD",
     "threshold": 1,
@@ -2774,10 +2579,7 @@
     "history": false,
     "multiply": "100000",
     "name": "Orchid",
-    "pair": [
-      "OXT",
-      "10 GBs"
-    ],
+    "pair": ["OXT", "10 GBs"],
     "path": "orchid-bandwidth",
     "proxyAddress": "0xa175FA75795c6Fb2aFA48B72d22054ee0DeDa4aC",
     "threshold": 200,
@@ -2811,10 +2613,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "WBTC PoR",
-    "pair": [
-      "WBTC",
-      "PoR"
-    ],
+    "pair": ["WBTC", "PoR"],
     "path": "wbtc-por-ocr2",
     "proxyAddress": null,
     "threshold": 1e-7,
@@ -2855,10 +2654,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "COMP / USD",
-    "pair": [
-      "COMP",
-      "USD"
-    ],
+    "pair": ["COMP", "USD"],
     "path": "comp-usd",
     "proxyAddress": "0xdbd020CAeF83eFd542f4De03e3cF0C28A4428bd5",
     "threshold": 1,
@@ -2897,10 +2693,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "PAXG / ETH",
-    "pair": [
-      "PAXG",
-      "ETH"
-    ],
+    "pair": ["PAXG", "ETH"],
     "path": "paxg-eth",
     "proxyAddress": "0x9B97304EA12EFed0FAd976FBeCAad46016bf269e",
     "threshold": 2,
@@ -2943,10 +2736,7 @@
     "history": null,
     "multiply": "1000000000000000000",
     "name": "AGEUR / EUR",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "ageur-eur-ocr2",
     "proxyAddress": null,
     "threshold": 1,
@@ -2990,10 +2780,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "RDNT / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "rdnt-usd",
     "proxyAddress": "0x393CC05baD439c9B36489384F11487d9C8410471",
     "threshold": 2,
@@ -3032,10 +2819,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "ZRX / ETH",
-    "pair": [
-      "ZRX",
-      "ETH"
-    ],
+    "pair": ["ZRX", "ETH"],
     "path": "zrx-eth",
     "proxyAddress": "0x2Da4983a622a8498bb1a21FaE9D8F6C664939962",
     "threshold": 2,
@@ -3075,10 +2859,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "CacheGold PoR USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "cachegold-por-usd",
     "proxyAddress": "0x5586bF404C7A22A4a4077401272cE5945f80189C",
     "threshold": 0.1,
@@ -3118,10 +2899,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Bored Ape Yacht Club Floor Price / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-bored-ape-yacht-club-floor-price-eth",
     "proxyAddress": "0x352f2Bc3039429fC2fe62004a1575aE74001CfcE",
     "threshold": 2,
@@ -3160,10 +2938,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "HBTC PoR",
-    "pair": [
-      "HBTC",
-      "PoR"
-    ],
+    "pair": ["HBTC", "PoR"],
     "path": "hbtc-por",
     "proxyAddress": "0x0A8cD0115B1EE87EbA5b8E06A9a15ED93e230f7a",
     "threshold": 1e-7,
@@ -3204,10 +2979,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "STETH / ETH",
-    "pair": [
-      "STETH",
-      "ETH"
-    ],
+    "pair": ["STETH", "ETH"],
     "path": "steth-eth",
     "proxyAddress": "0x86392dC19c0b719886221c78AB11eb8Cf5c52812",
     "threshold": 0.5,
@@ -3250,10 +3022,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "MKR / USD",
-    "pair": [
-      "MKR",
-      "USD"
-    ],
+    "pair": ["MKR", "USD"],
     "path": "mkr-usd",
     "proxyAddress": "0xec1D1B3b0443256cc3860e24a46F108e699484Aa",
     "threshold": 1,
@@ -3292,10 +3061,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "APE / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "ape-eth",
     "proxyAddress": "0xc7de7f4d4C9c991fF62a07D18b3E31e349833A18",
     "threshold": 2,
@@ -3335,10 +3101,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "STG / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "stg-usd",
     "proxyAddress": "0x7A9f34a0Aa917D438e9b6E630067062B7F8f6f3d",
     "threshold": 2,
@@ -3378,10 +3141,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "BUSD / USD",
-    "pair": [
-      "BUSD",
-      "USD"
-    ],
+    "pair": ["BUSD", "USD"],
     "path": "busd-usd",
     "proxyAddress": "0x833D8Eb16D306ed1FbB5D7A2E019e106B960965A",
     "threshold": 0.5,
@@ -3425,10 +3185,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "ALCX / ETH",
-    "pair": [
-      "ALCX",
-      "ETH"
-    ],
+    "pair": ["ALCX", "ETH"],
     "path": "alcx-eth",
     "proxyAddress": "0x194a9AaF2e0b67c35915cD01101585A33Fe25CAa",
     "threshold": 2,
@@ -3468,10 +3225,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "MLN / ETH",
-    "pair": [
-      "MLN",
-      "ETH"
-    ],
+    "pair": ["MLN", "ETH"],
     "path": "mln-eth",
     "proxyAddress": "0xDaeA8386611A157B08829ED4997A8A62B557014C",
     "threshold": 2,
@@ -3511,10 +3265,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "GRT / ETH",
-    "pair": [
-      "GRT",
-      "ETH"
-    ],
+    "pair": ["GRT", "ETH"],
     "path": "grt-eth",
     "proxyAddress": "0x17D054eCac33D91F7340645341eFB5DE9009F1C1",
     "threshold": 2,
@@ -3554,10 +3305,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "ENS / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "ens-usd",
     "proxyAddress": "0x5C00128d4d1c2F4f652C267d7bcdD7aC99C16E16",
     "threshold": 2,
@@ -3597,10 +3345,7 @@
     "history": false,
     "multiply": "1",
     "name": "Fast Gas / Gwei",
-    "pair": [
-      "Fast Gas",
-      "Gwei"
-    ],
+    "pair": ["Fast Gas", "Gwei"],
     "path": "fast-gas-gwei",
     "proxyAddress": "0x169E633A2D1E6c10dD91238Ba11c4A708dfEF37C",
     "threshold": 25,
@@ -3635,10 +3380,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "USDC / USD",
-    "pair": [
-      "USDC",
-      "USD"
-    ],
+    "pair": ["USDC", "USD"],
     "path": "usdc-usd",
     "proxyAddress": "0x8fFfFfd4AfB6115b954Bd326cbe7B4BA576818f6",
     "threshold": 0.25,
@@ -3681,10 +3423,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "LDO / ETH",
-    "pair": [
-      "LDO",
-      "ETH"
-    ],
+    "pair": ["LDO", "ETH"],
     "path": "ldo-eth",
     "proxyAddress": "0x4e844125952D32AcdF339BE976c98E22F6F318dB",
     "threshold": 2,
@@ -3724,10 +3463,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "CHF / USD",
-    "pair": [
-      "CHF",
-      "USD"
-    ],
+    "pair": ["CHF", "USD"],
     "path": "chf-usd",
     "proxyAddress": "0x449d117117838fFA61263B61dA6301AA2a88B13A",
     "threshold": 0.15,
@@ -3767,10 +3503,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "USDT / ETH",
-    "pair": [
-      "USDT",
-      "ETH"
-    ],
+    "pair": ["USDT", "ETH"],
     "path": "usdt-eth",
     "proxyAddress": "0xEe9F2375b4bdF6387aa8265dD4FB8F16512A1d46",
     "threshold": 1,
@@ -3813,10 +3546,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "AUD / USD",
-    "pair": [
-      "AUD",
-      "USD"
-    ],
+    "pair": ["AUD", "USD"],
     "path": "aud-usd",
     "proxyAddress": "0x77F9710E7d0A19669A13c055F62cd80d313dF022",
     "threshold": 0.15,
@@ -3856,10 +3586,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "CRV / ETH",
-    "pair": [
-      "CRV",
-      "ETH"
-    ],
+    "pair": ["CRV", "ETH"],
     "path": "crv-eth",
     "proxyAddress": "0x8a12Be339B0cD1829b91Adc01977caa5E9ac121e",
     "threshold": 2,
@@ -3899,10 +3626,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "PAX / ETH",
-    "pair": [
-      "PAX",
-      "ETH"
-    ],
+    "pair": ["PAX", "ETH"],
     "path": "pax-eth",
     "proxyAddress": "0x3a08ebBaB125224b7b6474384Ee39fBb247D2200",
     "threshold": 2,
@@ -3945,10 +3669,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "BTC / ETH",
-    "pair": [
-      "BTC",
-      "ETH"
-    ],
+    "pair": ["BTC", "ETH"],
     "path": "btc-eth",
     "proxyAddress": "0xdeb288F737066589598e9214E782fa5A8eD689e8",
     "threshold": 2,
@@ -3988,10 +3709,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "AAVE / USD",
-    "pair": [
-      "AAVE",
-      "USD"
-    ],
+    "pair": ["AAVE", "USD"],
     "path": "aave-usd",
     "proxyAddress": "0x547a514d5e3769680Ce22B2361c10Ea13619e8a9",
     "threshold": 1,
@@ -4030,10 +3748,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "BAT / ETH",
-    "pair": [
-      "BAT",
-      "ETH"
-    ],
+    "pair": ["BAT", "ETH"],
     "path": "bat-eth",
     "proxyAddress": "0x0d16d4528239e9ee52fa531af613AcdB23D88c94",
     "threshold": 2,
@@ -4073,10 +3788,7 @@
     "history": null,
     "multiply": "1000000000000000000",
     "name": "Cryptoadz Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-cryptoadz-floor-price-ocr2",
     "proxyAddress": null,
     "threshold": 2,
@@ -4113,10 +3825,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "BEANZ Official Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-beanz-official-floor-price",
     "proxyAddress": "0xA97477aB5ab6ED2f6A2B5Cbe59D71e88ad334b90",
     "threshold": 2,
@@ -4153,10 +3862,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "ezETH / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "ezeth-eth",
     "proxyAddress": "0x636A000262F6aA9e1F094ABF0aD8f645C44f641C",
     "threshold": 0.5,
@@ -4197,10 +3903,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "KRW / USD",
-    "pair": [
-      "KRW",
-      "USD"
-    ],
+    "pair": ["KRW", "USD"],
     "path": "krw-usd",
     "proxyAddress": "0x01435677FB11763550905594A16B645847C1d0F3",
     "threshold": 0.15,
@@ -4240,10 +3943,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "BAT / USD",
-    "pair": [
-      "BAT",
-      "USD"
-    ],
+    "pair": ["BAT", "USD"],
     "path": "bat-usd-ocr2",
     "proxyAddress": null,
     "threshold": 1,
@@ -4284,10 +3984,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "MAVIA / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "mavia-usd",
     "proxyAddress": "0x29d26C008e8f201eD0D864b1Fd9392D29d0C8e96",
     "threshold": 2,
@@ -4327,10 +4024,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "HIGH / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "high-usd-ocr2",
     "proxyAddress": null,
     "threshold": 2,
@@ -4370,10 +4064,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Moonbirds Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-moonbirds-floor-price",
     "proxyAddress": "0x9cd36E0E8D3C27d630D00406ACFC3463154951Af",
     "threshold": 2,
@@ -4410,10 +4101,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "RAI / ETH",
-    "pair": [
-      "RAI",
-      "ETH"
-    ],
+    "pair": ["RAI", "ETH"],
     "path": "rai-eth",
     "proxyAddress": "0x4ad7B025127e89263242aB68F0f9c4E5C033B489",
     "threshold": 2,
@@ -4453,10 +4141,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "CVX / USD",
-    "pair": [
-      "CVX",
-      "USD"
-    ],
+    "pair": ["CVX", "USD"],
     "path": "cvx-usd",
     "proxyAddress": "0xd962fC30A72A84cE50161031391756Bf2876Af5D",
     "threshold": 2,
@@ -4496,10 +4181,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "Optimism Healthcheck",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "optimism-hc",
     "proxyAddress": "0x59c2287c8E848310c809C061a1Be0d1556eFF4e2",
     "threshold": 1,
@@ -4531,10 +4213,7 @@
     "history": false,
     "multiply": "1",
     "name": "Scroll Healthcheck",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "scroll-hc",
     "proxyAddress": "0x7fb9B4a05e7B4F0c1Ac0B0046784cc0aCE8CbBC5",
     "threshold": 0.1,
@@ -4561,10 +4240,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "Total Marketcap / USD",
-    "pair": [
-      "Total Marketcap",
-      "USD"
-    ],
+    "pair": ["Total Marketcap", "USD"],
     "path": "mcap-usd",
     "proxyAddress": "0xEC8761a0A73c34329CA5B1D3Dc7eD07F30e836e2",
     "threshold": 2,
@@ -4603,10 +4279,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "LRC / ETH",
-    "pair": [
-      "LRC",
-      "ETH"
-    ],
+    "pair": ["LRC", "ETH"],
     "path": "lrc-eth",
     "proxyAddress": "0x160AC928A16C93eD4895C2De6f81ECcE9a7eB7b4",
     "threshold": 1,
@@ -4648,10 +4321,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "TUSD / ETH",
-    "pair": [
-      "TUSD",
-      "ETH"
-    ],
+    "pair": ["TUSD", "ETH"],
     "path": "tusd-eth",
     "proxyAddress": "0x3886BA987236181D98F2401c507Fb8BeA7871dF2",
     "threshold": 1,
@@ -4694,10 +4364,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "APY TVL",
-    "pair": [
-      "APY",
-      "TVL"
-    ],
+    "pair": ["APY", "TVL"],
     "path": "apy-tvl",
     "proxyAddress": "0xDb299D394817D8e7bBe297E84AFfF7106CF92F5f",
     "threshold": 2,
@@ -4736,10 +4403,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "TUSD / USD",
-    "pair": [
-      "TUSD",
-      "USD"
-    ],
+    "pair": ["TUSD", "USD"],
     "path": "tusd-usd",
     "proxyAddress": "0xec746eCF986E2927Abd291a2A1716c940100f8Ba",
     "threshold": 0.3,
@@ -4782,10 +4446,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "BAT / USD",
-    "pair": [
-      "BAT",
-      "USD"
-    ],
+    "pair": ["BAT", "USD"],
     "path": "bat-usd",
     "proxyAddress": "0x9441D7556e7820B5ca42082cfa99487D56AcA958",
     "threshold": 1,
@@ -4826,10 +4487,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "FIL / ETH",
-    "pair": [
-      "FIL",
-      "ETH"
-    ],
+    "pair": ["FIL", "ETH"],
     "path": "fil-eth",
     "proxyAddress": "0x0606Be69451B1C9861Ac6b3626b99093b713E801",
     "threshold": 2,
@@ -4869,10 +4527,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "OHMv2 / ETH",
-    "pair": [
-      "OHMv2",
-      "ETH"
-    ],
+    "pair": ["OHMv2", "ETH"],
     "path": "ohmv2-eth",
     "proxyAddress": "0x9a72298ae3886221820B1c878d12D872087D3a23",
     "threshold": 2,
@@ -4912,10 +4567,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "COMP / ETH",
-    "pair": [
-      "COMP",
-      "ETH"
-    ],
+    "pair": ["COMP", "ETH"],
     "path": "comp-eth",
     "proxyAddress": "0x1B39Ee86Ec5979ba5C322b826B3ECb8C79991699",
     "threshold": 2,
@@ -4955,10 +4607,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "SHV / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "shv-usd",
     "proxyAddress": "0xc04611C43842220fd941515F86d1DDdB15F04e46",
     "threshold": 0.3,
@@ -4999,10 +4648,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "CSPX / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "cspx-usd",
     "proxyAddress": "0xF4E1B57FB228879D057ac5AE33973e8C53e4A0e0",
     "threshold": 2,
@@ -5043,10 +4689,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "RETH / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "reth-eth",
     "proxyAddress": "0x536218f9E9Eb48863970252233c8F271f554C2d0",
     "threshold": 2,
@@ -5089,10 +4732,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "FXS / USD",
-    "pair": [
-      "FXS",
-      "USD"
-    ],
+    "pair": ["FXS", "USD"],
     "path": "fxs-usd",
     "proxyAddress": "0x6Ebc52C8C1089be9eB3945C4350B68B8E4C2233f",
     "threshold": 2,
@@ -5132,10 +4772,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "DPI / USD",
-    "pair": [
-      "DPI",
-      "USD"
-    ],
+    "pair": ["DPI", "USD"],
     "path": "dpi-usd",
     "proxyAddress": "0xD2A593BF7594aCE1faD597adb697b5645d5edDB2",
     "threshold": 1,
@@ -5176,10 +4813,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "RSR / USD",
-    "pair": [
-      "RSR",
-      "USD"
-    ],
+    "pair": ["RSR", "USD"],
     "path": "rsr-usd",
     "proxyAddress": "0x759bBC1be8F90eE6457C44abc7d443842a976d02",
     "threshold": 2,
@@ -5219,10 +4853,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "GRT / USD",
-    "pair": [
-      "GRT",
-      "USD"
-    ],
+    "pair": ["GRT", "USD"],
     "path": "grt-usd",
     "proxyAddress": "0x86cF33a451dE9dc61a2862FD94FF4ad4Bd65A5d2",
     "threshold": 2,
@@ -5262,10 +4893,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "OETH / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "oeth-eth",
     "proxyAddress": "0x703118C4CbccCBF2AB31913e0f8075fbbb15f563",
     "threshold": 0.5,
@@ -5291,10 +4919,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "TUSD Reserves",
-    "pair": [
-      "TUSD",
-      "RESERVES"
-    ],
+    "pair": ["TUSD", "RESERVES"],
     "path": "tusd-por",
     "proxyAddress": "0xBE456fd14720C3aCCc30A2013Bffd782c9Cb75D5",
     "threshold": 5,
@@ -5334,10 +4959,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "YFI / ETH",
-    "pair": [
-      "YFI",
-      "ETH"
-    ],
+    "pair": ["YFI", "ETH"],
     "path": "yfi-eth",
     "proxyAddress": "0x7c5d4F8345e66f68099581Db340cd65B078C41f4",
     "threshold": 1,
@@ -5377,10 +4999,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "LTC / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "ltc-usd-ocr2",
     "proxyAddress": null,
     "threshold": 1,
@@ -5420,10 +5039,7 @@
     "history": null,
     "multiply": "1",
     "name": "Arbitrum Healthcheck",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "arbitrum-hc-ocr2",
     "proxyAddress": null,
     "threshold": 1,
@@ -5457,10 +5073,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "CloneX Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-clonex-floor-price",
     "proxyAddress": "0x021264d59DAbD26E7506Ee7278407891Bb8CDCCc",
     "threshold": 2,
@@ -5497,10 +5110,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "KNC / ETH",
-    "pair": [
-      "KNC",
-      "ETH"
-    ],
+    "pair": ["KNC", "ETH"],
     "path": "knc-eth",
     "proxyAddress": "0x656c0544eF4C98A6a98491833A89204Abb045d6b",
     "threshold": 2,
@@ -5540,10 +5150,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "WBTC PoR",
-    "pair": [
-      "WBTC",
-      "PoR"
-    ],
+    "pair": ["WBTC", "PoR"],
     "path": "wbtc-por",
     "proxyAddress": "0xa81FE04086865e63E12dD3776978E49DEEa2ea4e",
     "threshold": 1e-7,
@@ -5584,10 +5191,7 @@
     "history": null,
     "multiply": "1",
     "name": "Base Healthcheck",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "base-hc-ocr2",
     "proxyAddress": null,
     "threshold": 0.1,
@@ -5619,10 +5223,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "SHIB / ETH",
-    "pair": [
-      "SHIB",
-      "ETH"
-    ],
+    "pair": ["SHIB", "ETH"],
     "path": "shib-eth",
     "proxyAddress": "0x8dD1CD88F43aF196ae478e91b9F5E4Ac69A97C61",
     "threshold": 2,
@@ -5662,10 +5263,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "SNX / ETH",
-    "pair": [
-      "SNX",
-      "ETH"
-    ],
+    "pair": ["SNX", "ETH"],
     "path": "snx-eth",
     "proxyAddress": "0x79291A9d692Df95334B1a0B3B4AE6bC606782f8c",
     "threshold": 2,
@@ -5705,10 +5303,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "ANKR / USD",
-    "pair": [
-      "ANKR",
-      "USD"
-    ],
+    "pair": ["ANKR", "USD"],
     "path": "ankr-usd",
     "proxyAddress": "0x7eed379bf00005CfeD29feD4009669dE9Bcc21ce",
     "threshold": 2,
@@ -5748,10 +5343,7 @@
     "history": null,
     "multiply": "1000000",
     "name": "EURR Reserves",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "eurr-reserves-ocr2",
     "proxyAddress": null,
     "threshold": 1,
@@ -5786,10 +5378,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "BNB / USD",
-    "pair": [
-      "BNB",
-      "USD"
-    ],
+    "pair": ["BNB", "USD"],
     "path": "bnb-usd",
     "proxyAddress": "0x14e613AC84a31f709eadbdF89C6CC390fDc9540A",
     "threshold": 1,
@@ -5829,10 +5418,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "PERP / ETH",
-    "pair": [
-      "PERP",
-      "ETH"
-    ],
+    "pair": ["PERP", "ETH"],
     "path": "perp-eth",
     "proxyAddress": "0x3b41D5571468904D4e53b6a8d93A6BaC43f02dC9",
     "threshold": 2,
@@ -5872,10 +5458,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Nexus wETH Reserves",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "nexus-weth-por",
     "proxyAddress": "0xCc72039A141c6e34a779eF93AEF5eB4C82A893c7",
     "threshold": 0.3,
@@ -5912,10 +5495,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "AGEUR / EUR",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "ageur-eur",
     "proxyAddress": "0xb4d5289C58CE36080b0748B47F859D8F50dFAACb",
     "threshold": 1,
@@ -5959,10 +5539,7 @@
     "history": false,
     "multiply": "1",
     "name": "Arbitrum Healthcheck",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "arbitrum-hc",
     "proxyAddress": "0x32EaFC72772821936BCc9b8A32dC394fEFcDBfD9",
     "threshold": 1,
@@ -5996,10 +5573,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "SXP / USD",
-    "pair": [
-      "SXP",
-      "USD"
-    ],
+    "pair": ["SXP", "USD"],
     "path": "sxp-usd",
     "proxyAddress": "0xFb0CfD6c19e25DB4a08D8a204a387cEa48Cc138f",
     "threshold": 1,
@@ -6039,10 +5613,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "XCN / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "xcn-usd",
     "proxyAddress": "0xeb988B77b94C186053282BfcD8B7ED55142D3cAB",
     "threshold": 2,
@@ -6082,10 +5653,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "WBTC / BTC",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "wbtc-btc",
     "proxyAddress": "0xfdFD9C85aD200c506Cf9e21F1FD8dd01932FBB23",
     "threshold": 2,
@@ -6128,10 +5696,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "SAND / USD",
-    "pair": [
-      "SAND",
-      "USD"
-    ],
+    "pair": ["SAND", "USD"],
     "path": "sand-usd",
     "proxyAddress": "0x35E3f7E558C04cE7eEE1629258EcbbA03B36Ec56",
     "threshold": 2,
@@ -6171,10 +5736,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "ARB / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "arb-usd",
     "proxyAddress": "0x31697852a68433DbCc2Ff612c516d69E3D9bd08F",
     "threshold": 2,
@@ -6216,10 +5778,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "SOL / USD",
-    "pair": [
-      "SOL",
-      "USD"
-    ],
+    "pair": ["SOL", "USD"],
     "path": "sol-usd",
     "proxyAddress": "0x4ffC43a60e009B551865A93d232E33Fce9f01507",
     "threshold": 2,
@@ -6259,10 +5818,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Otherdeed for Otherside Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-otherdeed-for-otherside-floor-price",
     "proxyAddress": "0x6e3A4376B4C8D3ba49602f8542D9D3C4A87ba901",
     "threshold": 2,
@@ -6299,10 +5855,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "ETH / USD",
-    "pair": [
-      "ETH",
-      "USD"
-    ],
+    "pair": ["ETH", "USD"],
     "path": "eth-usd",
     "proxyAddress": "0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419",
     "threshold": 0.5,
@@ -6341,10 +5894,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "REN / ETH",
-    "pair": [
-      "REN",
-      "ETH"
-    ],
+    "pair": ["REN", "ETH"],
     "path": "ren-eth",
     "proxyAddress": "0x3147D7203354Dc06D9fd350c7a2437bcA92387a4",
     "threshold": 2,
@@ -6384,10 +5934,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Swell Restaked ETH PoR",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "swell-restaked-eth-por",
     "proxyAddress": "0x0c89c488e763AC2d69cB058CCAC7A8B283EE3DbA",
     "threshold": 0.5,
@@ -6427,10 +5974,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Azuki Floor Price / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-azuki-floor-price-eth",
     "proxyAddress": "0xA8B9A447C73191744D5B79BcE864F343455E1150",
     "threshold": 2,
@@ -6469,10 +6013,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "CryptoPunks Floor Price / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-cryptopunks-floor-price-eth",
     "proxyAddress": "0x01B6710B01cF3dd8Ae64243097d91aFb03728Fdd",
     "threshold": 2,
@@ -6511,10 +6052,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "USDP / USD",
-    "pair": [
-      "USDP",
-      "USD"
-    ],
+    "pair": ["USDP", "USD"],
     "path": "usdp-usd",
     "proxyAddress": "0x09023c0DA49Aaf8fc3fA3ADF34C6A7016D38D5e3",
     "threshold": 1,
@@ -6557,10 +6095,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "MKR / ETH",
-    "pair": [
-      "MKR",
-      "ETH"
-    ],
+    "pair": ["MKR", "ETH"],
     "path": "mkr-eth",
     "proxyAddress": "0x24551a8Fb2A7211A25a17B1481f043A8a8adC7f2",
     "threshold": 1,
@@ -6600,10 +6135,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "LTC / USD",
-    "pair": [
-      "LTC",
-      "USD"
-    ],
+    "pair": ["LTC", "USD"],
     "path": "ltc-usd",
     "proxyAddress": "0x6AF09DF7563C363B5763b9102712EbeD3b9e859B",
     "threshold": 1,
@@ -6643,10 +6175,7 @@
     "history": null,
     "multiply": "100000000",
     "name": "IBTA / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "ibta-usd-ocr2",
     "proxyAddress": null,
     "threshold": 2,
@@ -6687,10 +6216,7 @@
     "history": null,
     "multiply": "1000000000000000000",
     "name": "GBPT PoR",
-    "pair": [
-      "GBPT",
-      "PoR"
-    ],
+    "pair": ["GBPT", "PoR"],
     "path": "gbpt-por-ocr2",
     "proxyAddress": null,
     "threshold": 2,
@@ -6731,10 +6257,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "USDT / USD",
-    "pair": [
-      "USDT",
-      "USD"
-    ],
+    "pair": ["USDT", "USD"],
     "path": "usdt-usd",
     "proxyAddress": "0x3E7d1eAB13ad0104d2750B8863b489D65364e32D",
     "threshold": 0.25,
@@ -6777,10 +6300,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "ETHx / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "ethx-eth",
     "proxyAddress": "0xC5f8c4aB091Be1A899214c0C3636ca33DcA0C547",
     "threshold": 0.5,
@@ -6821,10 +6341,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "CoolCats Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-coolcats-floor-price",
     "proxyAddress": "0xF49f8F5b931B0e4B4246E4CcA7cD2083997Aa83d",
     "threshold": 2,
@@ -6861,10 +6378,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "TRY / USD",
-    "pair": [
-      "TRY",
-      "USD"
-    ],
+    "pair": ["TRY", "USD"],
     "path": "try-usd",
     "proxyAddress": "0xB09fC5fD3f11Cf9eb5E1C5Dba43114e3C9f477b5",
     "threshold": 0.5,
@@ -6904,10 +6418,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "MAYC Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-mayc-floor-price",
     "proxyAddress": "0x1823C89715Fe3fB96A24d11c917aCA918894A090",
     "threshold": 2,
@@ -6944,10 +6455,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "1INCH / ETH",
-    "pair": [
-      "1INCH",
-      "ETH"
-    ],
+    "pair": ["1INCH", "ETH"],
     "path": "1inch-eth",
     "proxyAddress": "0x72AFAECF99C9d9C8215fF44C77B94B99C28741e8",
     "threshold": 2,
@@ -6987,10 +6495,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "CRV / USD",
-    "pair": [
-      "CRV",
-      "USD"
-    ],
+    "pair": ["CRV", "USD"],
     "path": "crv-usd",
     "proxyAddress": "0xCd627aA160A6fA45Eb793D19Ef54f5062F20f33f",
     "threshold": 1,
@@ -7030,10 +6535,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "AMPL / ETH",
-    "pair": [
-      "AMPL",
-      "ETH"
-    ],
+    "pair": ["AMPL", "ETH"],
     "path": "ampl-eth",
     "proxyAddress": "0x492575FDD11a0fCf2C6C719867890a7648d526eB",
     "threshold": 2,
@@ -7073,10 +6575,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "ADA / USD",
-    "pair": [
-      "ADA",
-      "USD"
-    ],
+    "pair": ["ADA", "USD"],
     "path": "ada-usd",
     "proxyAddress": "0xAE48c91dF1fE419994FFDa27da09D5aC69c30f55",
     "threshold": 1,
@@ -7118,10 +6617,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "KNC / USD",
-    "pair": [
-      "KNC",
-      "USD"
-    ],
+    "pair": ["KNC", "USD"],
     "path": "knc-usd",
     "proxyAddress": "0xf8fF43E991A81e6eC886a3D281A2C6cC19aE70Fc",
     "threshold": 1,
@@ -7161,10 +6657,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "HIGH / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "high-usd",
     "proxyAddress": "0x5C8D8AaB4ffa4652753Df94f299330Bb4479bF85",
     "threshold": 2,
@@ -7204,10 +6697,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "FTM / ETH",
-    "pair": [
-      "FTM",
-      "ETH"
-    ],
+    "pair": ["FTM", "ETH"],
     "path": "ftm-eth",
     "proxyAddress": "0x2DE7E4a9488488e0058B95854CC2f7955B35dC9b",
     "threshold": 3,
@@ -7247,10 +6737,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "JPEGd Pudgy Penguins Floor Price ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "pudgypenguins-floor-eth",
     "proxyAddress": "0xaC9962D846D431254C7B3Da3AA12519a1E2Eb5e7",
     "threshold": 5,
@@ -7287,10 +6774,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "LINK / ETH",
-    "pair": [
-      "LINK",
-      "ETH"
-    ],
+    "pair": ["LINK", "ETH"],
     "path": "link-eth",
     "proxyAddress": "0xDC530D9457755926550b59e8ECcdaE7624181557",
     "threshold": 1,
@@ -7330,10 +6814,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "BAL / USD",
-    "pair": [
-      "BAL",
-      "USD"
-    ],
+    "pair": ["BAL", "USD"],
     "path": "bal-usd",
     "proxyAddress": "0xdF2917806E30300537aEB49A7663062F4d1F2b5F",
     "threshold": 2,
@@ -7373,10 +6854,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "USDV / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "usdv-usd",
     "proxyAddress": "0x925B831EB4c9fFA7e384254fb2cd508c65FAe3FE",
     "threshold": 1,
@@ -7419,10 +6897,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "UNI / ETH",
-    "pair": [
-      "UNI",
-      "ETH"
-    ],
+    "pair": ["UNI", "ETH"],
     "path": "uni-eth",
     "proxyAddress": "0xD6aA3D25116d8dA79Ea0246c4826EB951872e02e",
     "threshold": 2,
@@ -7462,10 +6937,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "ARKB Reserves",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "arkb-por",
     "proxyAddress": "0x80f8D7b4fB192De43Ed6aE0DD4A42A60f43641b0",
     "threshold": 1,
@@ -7503,10 +6975,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "WING / USD",
-    "pair": [
-      "WING",
-      "USD"
-    ],
+    "pair": ["WING", "USD"],
     "path": "wing-usd",
     "proxyAddress": "0x134fE0a225Fb8e6683617C13cEB6B3319fB4fb82",
     "threshold": 2,
@@ -7546,10 +7015,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Cryptoadz Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-cryptoadz-floor-price",
     "proxyAddress": "0xFaA8F6073845DBe5627dAA3208F78A3043F99bcA",
     "threshold": 2,
@@ -7586,10 +7052,7 @@
     "history": null,
     "multiply": "1000000000000000000",
     "name": "CoolCats Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-coolcats-floor-price-ocr2",
     "proxyAddress": null,
     "threshold": 2,
@@ -7626,10 +7089,7 @@
     "history": false,
     "multiply": "1000000000000000000000000000",
     "name": "Synthetix Aggregator Debt Ratio",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "synthetix-aggregator-debt-ratio",
     "proxyAddress": "0x0981af0C002345c9C5AD5efd26242D0cBe5aCA99",
     "threshold": 1,
@@ -7658,10 +7118,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "SGD / USD",
-    "pair": [
-      "SGD",
-      "USD"
-    ],
+    "pair": ["SGD", "USD"],
     "path": "sgd-usd",
     "proxyAddress": "0xe25277fF4bbF9081C75Ab0EB13B4A13a721f3E13",
     "threshold": 0.15,
@@ -7701,10 +7158,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "YFI / USD",
-    "pair": [
-      "YFI",
-      "USD"
-    ],
+    "pair": ["YFI", "USD"],
     "path": "yfi-usd",
     "proxyAddress": "0xA027702dbb89fbd58938e4324ac03B58d812b0E1",
     "threshold": 1,
@@ -7743,10 +7197,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "SUSHI / ETH",
-    "pair": [
-      "SUSHI",
-      "ETH"
-    ],
+    "pair": ["SUSHI", "ETH"],
     "path": "sushi-eth",
     "proxyAddress": "0xe572CeF69f43c2E488b33924AF04BDacE19079cf",
     "threshold": 2,
@@ -7786,10 +7237,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "1INCH / USD",
-    "pair": [
-      "1INCH",
-      "USD"
-    ],
+    "pair": ["1INCH", "USD"],
     "path": "1inch-usd",
     "proxyAddress": "0xc929ad75B72593967DE83E7F7Cda0493458261D9",
     "threshold": 1,
@@ -7829,10 +7277,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "NZD / USD",
-    "pair": [
-      "NZD",
-      "USD"
-    ],
+    "pair": ["NZD", "USD"],
     "path": "nzd-usd",
     "proxyAddress": "0x3977CFc9e4f29C184D4675f4EB8e0013236e5f3e",
     "threshold": 0.3,
@@ -7872,10 +7317,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "AMPL / USD",
-    "pair": [
-      "AMPL",
-      "USD"
-    ],
+    "pair": ["AMPL", "USD"],
     "path": "ampl-usd",
     "proxyAddress": "0xe20CA8D7546932360e37E9D72c1a47334af57706",
     "threshold": 1000,
@@ -7915,10 +7357,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "FDUSD / USD",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "fdusd-usd",
     "proxyAddress": "0xfAA9147190c2C2cc5B8387B4f49016bDB3380572",
     "threshold": 0.3,
@@ -7961,10 +7400,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "CBETH / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "cbeth-eth",
     "proxyAddress": "0xF017fcB346A1885194689bA23Eff2fE6fA5C483b",
     "threshold": 1,
@@ -8007,10 +7443,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "STETH / USD",
-    "pair": [
-      "STETH",
-      "USD"
-    ],
+    "pair": ["STETH", "USD"],
     "path": "steth-usd",
     "proxyAddress": "0xCfE54B5cD566aB89272946F602D76Ea879CAb4a8",
     "threshold": 1,
@@ -8053,10 +7486,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "ENJ / ETH",
-    "pair": [
-      "ENJ",
-      "ETH"
-    ],
+    "pair": ["ENJ", "ETH"],
     "path": "enj-eth",
     "proxyAddress": "0x24D9aB51950F3d62E9144fdC2f3135DAA6Ce8D1B",
     "threshold": 2,
@@ -8096,10 +7526,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "BTC / USD",
-    "pair": [
-      "BTC",
-      "USD"
-    ],
+    "pair": ["BTC", "USD"],
     "path": "btc-usd",
     "proxyAddress": "0xF4030086522a5bEEa4988F8cA5B36dbC97BeE88c",
     "threshold": 0.5,
@@ -8138,10 +7565,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "Calculated XSUSHI / ETH",
-    "pair": [
-      "XSUSHI",
-      "ETH"
-    ],
+    "pair": ["XSUSHI", "ETH"],
     "path": "calc-xsushi-eth",
     "proxyAddress": "0xF05D9B6C08757EAcb1fbec18e36A1B7566a13DEB",
     "threshold": 2,
@@ -8184,10 +7608,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "XAG / USD",
-    "pair": [
-      "XAG",
-      "USD"
-    ],
+    "pair": ["XAG", "USD"],
     "path": "xag-usd",
     "proxyAddress": "0x379589227b15F1a12195D3f2d90bBc9F31f95235",
     "threshold": 0.3,
@@ -8228,10 +7649,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "AAVE / ETH",
-    "pair": [
-      "AAVE",
-      "ETH"
-    ],
+    "pair": ["AAVE", "ETH"],
     "path": "aave-eth",
     "proxyAddress": "0x6Df09E975c830ECae5bd4eD9d90f3A95a4f88012",
     "threshold": 2,
@@ -8271,10 +7689,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "VeeFriends Floor Price",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "coinbase-veefriends-floor-price",
     "proxyAddress": "0x35bf6767577091E7f04707c0290b3f889e968307",
     "threshold": 2,
@@ -8311,10 +7726,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "USDC / ETH",
-    "pair": [
-      "USDC",
-      "ETH"
-    ],
+    "pair": ["USDC", "ETH"],
     "path": "usdc-eth",
     "proxyAddress": "0x986b5E1e1755e3C2440e960477f25201B0a8bbD4",
     "threshold": 1,
@@ -8357,10 +7769,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "RSETH / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "rseth-eth",
     "proxyAddress": "0x03c68933f7a3F76875C0bc670a58e69294cDFD01",
     "threshold": 0.5,
@@ -8401,10 +7810,7 @@
     "history": null,
     "multiply": "100000",
     "name": "Orchid",
-    "pair": [
-      "OXT",
-      "10 GBs"
-    ],
+    "pair": ["OXT", "10 GBs"],
     "path": "orchid-bandwidth-ocr2",
     "proxyAddress": null,
     "threshold": 200,
@@ -8438,10 +7844,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "SWETH / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "sweth-eth",
     "proxyAddress": "0xec21B3e882CE09928cb397DcfF31B15cBBD1e1C3",
     "threshold": 0.5,
@@ -8480,10 +7883,7 @@
     "history": true,
     "multiply": "100000000",
     "name": "XAU / USD",
-    "pair": [
-      "XAU",
-      "USD"
-    ],
+    "pair": ["XAU", "USD"],
     "path": "xau-usd",
     "proxyAddress": "0x214eD9Da11D2fbe465a6fc601a91E62EbEc1a0D6",
     "threshold": 0.3,
@@ -8524,10 +7924,7 @@
     "history": false,
     "multiply": "1000000000000000000",
     "name": "CVX / ETH",
-    "pair": [
-      "",
-      ""
-    ],
+    "pair": ["", ""],
     "path": "cvx-eth",
     "proxyAddress": "0xC9CbF687f43176B302F03f5e58470b77D07c61c6",
     "threshold": 2,
@@ -8567,10 +7964,7 @@
     "history": false,
     "multiply": "100000000",
     "name": "CNY / USD",
-    "pair": [
-      "CNY",
-      "USD"
-    ],
+    "pair": ["CNY", "USD"],
     "path": "cny-usd",
     "proxyAddress": "0xeF8A4aF35cd47424672E3C590aBD37FBB7A7759a",
     "threshold": 0.3,
