@@ -199,37 +199,56 @@ export const queryAssetsPrices = async (
 };
 
 export const queryAsset = async (chainId: number) => {
-  const query = `query {
-  assets(where:{chainId_in:[${chainId}]}){
-    items {
-      address
-      symbol 
-      decimals
-      priceUsd
-      vault {
-        address
-        name
-        asset {
-          symbol
+  let allAssets: any[] = [];
+  let hasNextPage = true;
+  let skip = 0;
+
+  while (hasNextPage) {
+    const query = `query {
+      assets(first: 100, skip: ${skip}, where: { chainId_in: [${chainId}] }) {
+        items {
           address
+          symbol 
           decimals
+          priceUsd
+          vault {
+            address
+            name
+            asset {
+              symbol
+              address
+              decimals
+            }
+          }
         }
       }
+    }`;
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query }),
+      });
+
+      const result: any = await response.json();
+      const assets = result.data.assets.items;
+
+      allAssets = [...allAssets, ...assets];
+
+      // Check if we received exactly 100 items
+      if (assets.length < 100) {
+        hasNextPage = false;
+      } else {
+        skip += 100;
+      }
+    } catch (error) {
+      console.error("Error fetching assets:", error);
+      throw error;
     }
   }
-}`;
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query }),
-    });
 
-    const result: any = await response.json();
-    return result.data.assets.items as any;
-  } catch (error) {
-    throw error;
-  }
+  return allAssets;
 };
 
 export const queryOracles = async (chainId: number) => {
