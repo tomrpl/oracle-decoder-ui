@@ -178,7 +178,18 @@ const useOraclePriceCheck = (
       setErrors([]);
 
       const provider = MulticallWrapper.wrap(getProvider(chainId));
-      const scaleFactor = await calculateScaleFactor(provider, oracleInputs);
+
+      let scaleFactor;
+      try {
+        scaleFactor = await calculateScaleFactor(provider, oracleInputs);
+      } catch (error) {
+        console.error("Error calculating scale factor:", error);
+        setErrors((prevErrors) => [
+          ...prevErrors,
+          ErrorTypes.SCALE_FACTOR_NEGATIVE_EXPONENT,
+        ]);
+        return;
+      }
       const price = await getPrice(provider, oracleInputs, scaleFactor);
       const collateral = assets.find(
         (asset) => asset.value === collateralAsset
@@ -188,7 +199,6 @@ const useOraclePriceCheck = (
       const toBigIntWithPrecision = (value: number) => {
         return BigInt(Math.round(value * Number(PRECISION)));
       };
-
       const collateralPriceUsd = collateral
         ? toBigIntWithPrecision(collateral.priceUsd)
         : BigInt(0);
@@ -222,9 +232,12 @@ const useOraclePriceCheck = (
         return;
       }
       const collateralDecimals = BigInt(collateral?.decimals ?? 18);
+
       const loanDecimals = BigInt(loan?.decimals ?? 18);
+
       // allowing us to not suffer of a div by zero error.
       const ratioUsdPrice = collateralPriceUsd.wadDiv(loanPriceUsd) + BigInt(1);
+
       // Calculate oracle price equivalent with high precision
       const oraclePriceEquivalent =
         (price * PRECISION) /
@@ -257,6 +270,7 @@ const useOraclePriceCheck = (
       console.error("Error fetching price data:", error);
       setErrors((prevErrors) => [...prevErrors, ErrorTypes.FETCH_PRICE_ERROR]);
     } finally {
+      console.log("Setting loading to false");
       setLoading(false);
     }
   };

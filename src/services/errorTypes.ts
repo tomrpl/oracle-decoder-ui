@@ -26,6 +26,7 @@ export enum ErrorTypes {
   QUOTE_MATCH_ERROR = "QUOTE_MATCH_ERROR",
   LOAN_ASSET_ZERO_PRICE = "LOAN_ASSET_ZERO_PRICE",
   ORACLE_API_FETCH_ERROR = "ORACLE_API_FETCH_ERROR",
+  SCALE_FACTOR_NEGATIVE_EXPONENT = "SCALE_FACTOR_NEGATIVE_EXPONENT",
 }
 
 export const ErrorMessages: { [key in ErrorTypes]: string } = {
@@ -68,6 +69,8 @@ export const ErrorMessages: { [key in ErrorTypes]: string } = {
   [ErrorTypes.LOAN_ASSET_ZERO_PRICE]:
     "Can't fetch the USD value of the loan asset. The Morpho-Blue API seems to not be pricing it.",
   [ErrorTypes.ORACLE_API_FETCH_ERROR]: "Error fetching oracle data on the api.",
+  [ErrorTypes.SCALE_FACTOR_NEGATIVE_EXPONENT]:
+    "Scale factor has a negative exponent.",
 };
 
 export enum LoadingStates {
